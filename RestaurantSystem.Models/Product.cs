@@ -18,6 +18,7 @@ namespace RestaurantSystem.Models
         public Food Food { get; set; }
 
         public int DrinkId { get; set; }
-        //public Drink Drink { get; set; }
+        //sdfpasdufgasijdfjdfhjsadffhg
+        public Drink Drink { get; set; }
     }
 }
