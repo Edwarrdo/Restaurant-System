@@ -39,7 +39,7 @@ namespace RestaurantSystem.Web
 
             services.AddDbContext<RMSContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                    Configuration["ConnectionStrings:DatabaseConnection"]));
 
             services
                 .AddIdentity<User, IdentityRole>()
