@@ -1,0 +1,13 @@
+﻿@model EmployeeConciseViewModel
+
+<tr>
+    <td>@Model.FirstName</td>
+    <td>@Model.LastName</td>
+    <td>@Model.Email</td>
+    <td>@Model.PhoneNumber</td>
+    <td>
+        <a asp-area="Admin" asp-controller="Employees" asp-action="Details" asp-route-id="@Model.Id"
+           class="btn btn-default">Details</a>
+       
+    </td>
+</tr>

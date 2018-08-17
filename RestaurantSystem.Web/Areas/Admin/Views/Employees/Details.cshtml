@@ -1,0 +1,54 @@
+﻿@model EmployeeDetailsViewModel
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Employee Details:</h2>
+<hr />
+
+
+<table class="table table-striped">
+    <tr>
+        <th>FirstName: </th>
+        <th>@Model.FirstName</th>
+    </tr>
+    <tr>
+        <th>LastName: </th>
+        <th>@Model.LastName</th>
+    </tr>
+    <tr>
+        <th>Email: </th>
+        <th>@Model.Email</th>
+    </tr>
+    <tr>
+        <th>PhoneNumber: </th>
+        <th>@Model.PhoneNumber</th>
+    </tr>
+    <tr>
+        <th>Address: </th>
+        <th>@Model.Address</th>
+    </tr>
+    <tr>
+        <th>EGN: </th>
+        <th>@Model.EGN</th>
+    </tr>
+    <tr>
+        <th>Salary: </th>
+        <th>@Model.Salary$</th>
+    <tr>
+        <th>Experience: </th>
+        <th>@Model.Experience</th>
+    </tr>
+    <tr>
+        <th>Education: </th>
+        <th>@Model.Education</th>
+    </tr>
+    <tr>
+        <th>HireDate: </th>
+        <th>@Model.HireDate</th>
+    </tr>
+    <tr>
+        <th>VacationDays: </th>
+        <th>@Model.VacationDays</th>
+    </tr>
+</table>

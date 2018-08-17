@@ -1,9 +1,20 @@
-﻿
+﻿@model IEnumerable<EmployeeConciseViewModel>
 @{
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
-
-<h1>ZDRASTI ADMINCHO!</h1>
-
+<h1>All Employees</h1>
+<hr />
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>FirstName</th>
+            <th>LastName</th>
+            <th>Email</th>
+            <th>PhoneNumber</th>
+        </tr>
+    </thead>
+    <tbody>
+        @Html.DisplayForModel()
+    </tbody>
+</table>

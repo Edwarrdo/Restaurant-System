@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using RestaurantSystem.Data;
 using RestaurantSystem.Models;
 using RestaurantSystem.Web.Areas.Admin.Models.BindingModels;
+using RestaurantSystem.Web.Areas.Admin.Models.ViewModels;
 
 namespace RestaurantSystem.Web.Areas.Admin.Controllers
 {
@@ -42,6 +43,19 @@ namespace RestaurantSystem.Web.Areas.Admin.Controllers
             await this.userManager.CreateAsync(employee, model.Password);
             await userManager.AddToRoleAsync(employee, model.Role);
             return RedirectToAction("Index", "Home", new { area = "Admin" });
+        }
+
+        [HttpGet]
+        public IActionResult Details(string id)
+        {
+            var employee = this.context.Users.FirstOrDefault(e => e.Id == id);
+            if(employee == null)
+            {
+                return NotFound();
+            }
+
+            var model = this.mapper.Map<EmployeeDetailsViewModel>(employee);
+            return this.View(model);
         }
     }
 }
