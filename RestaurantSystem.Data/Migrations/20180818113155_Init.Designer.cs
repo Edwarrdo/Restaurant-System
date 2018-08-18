@@ -10,8 +10,8 @@ using RestaurantSystem.Data;
 namespace RestaurantSystem.Data.Migrations
 {
     [DbContext(typeof(RMSContext))]
-    [Migration("20180816100124_InitMigration")]
-    partial class InitMigration
+    [Migration("20180818113155_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -87,11 +87,9 @@ namespace RestaurantSystem.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.Property<string>("LoginProvider")
-                        .HasMaxLength(128);
+                    b.Property<string>("LoginProvider");
 
-                    b.Property<string>("ProviderKey")
-                        .HasMaxLength(128);
+                    b.Property<string>("ProviderKey");
 
                     b.Property<string>("ProviderDisplayName");
 
@@ -122,11 +120,9 @@ namespace RestaurantSystem.Data.Migrations
                 {
                     b.Property<string>("UserId");
 
-                    b.Property<string>("LoginProvider")
-                        .HasMaxLength(128);
+                    b.Property<string>("LoginProvider");
 
-                    b.Property<string>("Name")
-                        .HasMaxLength(128);
+                    b.Property<string>("Name");
 
                     b.Property<string>("Value");
 
@@ -155,6 +151,19 @@ namespace RestaurantSystem.Data.Migrations
                     b.ToTable("Drinks");
                 });
 
+            modelBuilder.Entity("RestaurantSystem.Models.DrinkIngredient", b =>
+                {
+                    b.Property<int>("DrinkId");
+
+                    b.Property<int>("IngredientId");
+
+                    b.HasKey("DrinkId", "IngredientId");
+
+                    b.HasIndex("IngredientId");
+
+                    b.ToTable("DrinksIngredients");
+                });
+
             modelBuilder.Entity("RestaurantSystem.Models.Food", b =>
                 {
                     b.Property<int>("Id")
@@ -176,15 +185,24 @@ namespace RestaurantSystem.Data.Migrations
                     b.ToTable("Foods");
                 });
 
-            modelBuilder.Entity("RestaurantSystem.Models.Product", b =>
+            modelBuilder.Entity("RestaurantSystem.Models.FoodProduct", b =>
+                {
+                    b.Property<int>("FoodId");
+
+                    b.Property<int>("ProductId");
+
+                    b.HasKey("FoodId", "ProductId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("FoodsProducts");
+                });
+
+            modelBuilder.Entity("RestaurantSystem.Models.Ingredient", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("DrinkId");
-
-                    b.Property<int>("FoodId");
 
                     b.Property<bool>("IsAllergen");
 
@@ -193,9 +211,21 @@ namespace RestaurantSystem.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DrinkId");
+                    b.ToTable("Ingredients");
+                });
 
-                    b.HasIndex("FoodId");
+            modelBuilder.Entity("RestaurantSystem.Models.Product", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("IsAllergen");
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.HasKey("Id");
 
                     b.ToTable("Products");
                 });
@@ -227,6 +257,8 @@ namespace RestaurantSystem.Data.Migrations
 
                     b.Property<string>("FirstName")
                         .IsRequired();
+
+                    b.Property<DateTime>("HireDate");
 
                     b.Property<bool>("IsEmployee");
 
@@ -318,16 +350,29 @@ namespace RestaurantSystem.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("RestaurantSystem.Models.Product", b =>
+            modelBuilder.Entity("RestaurantSystem.Models.DrinkIngredient", b =>
                 {
                     b.HasOne("RestaurantSystem.Models.Drink", "Drink")
-                        .WithMany("Ingredients")
+                        .WithMany("DrinkIngredients")
                         .HasForeignKey("DrinkId")
                         .OnDelete(DeleteBehavior.Cascade);
 
+                    b.HasOne("RestaurantSystem.Models.Ingredient", "Ingredient")
+                        .WithMany("IngredientDrinks")
+                        .HasForeignKey("IngredientId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("RestaurantSystem.Models.FoodProduct", b =>
+                {
                     b.HasOne("RestaurantSystem.Models.Food", "Food")
-                        .WithMany("Products")
+                        .WithMany("FoodProducts")
                         .HasForeignKey("FoodId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("RestaurantSystem.Models.Product", "Product")
+                        .WithMany("ProductFoods")
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

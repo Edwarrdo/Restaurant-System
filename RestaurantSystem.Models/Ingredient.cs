@@ -1,10 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace RestaurantSystem.Models
 {
-    public class Product
+    public class Ingredient
     {
         public int Id { get; set; }
 
@@ -14,6 +13,6 @@ namespace RestaurantSystem.Models
         [Required]
         public bool IsAllergen { get; set; }
 
-        public ICollection<FoodProduct> ProductFoods { get; set; } = new List<FoodProduct>();
+        public ICollection<DrinkIngredient> IngredientDrinks { get; set; } = new List<DrinkIngredient>();
     }
 }

@@ -19,18 +19,20 @@ namespace RestaurantSystem.Data
 
         public DbSet<Product> Products { get; set; }
 
+        public DbSet<FoodProduct> FoodsProducts { get; set; }
+
+        public DbSet<DrinkIngredient> DrinksIngredients { get; set; }
+
+        public DbSet<Ingredient> Ingredients { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<Food>()
-                .HasMany(f => f.Products)
-                .WithOne(p => p.Food)
-                .HasForeignKey(f => f.FoodId);
+            builder.Entity<FoodProduct>()
+                .HasKey(fp => new { fp.FoodId, fp.ProductId });
 
-            builder.Entity<Drink>()
-                .HasMany(d => d.Ingredients)
-                .WithOne(i => i.Drink)
-                .HasForeignKey(d => d.DrinkId);
+            builder.Entity<DrinkIngredient>()
+                .HasKey(di => new { di.DrinkId, di.IngredientId });
 
             base.OnModelCreating(builder);
         }

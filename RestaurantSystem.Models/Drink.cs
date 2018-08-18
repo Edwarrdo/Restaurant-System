@@ -20,6 +20,6 @@ namespace RestaurantSystem.Models
 
         public string Description { get; set; }
 
-        public ICollection<Product> Ingredients { get; set; }
+        public ICollection<DrinkIngredient> DrinkIngredients { get; set; } = new List<DrinkIngredient>();
     }
 }
