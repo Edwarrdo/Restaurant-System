@@ -18,6 +18,10 @@ namespace RestaurantSystem.Web.Mapping
             this.CreateMap<User, EmployeeConciseViewModel>();
 
             this.CreateMap<User, EmployeeDetailsViewModel>();
+
+            this.CreateMap<ProductCreationBindingModel, Product>();
+
+            this.CreateMap<IngredientCreationBindingModel, Ingredient>();
         }
     }
 }

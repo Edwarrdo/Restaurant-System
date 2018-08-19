@@ -43,6 +43,7 @@ namespace RestaurantSystem.Web.Areas.Admin.Controllers
             await this.userManager.CreateAsync(employee, model.Password);
             //this next method doesnt work for some pc's
             await userManager.AddToRoleAsync(employee, model.Role);
+            this.TempData["message"] = $"Employee {employee.FirstName} successfully hired!";
             return RedirectToAction("Index", "Home", new { area = "Admin" });
         }
 
@@ -58,5 +59,7 @@ namespace RestaurantSystem.Web.Areas.Admin.Controllers
             var model = this.mapper.Map<EmployeeDetailsViewModel>(employee);
             return this.View(model);
         }
+
+        //TODO Implement Fire method
     }
 }

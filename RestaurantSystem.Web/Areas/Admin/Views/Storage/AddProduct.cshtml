@@ -1,0 +1,29 @@
+﻿@model ProductCreationBindingModel
+@{
+    ViewData["Title"] = "AddProduct";
+}
+
+<h2>AddProduct</h2>
+
+<form asp-area="Admin" asp-controller="Storage" asp-action="AddProduct" method="post" class="form-horizontal">
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="IsAllergen"></label>
+        @Html.CheckBoxFor(c => c.IsAllergen)
+        <span asp-validation-for="IsAllergen" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-10">
+            <input type="submit" value="AddProduct" class="btn btn-success" />
+            <a asp-area="Admin" asp-controller="Storage" asp-action="AddProduct" class="btn btn-default">Cancel</a>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
