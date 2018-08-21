@@ -76,6 +76,8 @@ namespace RestaurantSystem.Web.Areas.Admin.Controllers
         {
             if(!this.ModelState.IsValid)
             {
+                var products = context.Products.Select(p => p.Name).ToArray();
+                this.ViewBag.Products = products;
                 return this.View();
             }
             var food = this.mapper.Map<Food>(model);
@@ -105,6 +107,8 @@ namespace RestaurantSystem.Web.Areas.Admin.Controllers
         {
             if (!this.ModelState.IsValid)
             {
+                var ingredients = context.Ingredients.Select(i => i.Name).ToArray();
+                this.ViewBag.Ingredients = ingredients;
                 return this.View();
             }
             var drink = this.mapper.Map<Drink>(model);

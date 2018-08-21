@@ -1,12 +1,11 @@
 ﻿@model MealBindingModel
 @{
-    ViewData["Title"] = "AddMeal";
+    ViewData["Title"] = "Add Meal";
 }
 
-<h2>AddMeal</h2>
+<h2>Add Meal</h2>
 
 <form asp-area="Admin" asp-controller="Storage" asp-action="AddMeal" method="post" class="form-horizontal">
-
     <div class="form-group">
         <label asp-for="Name"></label>
         <input asp-for="Name" class="form-control" />
@@ -14,12 +13,8 @@
     </div>
     <div class="form-group">
         <label asp-for="Products"></label>
-        <select required asp-for="Products" class="selectpicker" data-live-search="true" multiple data-selected-text-format="count>3" data-size="5">
-            @foreach (var product in ViewBag.Products)
-            {
-                <option>@product</option>
-            }
-        </select>
+        @*<select asp-for="Products" asp-items="@(new SelectList(ViewBag.Products))" class="selectpicker form-control" data-live-search="true" multiple data-selected-text-format="count>3" data-size="5"></select>*@
+        @Html.DropDownListFor(m => m.Products, new SelectList(ViewBag.Products), null, new { @multiple = "multiple", @class="form-control selectpicker"})
         <span asp-validation-for="Products" class="text-danger"></span>
     </div>
     <div class="form-group">

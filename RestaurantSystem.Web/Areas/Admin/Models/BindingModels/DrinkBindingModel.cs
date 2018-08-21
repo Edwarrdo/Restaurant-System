@@ -21,6 +21,6 @@ namespace RestaurantSystem.Web.Areas.Admin.Models.BindingModels
         public long Milliliters { get; set; }
 
         [Required]
-        public IEnumerable<string> Ingredients { get; set; } = new List<string>();
+        public IEnumerable<string> Ingredients { get; set; }
     }
 }
