@@ -72,13 +72,24 @@ namespace RestaurantSystem.Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddMeal(MealBindingModel model)
+        public async Task<IActionResult> AddMeal(MealBindingModel model)
         {
             if(!this.ModelState.IsValid)
             {
                 return this.View();
             }
-            return View();
+            var food = this.mapper.Map<Food>(model);
+            foreach (var product in model.Products)
+            {
+                var productId = context.Products.FirstOrDefault(p => p.Name == product).Id;
+                var foodProduct = new FoodProduct { FoodId = food.Id, ProductId = productId};
+                food.FoodProducts.Add(foodProduct);
+            }
+
+            this.context.Foods.Add(food);
+            await this.context.SaveChangesAsync();
+            this.TempData["message"] = $"Food {food.Name} successfully added!";
+            return RedirectToAction("Index", "Home", new { area = "Admin" });
         }
     }
 }

@@ -22,6 +22,8 @@ namespace RestaurantSystem.Web.Mapping
             this.CreateMap<ProductCreationBindingModel, Product>();
 
             this.CreateMap<IngredientCreationBindingModel, Ingredient>();
+
+            this.CreateMap<MealBindingModel, Food>();
         }
     }
 }

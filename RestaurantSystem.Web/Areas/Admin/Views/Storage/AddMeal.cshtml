@@ -15,23 +15,10 @@
     <div class="form-group">
         <label asp-for="Products">  </label>
         <select asp-for="Products" class="selectpicker" data-live-search="true" multiple data-selected-text-format="count>3" data-size="5">
-            <option>Mustard</option>
-            <option>Ketchup</option>
-            <option>Relish</option>
-            <option>TEF </option>
-            <option>Mustard</option>
-            <option>Ketchup</option>
-            <option>Relish</option>
-            <option>TEF </option>
-            <option>dsfg</option>
-            <option>dsfg</option>
-            <option>TEF </option>
-            <option>Mustard</option>
-            <option>Ketchup</option>
-            <option>Relish</option>
-            <option>TEF </option>
-            <option>dsfg</option>
-            <option>dsfg</option>
+            @foreach (var product in ViewBag.products)
+            {
+                <option>@product</option>
+            }
         </select>
         <span asp-validation-for="Products" class="text-danger"></span>
     </div>
