@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using RestaurantSystem.Data;
 using RestaurantSystem.Models;
 using RestaurantSystem.Web.Areas.Admin.Models.BindingModels;
+using RestaurantSystem.Web.Areas.Admin.Models.ViewModels;
 
 namespace RestaurantSystem.Web.Areas.Admin.Controllers
 {
@@ -123,6 +124,15 @@ namespace RestaurantSystem.Web.Areas.Admin.Controllers
             await this.context.SaveChangesAsync();
             this.TempData["message"] = $"Drink {drink.Name} successfully added!";
             return RedirectToAction("Index", "Home", new { area = "Admin" });
+        }
+        [HttpGet]
+        public IActionResult Menu()
+        {
+            var foods = this.context.Foods
+                .ToArray();
+            var userModels = this.mapper.Map<IEnumerable<FoodConciseViewModel>>(foods);
+
+            return View(userModels);
         }
     }
 }

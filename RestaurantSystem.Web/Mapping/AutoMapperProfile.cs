@@ -26,6 +26,8 @@ namespace RestaurantSystem.Web.Mapping
             this.CreateMap<MealBindingModel, Food>();
 
             this.CreateMap<DrinkBindingModel, Drink>();
+
+            this.CreateMap<Food, FoodConciseViewModel>();
         }
     }
 }
