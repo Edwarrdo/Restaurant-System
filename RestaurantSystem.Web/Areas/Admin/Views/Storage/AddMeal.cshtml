@@ -1,0 +1,54 @@
+﻿@model MealBindingModel
+@{
+    ViewData["Title"] = "AddMeal";
+}
+
+<h2>AddMeal</h2>
+
+<form asp-area="Admin" asp-controller="Storage" asp-action="AddMeal" method="post" class="form-horizontal">
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Price"></label>
+        <input asp-for="Price" class="form-control" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <input asp-for="Description" class="form-control" />
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="DishWeight"></label>
+        <input asp-for="DishWeight" class="form-control" />
+        <span asp-validation-for="DishWeight" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Products"></label>
+        @Html.DropDownListFor(m => m.Products, new MultiSelectList(ViewBag.products), "- Please select products -", new { @multiple = "multiple", @class = "form-control" })
+        <span asp-validation-for="Products" class="text-danger"></span>
+    </div>
+    @*<div class="form-group">
+        <div class="col-lg-10">
+            <select class="mdb-select" multiple searchable="Search here..">
+                <option value="" disabled selected>Choose your country</option>
+                <option value="1">USA</option>
+                <option value="2">Germany</option>
+                <option value="3">France</option>
+                <option value="3">Poland</option>
+                <option value="3">Japan</option>
+            </select>
+            <label>Label example</label>
+            <button class="btn-save btn btn-primary btn-sm">Save</button>
+        </div>
+    </div>*@
+    <div class="form-group">
+        <div class="col-sm-10">
+            <input type="submit" value="AddMeal" class="btn btn-success" />
+            <a asp-area="Admin" asp-controller="Storage" asp-action="AddMeal" class="btn btn-default">Cancel</a>
+        </div>
+    </div>
+</form>

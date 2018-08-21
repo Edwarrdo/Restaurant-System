@@ -64,8 +64,20 @@ namespace RestaurantSystem.Web.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public IActionResult AddDrink()
+        public IActionResult AddMeal()
         {
+            var products = context.Products.Select(p => p.Name).ToArray();
+            this.ViewBag.products = products;
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddMeal(MealBindingModel model)
+        {
+            if(!this.ModelState.IsValid)
+            {
+                return this.View();
+            }
             return View();
         }
     }
