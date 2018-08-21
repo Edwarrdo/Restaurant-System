@@ -67,7 +67,7 @@ namespace RestaurantSystem.Web.Areas.Admin.Controllers
         public IActionResult AddMeal()
         {
             var products = context.Products.Select(p => p.Name).ToArray();
-            this.ViewBag.products = products;
+            this.ViewBag.Products = products;
             return View();
         }
 
@@ -89,6 +89,35 @@ namespace RestaurantSystem.Web.Areas.Admin.Controllers
             this.context.Foods.Add(food);
             await this.context.SaveChangesAsync();
             this.TempData["message"] = $"Food {food.Name} successfully added!";
+            return RedirectToAction("Index", "Home", new { area = "Admin" });
+        }
+
+        [HttpGet]
+        public IActionResult AddDrink()
+        {
+            var ingredients = context.Ingredients.Select(i => i.Name).ToArray();
+            this.ViewBag.Ingredients = ingredients;
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddDrink(DrinkBindingModel model)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View();
+            }
+            var drink = this.mapper.Map<Drink>(model);
+            foreach (var ingredient in model.Ingredients)
+            {
+                var ingredientId = context.Ingredients.FirstOrDefault(p => p.Name == ingredient).Id;
+                var drinkIngredient = new DrinkIngredient { DrinkId = drink.Id, IngredientId = ingredientId };
+                drink.DrinkIngredients.Add(drinkIngredient);
+            }
+
+            this.context.Drinks.Add(drink);
+            await this.context.SaveChangesAsync();
+            this.TempData["message"] = $"Drink {drink.Name} successfully added!";
             return RedirectToAction("Index", "Home", new { area = "Admin" });
         }
     }
