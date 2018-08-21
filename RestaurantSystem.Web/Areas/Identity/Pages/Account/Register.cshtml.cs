@@ -50,6 +50,10 @@ namespace RestaurantSystem.Web.Areas.Identity.Pages.Account
             public string FirstName { get; set; }
 
             [Required]
+            [Display(Name = "Username")]
+            public string Username { get; set; }
+
+            [Required]
             [Display(Name = "Last Name")]
             public string LastName { get; set; }
 
@@ -75,13 +79,12 @@ namespace RestaurantSystem.Web.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
-                var userName = Input.FirstName + Input.LastName;
                 var user = new User
                 {
-                    UserName =  userName,
+                    UserName =  Input.Username,
                     FirstName = Input.FirstName,
                     LastName = Input.LastName,
-                    Email = Input.Email
+                    Email = Input.Email,
                 };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
