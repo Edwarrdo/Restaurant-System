@@ -2,12 +2,9 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
-//RESPONSIVE FIRST AND SECOND ROW
 
-//var h = $(window).height()-100;
-//$('#firstRow').css('height', h);
 $(document).ready(function () {
-    //console.log("ready!");
+
 
 //NAVBAR SCRIPT ON SCROLLING
 $("nav ul a[href^='#']").on('click', function (e) {
@@ -18,9 +15,7 @@ $("nav ul a[href^='#']").on('click', function (e) {
         1500,
         function () { });
 });
-//$('.carousel').carousel({
-//    interval: 1000 * 10
-//});
+
 var $item = $('.carousel-item');
 var $wHeight = $(window).height()-70;
 $item.eq(0).addClass('active');
@@ -45,4 +40,9 @@ $('.carousel').carousel({
     interval: 6000,
     pause: "false"
     });
-});
+
+    $("select").selector({
+        title: 'What are your expertise?',
+        placeholder: 'Search Expertise'
+    });
+});//ON DOCUMENT READY

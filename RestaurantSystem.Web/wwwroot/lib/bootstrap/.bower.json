@@ -29,7 +29,8 @@
     "test-infra"
   ],
   "dependencies": {
-    "jquery": "3.3.1"
+    "jquery": "3.3.1",
+    "bootstrap-select" : ""
   },
   "version": "4.0.0",
   "_release": "4.0.0",
