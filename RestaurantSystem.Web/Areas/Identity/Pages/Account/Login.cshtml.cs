@@ -18,11 +18,13 @@ namespace RestaurantSystem.Web.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<User> _signInManager;
         private readonly ILogger<LoginModel> _logger;
+        private readonly UserManager<User> userManager;
 
-        public LoginModel(SignInManager<User> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(SignInManager<User> signInManager, UserManager<User> userManager,ILogger<LoginModel> logger)
         {
             _signInManager = signInManager;
             _logger = logger;
+            this.userManager = userManager;
         }
 
         [BindProperty]
@@ -78,9 +80,10 @@ namespace RestaurantSystem.Web.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    if(this.User.IsInRole("Administrator"))
+                    var user = userManager.Users.FirstOrDefault(u => u.UserName == Input.UserName);
+                    if (await userManager.IsInRoleAsync(user, "Administrator"))
                     {
-                        return RedirectToAction("Index", "Home", new { Area = "Admin"});
+                        return RedirectToAction("Index", "Home", new { Area = "Admin" });
                     }
                     else
                     {
