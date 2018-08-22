@@ -2,30 +2,31 @@
 @{
     ViewData["Title"] = "Index";
 }
+@*
+    @if(TempData.ContainsKey("message"))
+    {
+        <div class="alert alert-info alert-dismissible" role="alert">
+            @TempData["message"]
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
 
-@if(TempData.ContainsKey("message"))
-{
-    <div class="alert alert-info alert-dismissible" role="alert">
-        @TempData["message"]
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
+    }
 
-}
-
-<h1>All Employees</h1>
-<hr />
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>FirstName</th>
-            <th>LastName</th>
-            <th>Email</th>
-            <th>PhoneNumber</th>
-        </tr>
-    </thead>
-    <tbody>
-        @Html.DisplayForModel()
-    </tbody>
-</table>
+    <h1>All Employees</h1>
+    <hr />
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>FirstName</th>
+                <th>LastName</th>
+                <th>Email</th>
+                <th>PhoneNumber</th>
+            </tr>
+        </thead>
+        <tbody>
+            @Html.DisplayForModel()
+        </tbody>
+    </table>
+*@
