@@ -78,7 +78,14 @@ namespace RestaurantSystem.Web.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    return LocalRedirect(returnUrl);
+                    if(this.User.IsInRole("Administrator"))
+                    {
+                        return RedirectToAction("Index", "Home", new { Area = "Admin"});
+                    }
+                    else
+                    {
+                        return LocalRedirect(returnUrl);
+                    }
                 }
                 if (result.RequiresTwoFactor)
                 {
