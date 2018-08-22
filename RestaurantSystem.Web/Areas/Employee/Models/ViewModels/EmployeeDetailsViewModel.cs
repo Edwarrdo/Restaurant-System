@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace RestaurantSystem.Web.Areas.Admin.Models.ViewModels
+namespace RestaurantSystem.Web.Areas.Employee.Models.ViewModels
 {
     public class EmployeeDetailsViewModel
     {

@@ -4,6 +4,10 @@
         Layout = "/Areas/Admin/Views/Shared/_Layout.cshtml";
 
     }
+    else if(User.IsInRole("Chef") || User.IsInRole("Waiter") || User.IsInRole("Bartender"))
+    {
+        Layout = "/Areas/Employee/Views/Shared/_Layout.cshtml";
+    }
     else
     {
         Layout = "_Layout";

@@ -16,5 +16,7 @@ namespace RestaurantSystem.Web.Areas.Admin.Models.ViewModels
         public string Email { get; set; }
 
         public string PhoneNumber { get; set; }
+
+        public string Profession { get; set; }
     }
 }

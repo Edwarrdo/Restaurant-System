@@ -76,10 +76,10 @@
                     </a>
                     <ul class="collapse list-unstyled" id="employeeSubmenu">
                         <li>
-                            <a href="#">Hire Employee</a>
+                            <a asp-area="Admin" asp-controller="Employees" asp-action="Create">Hire Employee</a>
                         </li>
                         <li>
-                            <a href="#">View all employees</a>
+                            <a asp-area="Admin" asp-controller="Home" asp-action="Index">View all employees</a>
                         </li>
 
                     </ul>
@@ -106,10 +106,10 @@
                     </a>
                     <ul class="collapse list-unstyled" id="mealsSubmenu">
                         <li>
-                            <a href="#">Add meal</a>
+                            <a asp-area="Admin" asp-controller="Storage" asp-action="AddMeal">Add meal</a>
                         </li>
                         <li>
-                            <a href="#">Add product</a>
+                            <a asp-area="Admin" asp-controller="Storage" asp-action="AddProduct">Add product</a>
                         </li>
                         <li>
                             <a href="#">View all meals</a>
@@ -123,10 +123,10 @@
                     </a>
                     <ul class="collapse list-unstyled" id="drinksSubmenu">
                         <li>
-                            <a href="#">Add drink</a>
+                            <a asp-area="Admin" asp-controller="Storage" asp-action="AddDrink">Add drink</a>
                         </li>
                         <li>
-                            <a href="#">Add ingredient</a>
+                            <a asp-area="Admin" asp-controller="Storage" asp-action="AddIngredient">Add ingredient</a>
                         </li>
                         <li>
                             <a href="#">View all drinks</a>
@@ -138,46 +138,46 @@
             @await Html.PartialAsync("_LoginPartial")
 
         </nav>
-        </div>
-        <partial name="_CookieConsentPartial" />
+    </div>
+    <partial name="_CookieConsentPartial" />
 
-        @RenderBody()
+    @RenderBody()
 
 
 
-        @*<hr />
-            <footer>
-                <p>&copy; 2018 - Pri Timev</p>
-            </footer>
-        *@
-        <environment names="Development">
-            <script src="~/lib/wwwroot/lib/popper.js/dist/umd/popper.js"></script>
-            <script src="~/lib/jquery/dist/jquery.js"></script>
-            <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-            <script src="~/lib/wwwroot/lib/bootstrap-select/dist/js/bootstrap-select.js"></script>
+    @*<hr />
+        <footer>
+            <p>&copy; 2018 - Pri Timev</p>
+        </footer>
+    *@
+    <environment names="Development">
+        <script src="~/lib/wwwroot/lib/popper.js/dist/umd/popper.js"></script>
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/lib/wwwroot/lib/bootstrap-select/dist/js/bootstrap-select.js"></script>
 
-            <script src="~/js/site.js" asp-append-version="true"></script>
-        </environment>
-        <environment names="Staging,Production">
-            <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
-                    asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                    asp-fallback-test="window.jQuery">
-            </script>
-            <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/4.0.0/bootstrap.min.js"
-                    asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
-                    asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
-            </script>
-            <script src="~/js/admin_layout.js" asp-append-version="true"></script>
-        </environment>
-
-        <script>
-            $(document).ready(function () {
-                $("select").attr('data-selected-text-format', 'count>3');
-                $("select").attr('data-size', 5);
-                $("select").attr('data-live-search', true);
-            });
+        <script src="~/js/site.js" asp-append-version="true"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery">
         </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/4.0.0/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
+        </script>
+        <script src="~/js/admin_layout.js" asp-append-version="true"></script>
+    </environment>
 
-        @RenderSection("Scripts", required: false)
+    <script>
+        $(document).ready(function () {
+            $("select").attr('data-selected-text-format', 'count>3');
+            $("select").attr('data-size', 5);
+            $("select").attr('data-live-search', true);
+        });
+    </script>
+
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

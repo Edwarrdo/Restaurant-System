@@ -48,7 +48,7 @@ namespace RestaurantSystem.Web.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public IActionResult Details(string id)
+        public async Task<IActionResult> Details(string id)
         {
             var employee = this.context.Users.FirstOrDefault(e => e.Id == id);
             if(employee == null)
@@ -57,7 +57,25 @@ namespace RestaurantSystem.Web.Areas.Admin.Controllers
             }
 
             var model = this.mapper.Map<EmployeeDetailsViewModel>(employee);
+
+            await FindUserProfession(employee, model);
             return this.View(model);
+        }
+
+        private async Task FindUserProfession(User currentUser, EmployeeDetailsViewModel model)
+        {
+            if (await userManager.IsInRoleAsync(currentUser, "Chef"))
+            {
+                model.Profession = "Chef";
+            }
+            else if (await userManager.IsInRoleAsync(currentUser, "Bartender"))
+            {
+                model.Profession = "Bartender";
+            }
+            else
+            {
+                model.Profession = "Waiter";
+            }
         }
 
         //TODO Implement Fire method
