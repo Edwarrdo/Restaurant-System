@@ -126,11 +126,21 @@ namespace RestaurantSystem.Web.Areas.Admin.Controllers
             return RedirectToAction("Index", "Home", new { area = "Admin" });
         }
         [HttpGet]
-        public IActionResult Menu()
+        public IActionResult AllMeals()
         {
             var foods = this.context.Foods
                 .ToArray();
             var userModels = this.mapper.Map<IEnumerable<FoodConciseViewModel>>(foods);
+
+            return View(userModels);
+        }
+
+        [HttpGet]
+        public IActionResult AllDrinks()
+        {
+            var foods = this.context.Drinks
+                .ToArray();
+            var userModels = this.mapper.Map<IEnumerable<DrinkConciseViewModel>>(foods);
 
             return View(userModels);
         }

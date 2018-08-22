@@ -1,0 +1,21 @@
+﻿@model IEnumerable<DrinkConciseViewModel>
+@{
+    ViewData["Title"] = "All Drinks";
+}
+
+<h2>All Drinks</h2>
+
+<hr />
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Description</th>
+            <th>Milliliters</th>
+        </tr>
+    </thead>
+    <tbody>
+        @Html.DisplayForModel()
+    </tbody>
+</table>

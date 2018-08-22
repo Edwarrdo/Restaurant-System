@@ -25,6 +25,19 @@ namespace RestaurantSystem.Web.Areas.Admin.Controllers
             this.userManager = userManager;
         }
 
+        public async Task<IActionResult> AllEmployees()
+        {
+            var users = this.context.Users
+                .Where(u => u.IsEmployee == true)
+                .ToArray();
+            var userModels = this.mapper.Map<List<EmployeeConciseViewModel>>(users);
+            for (int i = 0; i < users.Count(); i++)
+            {
+                await FindUserProfession(users[i], userModels[i]);
+            }
+            return View(userModels);
+        }
+
         [HttpGet]
         public IActionResult Create()
         {
@@ -79,5 +92,21 @@ namespace RestaurantSystem.Web.Areas.Admin.Controllers
         }
 
         //TODO Implement Fire method
+
+        private async Task FindUserProfession(User currentUser, EmployeeConciseViewModel model)
+        {
+            if (await userManager.IsInRoleAsync(currentUser, "Chef"))
+            {
+                model.Profession = "Chef";
+            }
+            else if (await userManager.IsInRoleAsync(currentUser, "Bartender"))
+            {
+                model.Profession = "Bartender";
+            }
+            else
+            {
+                model.Profession = "Waiter";
+            }
+        }
     }
 }

@@ -28,6 +28,8 @@ namespace RestaurantSystem.Web.Mapping
 
             this.CreateMap<DrinkBindingModel, Drink>();
 
+            this.CreateMap<Drink, DrinkConciseViewModel>();
+
             this.CreateMap<Food, FoodConciseViewModel>();
 
             this.CreateMap<User, Areas.Employee.Models.ViewModels.EmployeeDetailsViewModel>();
