@@ -38,5 +38,7 @@ namespace RestaurantSystem.Models
         public string Education { get; set; }
 
         public DateTime HireDate { get; set; }
+
+        public IEnumerable<Order> Orders { get; set; }
     }
 }

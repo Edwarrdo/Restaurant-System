@@ -10,8 +10,8 @@ using RestaurantSystem.Data;
 namespace RestaurantSystem.Data.Migrations
 {
     [DbContext(typeof(RMSContext))]
-    [Migration("20180818142132_init3")]
-    partial class init3
+    [Migration("20180823091024_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -214,6 +214,59 @@ namespace RestaurantSystem.Data.Migrations
                     b.ToTable("Ingredients");
                 });
 
+            modelBuilder.Entity("RestaurantSystem.Models.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("IsFinished");
+
+                    b.Property<double>("Price");
+
+                    b.Property<string>("TableNumbers")
+                        .IsRequired();
+
+                    b.Property<DateTime>("TimeOfOrder");
+
+                    b.Property<DateTime?>("TimeOfPayment");
+
+                    b.Property<string>("WaiterId")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("WaiterId");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("RestaurantSystem.Models.OrderDrink", b =>
+                {
+                    b.Property<int>("DrinkId");
+
+                    b.Property<int>("OrderId");
+
+                    b.HasKey("DrinkId", "OrderId");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("OrdersDrinks");
+                });
+
+            modelBuilder.Entity("RestaurantSystem.Models.OrderFood", b =>
+                {
+                    b.Property<int>("FoodId");
+
+                    b.Property<int>("OrderId");
+
+                    b.HasKey("FoodId", "OrderId");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("OrdersFoods");
+                });
+
             modelBuilder.Entity("RestaurantSystem.Models.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -373,6 +426,40 @@ namespace RestaurantSystem.Data.Migrations
                     b.HasOne("RestaurantSystem.Models.Product", "Product")
                         .WithMany("ProductFoods")
                         .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("RestaurantSystem.Models.Order", b =>
+                {
+                    b.HasOne("RestaurantSystem.Models.User", "Waiter")
+                        .WithMany("Orders")
+                        .HasForeignKey("WaiterId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("RestaurantSystem.Models.OrderDrink", b =>
+                {
+                    b.HasOne("RestaurantSystem.Models.Drink", "Drink")
+                        .WithMany()
+                        .HasForeignKey("DrinkId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("RestaurantSystem.Models.Order", "Order")
+                        .WithMany("OrderDrinks")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("RestaurantSystem.Models.OrderFood", b =>
+                {
+                    b.HasOne("RestaurantSystem.Models.Food", "Food")
+                        .WithMany()
+                        .HasForeignKey("FoodId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("RestaurantSystem.Models.Order", "Order")
+                        .WithMany("OrderFoods")
+                        .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

@@ -25,6 +25,12 @@ namespace RestaurantSystem.Data
 
         public DbSet<Ingredient> Ingredients { get; set; }
 
+        public DbSet<Order> Orders { get; set; }
+
+        public DbSet<OrderDrink> OrdersDrinks { get; set; }
+
+        public DbSet<OrderFood> OrdersFoods { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -33,6 +39,17 @@ namespace RestaurantSystem.Data
 
             builder.Entity<DrinkIngredient>()
                 .HasKey(di => new { di.DrinkId, di.IngredientId });
+
+            builder.Entity<OrderDrink>()
+                .HasKey(od => new { od.DrinkId, od.OrderId });
+
+            builder.Entity<OrderFood>()
+                .HasKey(of => new { of.FoodId, of.OrderId });
+
+            builder.Entity<Order>()
+                .HasOne(o => o.Waiter)
+                .WithMany(w => w.Orders)
+                .HasForeignKey(o => o.WaiterId);
 
             base.OnModelCreating(builder);
         }

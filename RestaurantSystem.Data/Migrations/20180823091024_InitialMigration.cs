@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace RestaurantSystem.Data.Migrations
 {
-    public partial class init3 : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -225,6 +225,30 @@ namespace RestaurantSystem.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Orders",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    TableNumbers = table.Column<string>(nullable: false),
+                    WaiterId = table.Column<string>(nullable: false),
+                    Price = table.Column<double>(nullable: false),
+                    IsFinished = table.Column<bool>(nullable: false),
+                    TimeOfOrder = table.Column<DateTime>(nullable: false),
+                    TimeOfPayment = table.Column<DateTime>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Orders", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Orders_AspNetUsers_WaiterId",
+                        column: x => x.WaiterId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "DrinksIngredients",
                 columns: table => new
                 {
@@ -268,6 +292,54 @@ namespace RestaurantSystem.Data.Migrations
                         name: "FK_FoodsProducts_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OrdersDrinks",
+                columns: table => new
+                {
+                    OrderId = table.Column<int>(nullable: false),
+                    DrinkId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrdersDrinks", x => new { x.DrinkId, x.OrderId });
+                    table.ForeignKey(
+                        name: "FK_OrdersDrinks_Drinks_DrinkId",
+                        column: x => x.DrinkId,
+                        principalTable: "Drinks",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_OrdersDrinks_Orders_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "Orders",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OrdersFoods",
+                columns: table => new
+                {
+                    OrderId = table.Column<int>(nullable: false),
+                    FoodId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrdersFoods", x => new { x.FoodId, x.OrderId });
+                    table.ForeignKey(
+                        name: "FK_OrdersFoods_Foods_FoodId",
+                        column: x => x.FoodId,
+                        principalTable: "Foods",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_OrdersFoods_Orders_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "Orders",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -320,6 +392,21 @@ namespace RestaurantSystem.Data.Migrations
                 name: "IX_FoodsProducts_ProductId",
                 table: "FoodsProducts",
                 column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_WaiterId",
+                table: "Orders",
+                column: "WaiterId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrdersDrinks_OrderId",
+                table: "OrdersDrinks",
+                column: "OrderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrdersFoods_OrderId",
+                table: "OrdersFoods",
+                column: "OrderId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -346,22 +433,31 @@ namespace RestaurantSystem.Data.Migrations
                 name: "FoodsProducts");
 
             migrationBuilder.DropTable(
+                name: "OrdersDrinks");
+
+            migrationBuilder.DropTable(
+                name: "OrdersFoods");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
-
-            migrationBuilder.DropTable(
-                name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "Drinks");
 
             migrationBuilder.DropTable(
                 name: "Ingredients");
 
             migrationBuilder.DropTable(
+                name: "Products");
+
+            migrationBuilder.DropTable(
+                name: "Drinks");
+
+            migrationBuilder.DropTable(
                 name: "Foods");
 
             migrationBuilder.DropTable(
-                name: "Products");
+                name: "Orders");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers");
         }
     }
 }
