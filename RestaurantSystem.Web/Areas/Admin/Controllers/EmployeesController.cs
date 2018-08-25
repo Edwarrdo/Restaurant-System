@@ -54,7 +54,6 @@ namespace RestaurantSystem.Web.Areas.Admin.Controllers
             var employee = this.mapper.Map<User>(model);
             employee.UserName = employee.FirstName + employee.LastName;
             await this.userManager.CreateAsync(employee, model.Password);
-            //this next method doesnt work for some pc's
             await userManager.AddToRoleAsync(employee, model.Role);
             this.TempData["message"] = $"Employee {employee.FirstName} successfully hired!";
             return RedirectToAction("Index", "Home", new { area = "Admin" });
