@@ -29,65 +29,71 @@
             </div>
             <ul class="list-unstyled components">
                 <li class="active">
-                    <a href="https://bootstrapious.com/tutorial/sidebar/index4.html#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                       Home
+                    <a href="#employeeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        Manage Employees
                     </a>
-                    <ul class="collapse list-unstyled" id="homeSubmenu">
+                    <ul class="collapse list-unstyled" id="employeeSubmenu">
                         <li>
-                            <a href="https://bootstrapious.com/tutorial/sidebar/index4.html#">Home 1</a>
+                            <a asp-area="Admin" asp-controller="Employees" asp-action="Create">Hire Employee</a>
                         </li>
                         <li>
-                            <a href="https://bootstrapious.com/tutorial/sidebar/index4.html#">Home 2</a>
+                            <a asp-area="Admin" asp-controller="Employees" asp-action="AllEmployees">View all employees</a>
+                        </li>
+
+                    </ul>
+                </li>
+                <li>
+
+                    <a href="#menuSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        Menu
+                    </a>
+                    <ul class="collapse list-unstyled" id="menuSubmenu">
+                        <li>
+                            <a href="#">Manage Lunch Menu</a>
                         </li>
                         <li>
-                            <a href="https://bootstrapious.com/tutorial/sidebar/index4.html#">Home 3</a>
+                            <a href="#">Manage main menu</a>
+                        </li>
+
+                    </ul>
+                </li>
+                <li>
+
+                    <a href="#mealsSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        Manage Meals
+                    </a>
+                    <ul class="collapse list-unstyled" id="mealsSubmenu">
+                        <li>
+                            <a asp-area="Admin" asp-controller="Storage" asp-action="AddMeal">Add meal</a>
+                        </li>
+                        <li>
+                            <a asp-area="Admin" asp-controller="Storage" asp-action="AddProduct">Add product</a>
+                        </li>
+                        <li>
+                            <a asp-area="Admin" asp-controller="Storage" asp-action="AllMeals">View all meals</a>
                         </li>
                     </ul>
                 </li>
                 <li>
-                    <a href="https://bootstrapious.com/tutorial/sidebar/index4.html#">
-                       About
+
+                    <a href="#drinksSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        Manage Drinks
                     </a>
-                    <a href="https://bootstrapious.com/tutorial/sidebar/index4.html#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                        Pages
-                    </a>
-                    <ul class="collapse list-unstyled" id="pageSubmenu">
+                    <ul class="collapse list-unstyled" id="drinksSubmenu">
                         <li>
-                            <a href="https://bootstrapious.com/tutorial/sidebar/index4.html#">Page 1</a>
+                            <a asp-area="Admin" asp-controller="Storage" asp-action="AddDrink">Add drink</a>
                         </li>
                         <li>
-                            <a href="https://bootstrapious.com/tutorial/sidebar/index4.html#">Page 2</a>
+                            <a asp-area="Admin" asp-controller="Storage" asp-action="AddIngredient">Add ingredient</a>
                         </li>
                         <li>
-                            <a href="https://bootstrapious.com/tutorial/sidebar/index4.html#">Page 3</a>
+                            <a asp-area="Admin" asp-controller="Storage" asp-action="AllDrinks">View all drinks</a>
                         </li>
                     </ul>
                 </li>
-                <li>
-                    <a href="https://bootstrapious.com/tutorial/sidebar/index4.html#">
-                      Portfolio
-                    </a>
-                </li>
-                <li>
-                    <a href="https://bootstrapious.com/tutorial/sidebar/index4.html#">
-                       FAQ
-                    </a>
-                </li>
-                <li>
-                    <a href="https://bootstrapious.com/tutorial/sidebar/index4.html#">
-                     Contact
-                    </a>
-                </li>
+
             </ul>
-            <ul class="list-unstyled CTAs">
-                <li>
-                    <a href="https://bootstrapious.com/tutorial/files/sidebar.zip" class="download">Download source</a>
-                </li>
-                <li>
-                    <a href="https://bootstrapious.com/p/bootstrap-sidebar" class="article">Back to article</a>
-                </li>
-            </ul>
-            
+
         </nav>
         <!-- Page Content  -->
         <div id="content">
