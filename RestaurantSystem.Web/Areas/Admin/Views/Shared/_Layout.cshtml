@@ -24,8 +24,8 @@
         <!-- Sidebar  -->
         <nav id="sidebar">
             <div class="sidebar-header">
-                <h3>Bootstrap Sidebar</h3>
-                <strong>BS</strong>
+                <h3>Timev's restaurant</h3>
+                <img src="~/images/small_logo_white.png" class="img-fluid" alt="m logo white" />
             </div>
             <ul class="list-unstyled components">
                 <li class="active">
@@ -91,13 +91,15 @@
                         </li>
                     </ul>
                 </li>
-                <li>
+                <li class="footer">
                     <footer>
                         <p>&copy; 2018 - Timev's restaurant</p>
                     </footer>
                 </li>
             </ul>
-           
+
+            
+
         </nav>
         <!-- Page Content  -->
         <div id="content">
@@ -111,26 +113,26 @@
                     </button>
                     @await Html.PartialAsync("_LoginPartial")
                 </div>
-              
+
             </nav>
-       
+
             <partial name="_CookieConsentPartial" />
 
             @RenderBody()
 
-
+     
 
         </div>
         </div>
         
 
-        <environment names="Development">
-            <script src="~/lib/wwwroot/lib/jquery/dist/jquery.js"></script>
-            <script src="~/lib/wwwroot/lib/bootstrap/dist/js/bootstrap.js"></script>
-            <script src="~/lib/wwwroot/lib/bootstrap-select/dist/js/bootstrap-select.js"></script>
-            <script src="~/lib/wwwroot/lib/popper.js/dist/umd/popper.js"></script>
-            <script src="~/js/admin_layout.js" asp-append-version="true"></script>
-        </environment>
+    <environment names="Development">
+        <script src="~/lib/wwwroot/lib/popper.js/dist/umd/popper.js"></script>
+        <script src="~/lib/wwwroot/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/wwwroot/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/lib/wwwroot/lib/bootstrap-select/dist/js/bootstrap-select.js"></script>
+        <script src="~/js/admin_layout.js" asp-append-version="true"></script>
+    </environment>
         <environment names="Staging,Production">
             <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
                     asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
