@@ -91,9 +91,13 @@
                         </li>
                     </ul>
                 </li>
-
+                <li>
+                    <footer>
+                        <p>&copy; 2018 - Timev's restaurant</p>
+                    </footer>
+                </li>
             </ul>
-
+           
         </nav>
         <!-- Page Content  -->
         <div id="content">
@@ -107,7 +111,7 @@
                     </button>
                     @await Html.PartialAsync("_LoginPartial")
                 </div>
-                
+              
             </nav>
        
             <partial name="_CookieConsentPartial" />
@@ -118,9 +122,7 @@
 
         </div>
         </div>
-        <footer>
-            <p>&copy; 2018 - Timev's restaurant</p>
-        </footer>
+        
 
         <environment names="Development">
             <script src="~/lib/wwwroot/lib/jquery/dist/jquery.js"></script>
