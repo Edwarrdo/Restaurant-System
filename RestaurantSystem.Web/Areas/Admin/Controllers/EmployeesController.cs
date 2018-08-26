@@ -56,7 +56,7 @@ namespace RestaurantSystem.Web.Areas.Admin.Controllers
             await this.userManager.CreateAsync(employee, model.Password);
             await userManager.AddToRoleAsync(employee, model.Role);
             this.TempData["message"] = $"Employee {employee.FirstName} successfully hired!";
-            return RedirectToAction("Index", "Home", new { area = "Admin" });
+            return RedirectToAction("AllEmployees", "Employees", new { area = "Admin" });
         }
 
         [HttpGet]
@@ -72,6 +72,19 @@ namespace RestaurantSystem.Web.Areas.Admin.Controllers
 
             await FindUserProfession(employee, model);
             return this.View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Fire(string id)
+        {
+            var employee = this.context.Users.FirstOrDefault(e => e.Id == id);
+            if (employee == null)
+            {
+                return NotFound();
+            }
+            this.context.Remove(employee);
+            await this.context.SaveChangesAsync();
+            return RedirectToAction("AllEmployees", "Employees", new { area = "Admin" });
         }
 
         private async Task FindUserProfession(User currentUser, EmployeeDetailsViewModel model)

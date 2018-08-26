@@ -6,16 +6,55 @@
 <h1>All Employees</h1>
 <hr />
 <table class="table table-striped" id="employeeTable">
-    <thead>
-        <tr>
-            <th>FirstName</th>
-            <th>LastName</th>
-            <th>Profession</th>
-            <th>Email</th>
-            <th>PhoneNumber</th>
-        </tr>
-    </thead>
-    <tbody>
-        @Html.DisplayForModel()
-    </tbody>
-</table>
+            <tr>
+                <th>FirstName</th>
+                <th>LastName</th>
+                <th>Profession</th>
+                <th>Email</th>
+                <th>PhoneNumber</th>
+            </tr>
+            @foreach (var employee in Model)
+            {
+            <tr>
+                <td>@employee.FirstName</td>
+                <td>@employee.LastName</td>
+                <td>@employee.Profession</td>
+                <td>@employee.Email</td>
+                <td>@employee.PhoneNumber</td>
+                <td>
+                    <a asp-area="Admin" asp-controller="Employees" asp-action="Details" asp-route-id="@employee.Id"
+                       class="btn btn-info">Details</a>
+                    <a asp-area="Admin" asp-controller="Employees" asp-action="Fire" asp-route-id="@employee.Id"
+                       class="btn btn-danger">Fire</a>
+                </td>
+            </tr>
+            }
+
+    </table>
+@*<div class="container">
+    <div class="row">&nbsp;</div>
+    <div class="row">
+        <div class="col-6">&nbsp;</div>
+        <div class="col-6">
+            User..........<input type="text" id="userInput" />
+            <br />
+            Message...<input type="text" id="messageInput" />
+            <br />
+            Something...<input type="text" id="something" />
+            <input type="button" id="sendButton" value="Send Message" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <hr />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">&nbsp;</div>
+        <div class="col-6">
+            <ul id="messagesList"></ul>
+        </div>
+    </div>
+</div>
+<script src="~/lib/signalr/signalr.js"></script>
+<script src="~/js/chat.js"></script>*@
