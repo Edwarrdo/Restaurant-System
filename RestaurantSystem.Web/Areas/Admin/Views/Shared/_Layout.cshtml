@@ -28,21 +28,21 @@
                 <img src="~/images/small_logo_white.png" class="img-fluid" alt="m logo white" />
             </div>
             <ul class="list-unstyled components">
-                <li class="active">
+                <li class="mb-3">
                     <a href="#employeeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                        Manage Employees
+                       Manage Employees
                     </a>
                     <ul class="collapse list-unstyled" id="employeeSubmenu">
-                        <li>
-                            <a asp-area="Admin" asp-controller="Employees" asp-action="Create">Hire Employee</a>
+                        <li class="hoverLink">
+                            <a asp-area="Admin" asp-controller="Employees" asp-action="Create"><img src="~/images/hire_employee_icon.png"  alt="hire employee icon" class="img-fluid submenuImg"/>Hire Employee</a>
                         </li>
-                        <li>
-                            <a asp-area="Admin" asp-controller="Employees" asp-action="AllEmployees">View all employees</a>
+                        <li  class="hoverLink">
+                            <a asp-area="Admin" asp-controller="Employees" asp-action="AllEmployees"> <img src="~/images/view_all_employees_icon.png" alt="view all employee"  class="img-fluid submenuImg"/>View all employees</a>
                         </li>
 
                     </ul>
                 </li>
-                <li>
+                <li class="mb-3">
 
                     <a href="#menuSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                         Menu
@@ -57,7 +57,7 @@
 
                     </ul>
                 </li>
-                <li>
+                <li class="mb-3">
 
                     <a href="#mealsSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                         Manage Meals
@@ -74,7 +74,7 @@
                         </li>
                     </ul>
                 </li>
-                <li>
+                <li class="bottomAfterFooter">
 
                     <a href="#drinksSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                         Manage Drinks
@@ -91,26 +91,25 @@
                         </li>
                     </ul>
                 </li>
-                <li class="footer">
-                    <footer>
-                        <p>&copy; 2018 - Timev's restaurant</p>
-                    </footer>
-                </li>
+               
             </ul>
-
             
+
+                <footer class="footer">
+                    <p class="footerParagraph">&copy; 2018 - Timev's restaurant</p>
+                </footer>
+         
+
 
         </nav>
         <!-- Page Content  -->
         <div id="content">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 <div class="container-fluid">
-                    <button type="button" id="sidebarCollapse" class="btn btn-info">
-                        <span>Toogle Button</span>
+                    <button type="button" id="sidebarCollapse" class="btn btn-outline-light">
+                        <span>Toogle Sidebar</span>
                     </button>
-                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <svg class="svg-inline--fa fa-align-justify fa-w-14" aria-hidden="true" data-prefix="fas" data-icon="align-justify" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M0 84V44c0-8.837 7.163-16 16-16h416c8.837 0 16 7.163 16 16v40c0 8.837-7.163 16-16 16H16c-8.837 0-16-7.163-16-16zm16 144h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 256h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0-128h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"></path></svg><!-- <i class="fas fa-align-justify"></i> -->
-                    </button>
+                   
                     @await Html.PartialAsync("_LoginPartial")
                 </div>
 
