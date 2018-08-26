@@ -66,6 +66,8 @@ namespace RestaurantSystem.Web
             //services.AddDefaultIdentity<User>()
             //    .AddEntityFrameworkStores<RMSContext>();
 
+            services.AddSession();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddSignalR();
@@ -90,6 +92,7 @@ namespace RestaurantSystem.Web
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            app.UseSession();
             app.UseAuthentication();
             
             if (env.IsDevelopment())
@@ -101,6 +104,7 @@ namespace RestaurantSystem.Web
             {
                 routes.MapHub<ChatHub>("/chatHub");
             });
+            
 
             app.UseMvc(routes =>
             {

@@ -7,7 +7,7 @@
     <td>@Model.Email</td>
     <td>@Model.PhoneNumber</td>
     <td>
-        <a asp-area="Admin" asp-controller="Employees" asp-action="Details" asp-route-id="@Model.Id"
+        <a id="sendButton" asp-area="Admin" asp-controller="Employees" asp-action="Details" asp-route-id="@Model.Id"
            class="btn btn-info">Details</a>
         <a asp-area="Admin" asp-controller="Employees" asp-action="Fire" asp-route-id="@Model.Id"
            class="btn btn-danger">Fire</a>

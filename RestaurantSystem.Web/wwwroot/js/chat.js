@@ -3,24 +3,35 @@
 var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
 
 connection.on("ReceiveEmployee", function (firstName, lastName, email, phoneNumber) {
-    var table = document.getElementById("employeeTable");
 
-    var tr = table.insertRow(0);
+    var tr = document.createElement("tr");
 
-    var fnrow = tr.insertCell(0);
-    fnrow.innerHtml = firstName;
+    var fnrow = document.createElement("td");
+    fnrow.textContent = firstName;
 
-    var lnrow = tr.insertCell(1);
-    lnrow.innerHtml = lastName;
+    var lnrow = document.createElement("td");
+    lnrow.textContent = lastName;
 
-    var prow = tr.insertCell(2);
-    prow.innerHtml = "pesho";
+    var prow = document.createElement("td");
+    prow.textContent = "pesho";
 
-    var erow = tr.insertCell(3);
-    erow.innerHtml = email;
+    var erow = document.createElement("td");
+    erow.textContent = email;
 
-    var pnrow = tr.insertCell(4);
-    pnrow.innerHtml = phoneNumber;
+    var pnrow = document.createElement("td");
+    pnrow.textContent = phoneNumber;
+
+    var pesho = document.createElement("td");
+
+    tr.appendChild(fnrow);
+    tr.appendChild(lnrow);
+    tr.appendChild(prow);
+    tr.appendChild(erow);
+    tr.appendChild(pnrow);
+    tr.appendChild(pesho);
+
+    document.getElementById("employeeTable").appendChild(tr);
+    
 });
 
 connection.start().catch(function (err) {

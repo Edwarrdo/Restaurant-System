@@ -89,6 +89,10 @@ namespace RestaurantSystem.Web.Areas.Identity.Pages.Account
                     {
                         return RedirectToAction("Index", "Home", new { Area = "Employee" });
                     }
+                    else if(await userManager.IsInRoleAsync(user, "Client"))
+                    {
+                        return RedirectToAction("Index", "Home", new { Area = "Client" });
+                    }
                     else
                     {
                         return LocalRedirect(returnUrl);

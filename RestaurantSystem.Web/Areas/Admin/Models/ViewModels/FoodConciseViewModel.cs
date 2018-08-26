@@ -14,5 +14,7 @@ namespace RestaurantSystem.Web.Areas.Admin.Models.ViewModels
         public string Description { get; set; }
 
         public long DishWeight { get; set; }
+
+        public string Category { get; set; }
     }
 }

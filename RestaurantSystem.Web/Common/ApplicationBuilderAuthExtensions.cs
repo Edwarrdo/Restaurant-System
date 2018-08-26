@@ -12,13 +12,15 @@ namespace RestaurantSystem.Web.Common
     public static class ApplicationBuilderAuthExtensions
     {
         private const string DefaultAdminPassword = "admin123";
+        private const string DefaultClientPassword = "client123";
 
         private static readonly IdentityRole[] roles =
         {
             new IdentityRole("Administrator"),
             new IdentityRole("Waiter"),
             new IdentityRole("Chef"),
-            new IdentityRole("Bartender")
+            new IdentityRole("Bartender"),
+            new IdentityRole("Client")
         };
 
         public static async void SeedDatabase(this IApplicationBuilder app)
@@ -51,6 +53,21 @@ namespace RestaurantSystem.Web.Common
 
                     await userManager.CreateAsync(user, DefaultAdminPassword);
                     await userManager.AddToRoleAsync(user, roles[0].Name);
+                }
+
+                user = await userManager.FindByNameAsync("client");
+                if (user == null)
+                {
+                    user = new User()
+                    {
+                        UserName = "client",
+                        FirstName = "Client",
+                        LastName = "Clientov",
+                        Email = "client@example.com"
+                    };
+
+                    await userManager.CreateAsync(user, DefaultClientPassword);
+                    await userManager.AddToRoleAsync(user, roles[4].Name);
                 }
             }
         }

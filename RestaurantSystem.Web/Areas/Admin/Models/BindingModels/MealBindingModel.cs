@@ -21,6 +21,9 @@ namespace RestaurantSystem.Web.Areas.Admin.Models.BindingModels
         public long DishWeight { get; set; }
 
         [Required]
+        public string Category { get; set; }
+
+        [Required]
         public IEnumerable<string> Products { get; set; }
     }
 }
