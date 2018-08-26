@@ -36,6 +36,8 @@ namespace RestaurantSystem.Web.Mapping
             this.CreateMap<User, Areas.Employee.Models.ViewModels.EmployeeDetailsViewModel>();
 
             this.CreateMap<Food, MealConciseViewModel>();
+
+            this.CreateMap<Order, OrderConciseViewModel>();
         }
     }
 }

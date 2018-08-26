@@ -1,0 +1,14 @@
+﻿<li class="nav-item active">
+    @if (User.IsInRole("Waiter"))
+    {
+        <a asp-area="Employee" asp-controller="Orders" asp-action="ApproveOrders" class="nav-link">Manage Orders</a>
+    }
+    else if (User.IsInRole("Chef"))
+    {
+        <a asp-area="Employee" asp-controller="Orders" asp-action="Profile" class="nav-link">Manage Orders</a>
+    }
+    else //Bartender
+    {
+        <a asp-area="Employee" asp-controller="Orders" asp-action="Profile" class="nav-link">Manage Orders</a>
+    }
+</li>
