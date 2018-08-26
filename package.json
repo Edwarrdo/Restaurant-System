@@ -1,0 +1,23 @@
+{
+  "name": "RestaurantSystem",
+  "version": "1.0.0",
+  "description": "Restaurant Management System \"при Тимев\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Edwarrdo/Restaurant-System.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Edwarrdo/Restaurant-System/issues"
+  },
+  "homepage": "https://github.com/Edwarrdo/Restaurant-System#readme",
+  "dependencies": {
+    "@aspnet/signalr": "^1.0.3"
+  }
+}

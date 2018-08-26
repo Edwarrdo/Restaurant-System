@@ -15,6 +15,7 @@ using RestaurantSystem.Data;
 using RestaurantSystem.Models;
 using RestaurantSystem.Web.Common;
 using AutoMapper;
+using RestaurantSystem.Web.Hubs;
 
 namespace RestaurantSystem.Web
 {
@@ -66,6 +67,8 @@ namespace RestaurantSystem.Web
             //    .AddEntityFrameworkStores<RMSContext>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -93,6 +96,11 @@ namespace RestaurantSystem.Web
             {
                 app.SeedDatabase();
             }
+
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<ChatHub>("/chatHub");
+            });
 
             app.UseMvc(routes =>
             {
