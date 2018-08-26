@@ -168,6 +168,9 @@ namespace RestaurantSystem.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Category")
+                        .IsRequired();
+
                     b.Property<string>("Description")
                         .IsRequired();
 

@@ -21,6 +21,9 @@ namespace RestaurantSystem.Models
         [Required]
         public long DishWeight { get; set; }
 
+        [Required]
+        public string Category { get; set; }
+
         public ICollection<FoodProduct> FoodProducts { get; set; } = new List<FoodProduct>();
     }
 }

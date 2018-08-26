@@ -131,7 +131,7 @@ namespace RestaurantSystem.Web.Areas.Admin.Controllers
             var foods = this.context.Foods
                 .ToArray();
             var userModels = this.mapper.Map<IEnumerable<FoodConciseViewModel>>(foods);
-
+            ViewBag.categories = new string[] { "Salat", "Appetizer", "Pizza", "Pasta", "Risotto", "Chicken", "Pork", "Beef", "Soup", "Dessert" };
             return View(userModels);
         }
 
@@ -141,6 +141,7 @@ namespace RestaurantSystem.Web.Areas.Admin.Controllers
             var foods = this.context.Drinks
                 .ToArray();
             var userModels = this.mapper.Map<IEnumerable<DrinkConciseViewModel>>(foods);
+            
 
             return View(userModels);
         }

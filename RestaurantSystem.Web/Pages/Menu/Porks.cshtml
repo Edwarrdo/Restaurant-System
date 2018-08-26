@@ -1,0 +1,42 @@
+﻿@page
+@model RestaurantSystem.Web.Pages.Menu.PorksModel
+@{
+    ViewData["Title"] = "Porks";
+}
+
+<partial name="MenuBarPartial" />
+
+<h2>Porks</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Description</th>
+            <th>DishWeight</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var pork in this.Model.Porks)
+        {
+        <tr>
+            <td>@pork.Name</td>
+            <td>@pork.Price</td>
+            <td>@pork.Description</td>
+            <td>@pork.DishWeight</td>
+            @if (User.IsInRole("Administrator"))
+            {
+                //TODO: implement admin part
+            }
+            else
+            {
+                <td>
+                    <a class="btn btn-success" asp-page-handler="OrderFood" asp-page="/Menu/Order" asp-route-id="@pork.Id">Order</a>
+                </td>
+
+            }
+        </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,45 @@
+﻿@model IEnumerable<MealConciseViewModel>
+@{
+    ViewData["Title"] = "ShowCart";
+}
+
+<h2>ShowCart</h2>
+<br />
+
+@if (Model != null)
+{
+    <table class="table table-striped">
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>DishWeight</th>
+            <th>Category</th>
+        </tr>
+        @Html.DisplayForModel()
+    </table>
+    <div class="form-group">
+        <div class="col-sm-10">
+            <strong>
+                Total Price:
+                @Model.Sum(m => m.Price)
+            </strong>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-10">
+            <a @*asp-area="Client"*@ asp-controller="Orders" asp-action="MakeAnOrder" class="btn btn-success">Make an order</a>
+            <a @*asp-area="Client"*@ asp-controller="Orders" asp-action="ShowCart" class="btn btn-default">Cancel</a>
+        </div>
+    </div>
+}
+else
+{
+    <h6>No products selected.</h6>
+    <br />
+    <h6>Order some?</h6>
+    <div class="form-group">
+        <div class="col-sm-10">
+            <a asp-page="/Menu/Salats" class="btn btn-success">Menu</a>
+        </div>
+    </div>
+}

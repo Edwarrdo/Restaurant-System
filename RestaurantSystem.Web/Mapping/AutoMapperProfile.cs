@@ -3,6 +3,7 @@ using RestaurantSystem.Models;
 using RestaurantSystem.Web.Areas.Admin.Models.BindingModels;
 using RestaurantSystem.Web.Areas.Admin.Models.ViewModels;
 using RestaurantSystem.Web.Areas.Employee.Models.ViewModels;
+using RestaurantSystem.Web.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +34,8 @@ namespace RestaurantSystem.Web.Mapping
             this.CreateMap<Food, FoodConciseViewModel>();
 
             this.CreateMap<User, Areas.Employee.Models.ViewModels.EmployeeDetailsViewModel>();
+
+            this.CreateMap<Food, MealConciseViewModel>();
         }
     }
 }
