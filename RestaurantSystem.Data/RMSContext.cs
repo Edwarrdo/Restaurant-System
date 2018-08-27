@@ -34,23 +34,11 @@ namespace RestaurantSystem.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<FoodProduct>()
-                .HasKey(fp => new { fp.FoodId, fp.ProductId });
-
-            builder.Entity<DrinkIngredient>()
-                .HasKey(di => new { di.DrinkId, di.IngredientId });
-
-            builder.Entity<OrderDrink>()
-                .HasKey(od => new { od.DrinkId, od.OrderId });
-
-            builder.Entity<OrderFood>()
-                .HasKey(of => new { of.FoodId, of.OrderId });
-
             builder.Entity<Order>()
                 .HasOne(o => o.Waiter)
                 .WithMany(w => w.Orders)
                 .HasForeignKey(o => o.WaiterId);
-
+            
             base.OnModelCreating(builder);
         }
     }

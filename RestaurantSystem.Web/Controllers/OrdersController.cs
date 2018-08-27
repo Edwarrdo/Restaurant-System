@@ -59,6 +59,7 @@ namespace RestaurantSystem.Web.Controllers
             return View();
         }
 
+        [HttpPost]
         public async Task<IActionResult> MakeAnOrder(TablesBindingModel model)
         {
             var meals = GetOrderMealsFromSession();
@@ -68,8 +69,12 @@ namespace RestaurantSystem.Web.Controllers
                 FoodId = m.Id,
                 OrderId = order.Id
             }));
-            order.TableNumbers = model.Tables[0];
+            order.TableNumbers = string.Join(",", model.Tables);
             order.IsFinished = false;
+            order.MealsAreFinished = false;
+            order.DrinksAreFinished = false;
+            order.DrinkIsBeingPrepped = false;
+            order.IsBeingCooked = false;
             order.Price = meals.Sum(m => m.Price);
             order.TimeOfOrder = DateTime.Now;
             this.context.Orders.Add(order);

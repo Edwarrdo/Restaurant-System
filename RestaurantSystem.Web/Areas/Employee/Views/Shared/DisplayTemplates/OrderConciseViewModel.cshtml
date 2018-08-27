@@ -5,10 +5,9 @@
     <td>@Model.Price</td>
     <td>@Model.TimeOfOrder</td>
     <td>
-        <a asp-area="Employee" asp-controller="Orders" asp-action="Details" asp-route-id="@Model.Id"
+        <a asp-area="Employee" asp-controller="Orders" asp-action="OrderDetails" asp-route-id="@Model.Id"
            class="btn btn-info">Details</a>
-        <a asp-area="Employee" asp-controller="Orders" asp-action="Approve" asp-route-id="@Model.Id"
-           class="btn btn-danger">Approve</a>
+        <partial name="ApproveOrTakeOrderButtonPartial" />
     </td>
 </tr>
 

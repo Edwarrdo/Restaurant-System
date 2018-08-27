@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RestaurantSystem.Data;
 
 namespace RestaurantSystem.Data.Migrations
 {
     [DbContext(typeof(RMSContext))]
-    partial class RMSContextModelSnapshot : ModelSnapshot
+    [Migration("20180827081034_OrderDrinkFoodHasId")]
+    partial class OrderDrinkFoodHasId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -151,17 +153,11 @@ namespace RestaurantSystem.Data.Migrations
 
             modelBuilder.Entity("RestaurantSystem.Models.DrinkIngredient", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<int>("DrinkId");
 
                     b.Property<int>("IngredientId");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("DrinkId");
+                    b.HasKey("DrinkId", "IngredientId");
 
                     b.HasIndex("IngredientId");
 
@@ -194,17 +190,11 @@ namespace RestaurantSystem.Data.Migrations
 
             modelBuilder.Entity("RestaurantSystem.Models.FoodProduct", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<int>("FoodId");
 
                     b.Property<int>("ProductId");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("FoodId");
+                    b.HasKey("FoodId", "ProductId");
 
                     b.HasIndex("ProductId");
 
@@ -237,15 +227,9 @@ namespace RestaurantSystem.Data.Migrations
 
                     b.Property<string>("ChefId");
 
-                    b.Property<bool>("DrinkIsBeingPrepped");
-
-                    b.Property<bool>("DrinksAreFinished");
-
                     b.Property<bool>("IsBeingCooked");
 
                     b.Property<bool>("IsFinished");
-
-                    b.Property<bool>("MealsAreFinished");
 
                     b.Property<double>("Price");
 

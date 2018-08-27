@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RestaurantSystem.Data;
 
 namespace RestaurantSystem.Data.Migrations
 {
     [DbContext(typeof(RMSContext))]
-    partial class RMSContextModelSnapshot : ModelSnapshot
+    [Migration("20180827124739_DrinkIsBeingPrepped")]
+    partial class DrinkIsBeingPrepped
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -239,13 +241,9 @@ namespace RestaurantSystem.Data.Migrations
 
                     b.Property<bool>("DrinkIsBeingPrepped");
 
-                    b.Property<bool>("DrinksAreFinished");
-
                     b.Property<bool>("IsBeingCooked");
 
                     b.Property<bool>("IsFinished");
-
-                    b.Property<bool>("MealsAreFinished");
 
                     b.Property<double>("Price");
 

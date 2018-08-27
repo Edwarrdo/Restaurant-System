@@ -1,0 +1,50 @@
+﻿@model OrderViewModel
+@{
+    ViewData["Title"] = "OrderDetails";
+}
+
+<h2>Order Details:</h2>
+<hr />
+@if (Model.Meals != null && Model.Meals.Any() && (User.IsInRole("Waiter") || User.IsInRole("Chef")))
+{
+    <h3>Meals Ordered:</h3>
+    @foreach (var food in Model.Meals)
+    {
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="~/images/home_page_banner_0.jpeg" alt="Card image cap">
+            <div class="card-body">
+                <h3 class="card-title">@food.Name</h3>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Price: @food.Price$</li>
+                <li class="list-group-item">DishWeight: @(food.DishWeight)g</li>
+            </ul>
+        </div>
+        <br />
+    }
+}
+
+@if (Model.Drinks != null && Model.Drinks.Any() && (User.IsInRole("Waiter") || User.IsInRole("Chef")))
+{
+    <h3>Drinks Ordered:</h3>
+    @foreach (var drink in Model.Drinks)
+    {
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="~/images/home_page_banner_0.jpeg" alt="Card image cap">
+            <div class="card-body">
+                <h3 class="card-title">@drink.Name</h3>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Price: @drink.Price$</li>
+                <li class="list-group-item">Milliliters: @(drink.Milliliters)g</li>
+            </ul>
+        </div>
+    }
+}
+
+@if (User.IsInRole("Waiter"))
+{
+    <hr />
+    <h2>Total Price: @Model.Price</h2>
+    <h2>Tables: @Model.TableNumbers</h2>
+}

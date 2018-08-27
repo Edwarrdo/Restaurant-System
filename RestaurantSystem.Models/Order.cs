@@ -29,8 +29,15 @@ namespace RestaurantSystem.Models
 
         public bool IsBeingCooked { get; set; } = false;
 
-        [Required]
+        public bool DrinkIsBeingPrepped { get; set; } = false;
+
         public bool IsFinished { get; set; }
+
+        [Required]
+        public bool MealsAreFinished { get; set; }
+
+        [Required]
+        public bool DrinksAreFinished { get; set; }
 
         [Required]
         public DateTime TimeOfOrder { get; set; }

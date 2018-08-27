@@ -29,15 +29,21 @@ namespace RestaurantSystem.Web.Mapping
 
             this.CreateMap<DrinkBindingModel, Drink>();
 
-            this.CreateMap<Drink, DrinkConciseViewModel>();
+            this.CreateMap<Drink, Areas.Admin.Models.ViewModels.DrinkConciseViewModel>();
 
-            this.CreateMap<Food, FoodConciseViewModel>();
+            this.CreateMap<Food, Areas.Admin.Models.ViewModels.FoodConciseViewModel>();
 
             this.CreateMap<User, Areas.Employee.Models.ViewModels.EmployeeDetailsViewModel>();
 
             this.CreateMap<Food, MealConciseViewModel>();
 
             this.CreateMap<Order, OrderConciseViewModel>();
+
+            this.CreateMap<Food, Areas.Employee.Models.ViewModels.FoodConciseViewModel>();
+
+            this.CreateMap<Drink, Areas.Employee.Models.ViewModels.DrinkConciseViewModel>();
+
+
         }
     }
 }

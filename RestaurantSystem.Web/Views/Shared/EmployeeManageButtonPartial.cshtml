@@ -1,14 +1,28 @@
-﻿<li class="nav-item active">
-    @if (User.IsInRole("Waiter"))
-    {
-        <a asp-area="Employee" asp-controller="Orders" asp-action="ApproveOrders" class="nav-link">Manage Orders</a>
-    }
-    else if (User.IsInRole("Chef"))
-    {
-        <a asp-area="Employee" asp-controller="Orders" asp-action="Profile" class="nav-link">Manage Orders</a>
-    }
-    else //Bartender
-    {
-        <a asp-area="Employee" asp-controller="Orders" asp-action="Profile" class="nav-link">Manage Orders</a>
-    }
-</li>
+﻿
+@if (User.IsInRole("Waiter"))
+{
+    <li class="nav-item active">
+        <a asp-area="Employee" asp-controller="Orders" asp-action="OrdersForApproval" class="nav-link">Manage Orders</a>
+    </li>
+    <li class="nav-item active">
+        <a asp-area="Employee" asp-controller="Orders" asp-action="FinishedOrders" class="nav-link">Finished Orders</a>
+    </li>
+}
+else if (User.IsInRole("Chef"))
+{
+    <li class="nav-item active">
+        <a asp-area="Employee" asp-controller="Orders" asp-action="OrdersNotBeingCooked" class="nav-link">Manage Orders</a>
+    </li>
+    <li class="nav-item active">
+        <a asp-area="Employee" asp-controller="Orders" asp-action="TakenMealsOrders" class="nav-link">Taken Orders</a>
+    </li>
+}
+else //Bartender
+{
+    <li class="nav-item active">
+        <a asp-area="Employee" asp-controller="Orders" asp-action="DrinksWithoutBartender" class="nav-link">Manage Orders</a>
+    </li>
+    <li class="nav-item active">
+        <a asp-area="Employee" asp-controller="Orders" asp-action="TakenDrinks" class="nav-link">Taken Orders</a>
+    </li>
+}
