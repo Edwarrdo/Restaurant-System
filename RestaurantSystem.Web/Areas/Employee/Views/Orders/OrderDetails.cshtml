@@ -24,7 +24,7 @@
     }
 }
 
-@if (Model.Drinks != null && Model.Drinks.Any() && (User.IsInRole("Waiter") || User.IsInRole("Chef")))
+@if (Model.Drinks != null && Model.Drinks.Any() && (User.IsInRole("Waiter") || User.IsInRole("Bartender")))
 {
     <h3>Drinks Ordered:</h3>
     @foreach (var drink in Model.Drinks)
@@ -36,7 +36,7 @@
             </div>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">Price: @drink.Price$</li>
-                <li class="list-group-item">Milliliters: @(drink.Milliliters)g</li>
+                <li class="list-group-item">Milliliters: @(drink.Milliliters)ml</li>
             </ul>
         </div>
     }

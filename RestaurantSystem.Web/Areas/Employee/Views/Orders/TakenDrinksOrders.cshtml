@@ -1,19 +1,9 @@
 ﻿@model IEnumerable<OrderConciseViewModel>
 @{
-    ViewData["Title"] = "FinishedOrders";
+    ViewData["Title"] = "Taken Drinks Orders";
 }
 
-@if (TempData.ContainsKey("finishedMessage"))
-{
-    <div class="alert alert-warning alert-dismissible" role="alert">
-        @TempData["finishedMessage"]
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-}
-
-<h2>Finished Orders</h2>
+<h2>Taken Drinks Orders</h2>
 
 <table class="table table-striped" id="employeeTable">
     <tr>
@@ -31,8 +21,8 @@
             <td>
                 <a asp-area="Employee" asp-controller="Orders" asp-action="OrderDetails" asp-route-id="@order.Id"
                    class="btn btn-info">Details</a>
-                <a asp-area="Employee" asp-controller="Orders" asp-action="PayForOrder" asp-route-id="@order.Id"
-                   class="btn btn-success">Payment</a>
+                <a asp-area="Employee" asp-controller="Orders" asp-action="FinishDrinksOrder" asp-route-id="@order.Id"
+                   class="btn btn-success">Finish</a>
             </td>
         </tr>
 

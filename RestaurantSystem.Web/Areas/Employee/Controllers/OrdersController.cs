@@ -23,6 +23,8 @@ namespace RestaurantSystem.Web.Areas.Employee.Controllers
             this.mapper = mapper;
         }
 
+        //TODO: divide methods in appropriate controllers (WaiterController...)
+
         [HttpGet]
         public IActionResult OrdersForApproval()
         {
@@ -81,7 +83,7 @@ namespace RestaurantSystem.Web.Areas.Employee.Controllers
         [HttpGet]
         public IActionResult OrdersNotBeingCooked()
         {
-            var orders = this.context.Orders.Where(o => o.Approved == true && o.IsBeingCooked == false && o.MealsAreFinished == false);
+            var orders = this.context.Orders.Where(o => o.Approved && !o.IsBeingCooked && !o.MealsAreFinished && o.OrderFoods != null);
             var ordersModel = this.mapper.Map<IEnumerable<OrderConciseViewModel>>(orders);
             return View(ordersModel);
         }
@@ -134,7 +136,7 @@ namespace RestaurantSystem.Web.Areas.Employee.Controllers
         public async Task<IActionResult> PayForOrder(int id)
         {
             var order = this.context.Orders.FirstOrDefault(o => o.Id == id);
-            if((order.OrderDrinks.Any() && !order.DrinksAreFinished) || (order.OrderFoods.Any() && !order.MealsAreFinished))
+            if(order.IsBeingCooked || order.DrinksAreBeingPrepped || (order.OrderDrinks != null && !order.DrinksAreFinished) || (order.OrderFoods != null && !order.MealsAreFinished))
             {
                 TempData["finishedMessage"] = "Some things have not been delivered yet!";
                 return RedirectToAction("FinishedOrders", "Orders", new { area = "Employee" });
@@ -143,6 +145,47 @@ namespace RestaurantSystem.Web.Areas.Employee.Controllers
             await this.context.SaveChangesAsync();
 
             return RedirectToAction("FinishedOrders", "Orders", new { area = "Employee" });
+        }
+
+        [HttpGet]
+        public IActionResult DrinksWithoutBartender()
+        {
+            var orders = this.context.Orders.Where(o => o.Approved && !o.DrinksAreFinished && !o.DrinksAreBeingPrepped && o.OrderDrinks != null && o.OrderDrinks.Any());
+            var ordersModel = this.mapper.Map<IEnumerable<OrderConciseViewModel>>(orders);
+            return View(ordersModel);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> BartenderTakeOrder(int id)
+        {
+            var order = this.context.Orders.FirstOrDefault(o => o.Id == id);
+            order.DrinksAreBeingPrepped = true;
+            await this.context.SaveChangesAsync();
+
+            return RedirectToAction("DrinksWithoutBartender", "Orders", new { area = "Employee" });
+        }
+
+        [HttpGet]
+        public IActionResult TakenDrinksOrders()
+        {
+            var orders = this.context.Orders.Where(o => o.DrinksAreBeingPrepped);
+            var ordersModel = this.mapper.Map<IEnumerable<OrderConciseViewModel>>(orders);
+            return View(ordersModel);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> FinishDrinksOrder(int id)
+        {
+            var order = this.context.Orders.FirstOrDefault(o => o.Id == id);
+            if (order.MealsAreFinished || order.OrderFoods == null)
+            {
+                order.IsFinished = true;
+            }
+            order.DrinksAreBeingPrepped = false;
+            order.DrinksAreFinished = true;
+            await this.context.SaveChangesAsync();
+
+            return RedirectToAction("TakenDrinksOrders", "Orders", new { area = "Employee" });
         }
 
         private User GetCurrentUser()

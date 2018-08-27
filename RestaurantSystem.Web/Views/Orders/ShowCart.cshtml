@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MealConciseViewModel>
+﻿@model CartViewModel
 @{
     ViewData["Title"] = "ShowCart";
 }
@@ -15,13 +15,14 @@
             <th>DishWeight</th>
             <th>Category</th>
         </tr>
-        @Html.DisplayForModel()
+        @Html.DisplayFor(c => c.Meals)
+        @Html.DisplayFor(c => c.Drinks)
     </table>
     <div class="form-group">
         <div class="col-sm-10">
             <strong>
                 Total Price:
-                @Model.Sum(m => m.Price)
+                @(Model.Drinks.Sum(d => d.Price) + @Model.Meals.Sum(m => m.Price))
             </strong>
         </div>
     </div>

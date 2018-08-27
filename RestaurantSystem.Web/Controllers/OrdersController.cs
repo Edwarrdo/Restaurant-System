@@ -32,8 +32,15 @@ namespace RestaurantSystem.Web.Controllers
                 return View();
             }
             var meals = GetOrderMealsFromSession();
+            var drinks = GetOrderDrinksFromSession();
             var mealsModel = this.mapper.Map<IEnumerable<MealConciseViewModel>>(meals);
-            return View(mealsModel);
+            var drinksModel = this.mapper.Map<IEnumerable<DrinkConciseViewModel>>(drinks);
+            var model = new CartViewModel()
+            {
+                Drinks = drinksModel,
+                Meals = mealsModel
+            };
+            return View(model);
         }
 
         [HttpGet]
@@ -63,17 +70,23 @@ namespace RestaurantSystem.Web.Controllers
         public async Task<IActionResult> MakeAnOrder(TablesBindingModel model)
         {
             var meals = GetOrderMealsFromSession();
+            var drinks = GetOrderDrinksFromSession();
             var order = new Order();
             order.OrderFoods = new List<OrderFood> (meals.Select(m => new OrderFood
             {
                 FoodId = m.Id,
                 OrderId = order.Id
             }));
+            order.OrderDrinks = new List<OrderDrink>(drinks.Select(d => new OrderDrink
+            {
+                DrinkId = d.Id,
+                OrderId = order.Id
+            }));
             order.TableNumbers = string.Join(",", model.Tables);
             order.IsFinished = false;
             order.MealsAreFinished = false;
             order.DrinksAreFinished = false;
-            order.DrinkIsBeingPrepped = false;
+            order.DrinksAreBeingPrepped = false;
             order.IsBeingCooked = false;
             order.Price = meals.Sum(m => m.Price);
             order.TimeOfOrder = DateTime.Now;
@@ -96,6 +109,18 @@ namespace RestaurantSystem.Web.Controllers
                 meals.Add(meal);
             }
             return meals;
+        }
+
+        private List<Drink> GetOrderDrinksFromSession()
+        {
+            var orderIds = HttpContext.Session.GetString("drinks").Split(",").Select(int.Parse).ToArray();
+            var drinks = new List<Drink>();
+            foreach (var id in orderIds)
+            {
+                var drink = this.context.Drinks.FirstOrDefault(f => f.Id == id);
+                drinks.Add(drink);
+            }
+            return drinks;
         }
     }
 }

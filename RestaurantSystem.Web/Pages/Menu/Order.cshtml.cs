@@ -38,5 +38,20 @@ namespace RestaurantSystem.Web.Pages.Menu
             var category = meal.Category;
             return RedirectToPage(category + "s");
         }
+
+        public IActionResult OnGetOrderDrink(int id)
+        {
+            if (HttpContext.Session.GetString("drinks") != null)
+            {
+                var drinks = HttpContext.Session.GetString("drinks");
+                HttpContext.Session.SetString("drinks", drinks + "," + id.ToString());
+            }
+            else
+            {
+                HttpContext.Session.SetString("drinks", id.ToString());
+            }
+
+            return RedirectToPage("Drinks");
+        }
     }
 }
