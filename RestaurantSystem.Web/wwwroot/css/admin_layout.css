@@ -127,15 +127,12 @@ a:focus {
         display: block;
     }
 
-        /*#sidebar ul li a:hover {
-            color: #69696A;
-            background: #fff;
-        }*/
-        /**/
-            /*#sidebar ul li a:hover img {
-                background: #69696A;
-            }*/
-
+.hoverLink:hover {
+    color: #4B4B4B;
+}
+.hoverLink a:hover{
+    background-color:#ffffff;
+}
     #sidebar ul li.active > a,
     a[aria-expanded="true"] {
         color: #fff;
