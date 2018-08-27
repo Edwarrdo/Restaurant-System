@@ -13,8 +13,10 @@ namespace RestaurantSystem.Models
         public string TableNumbers { get; set; }
 
         public string WaiterId { get; set; }
-        [Required]
         public User Waiter { get; set; }
+
+        public string ChefId { get; set; }
+        public User Chef { get; set; }
 
         public IEnumerable<OrderDrink> OrderDrinks { get; set; }
 
@@ -22,6 +24,10 @@ namespace RestaurantSystem.Models
 
         [Required]
         public double Price { get; set; }
+
+        public bool Approved { get; set; } = false;
+
+        public bool IsBeingCooked { get; set; } = false;
 
         [Required]
         public bool IsFinished { get; set; }
