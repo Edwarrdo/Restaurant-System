@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RestaurantSystem.Data\RestaurantSystem.Data.csproj" />
+    <ProjectReference Include="..\RestaurantSystem.Services\RestaurantSystem.Services.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -109,17 +109,35 @@
                     <button type="button" id="sidebarCollapse" class="btn btn-outline-light">
                         <span>Toogle Sidebar</span>
                     </button>
-                   
+
                     @await Html.PartialAsync("_LoginPartial")
                 </div>
 
             </nav>
 
             <partial name="_CookieConsentPartial" />
+            @if (TempData.ContainsKey("message"))
+            {
+                <div class="alert alert-info alert-dismissible" role="alert">
+                    @TempData["message"]
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
 
+            }
+            else if (TempData.ContainsKey("errorMessage"))
+            {
+                <div class="alert alert-danger alert-dismissible" role="alert">
+                    @TempData["errorMessage"]
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            }
             @RenderBody()
 
-     
+
 
         </div>
         </div>
