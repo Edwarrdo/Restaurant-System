@@ -16,6 +16,8 @@ using RestaurantSystem.Models;
 using RestaurantSystem.Web.Common;
 using AutoMapper;
 using RestaurantSystem.Web.Hubs;
+using RestaurantSystem.Services.Admin.Interfaces;
+using RestaurantSystem.Services.Admin;
 
 namespace RestaurantSystem.Web
 {
@@ -68,10 +70,14 @@ namespace RestaurantSystem.Web
 
             services.AddSession();
 
+            RegisterServiceLayer(services);
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddSignalR();
         }
+
+        
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(
@@ -115,6 +121,12 @@ namespace RestaurantSystem.Web
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+        }
+
+        private void RegisterServiceLayer(IServiceCollection services)
+        {
+            services.AddScoped<IAdminEmployeesService, AdminEmployeesService>();
+            services.AddScoped<IAdminStorageService, AdminStorageService>();
         }
     }
 }

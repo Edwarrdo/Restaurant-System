@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
+using RestaurantSystem.Common.Admin.BindingModels;
+using RestaurantSystem.Common.Admin.ViewModels;
 using RestaurantSystem.Models;
-using RestaurantSystem.Web.Areas.Admin.Models.BindingModels;
-using RestaurantSystem.Web.Areas.Admin.Models.ViewModels;
 using RestaurantSystem.Web.Areas.Employee.Models.ViewModels;
 using RestaurantSystem.Web.Models.ViewModels;
 using System;
@@ -19,7 +19,7 @@ namespace RestaurantSystem.Web.Mapping
 
             this.CreateMap<User, EmployeeConciseViewModel>();
 
-            this.CreateMap<User, Areas.Admin.Models.ViewModels.EmployeeDetailsViewModel>();
+            this.CreateMap<User, RestaurantSystem.Common.Admin.ViewModels.EmployeeDetailsViewModel>();
 
             this.CreateMap<ProductCreationBindingModel, Product>();
 
@@ -29,11 +29,11 @@ namespace RestaurantSystem.Web.Mapping
 
             this.CreateMap<DrinkBindingModel, Drink>();
 
-            this.CreateMap<Drink, Areas.Admin.Models.ViewModels.DrinkConciseViewModel>();
+            this.CreateMap<Drink, RestaurantSystem.Common.Admin.ViewModels.DrinkConciseViewModel>();
 
-            this.CreateMap<Food, Areas.Admin.Models.ViewModels.FoodConciseViewModel>();
+            this.CreateMap<Food, RestaurantSystem.Common.Admin.ViewModels.FoodConciseViewModel>();
 
-            this.CreateMap<User, Areas.Employee.Models.ViewModels.EmployeeDetailsViewModel>();
+            this.CreateMap<User, RestaurantSystem.Common.Admin.ViewModels.EmployeeDetailsViewModel>();
 
             this.CreateMap<Food, MealConciseViewModel>();
 
