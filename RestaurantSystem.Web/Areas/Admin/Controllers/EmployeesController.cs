@@ -27,7 +27,6 @@ namespace RestaurantSystem.Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(EmployeeCreationBindingModel model)
         {
             if(!ModelState.IsValid)
