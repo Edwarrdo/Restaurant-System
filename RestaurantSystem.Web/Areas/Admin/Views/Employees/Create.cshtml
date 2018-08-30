@@ -2,87 +2,116 @@
 @{
     ViewData["Title"] = "Hire Employee";
 }
-
-<h2>Hire Employee</h2>
-<hr />
-<form asp-area="Admin" asp-controller="Employees" asp-action="Create" method="post" class="form-horizontal">
-    <div class="form-group">
-        <label asp-for="FirstName"></label>
-        <input asp-for="FirstName" id="firstName" class="form-control" />
-        <span asp-validation-for="FirstName" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="LastName"></label>
-        <input asp-for="LastName" id="lastName" class="form-control" />
-        <span asp-validation-for="LastName" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Password"></label>
-        <input asp-for="Password" class="form-control" />
-        <span asp-validation-for="Password" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="ConfirmPassword"></label>
-        <input asp-for="ConfirmPassword" class="form-control" />
-        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Email"></label>
-        <input asp-for="Email" id="email" class="form-control" />
-        <span asp-validation-for="Email" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Role"></label>
-        @Html.DropDownListFor(m => m.Role, new SelectList(new string[] { "Chef", "Bartender", "Waiter" }), "- Please select a role -", new { @class = "form-control" })
-        <span asp-validation-for="Role" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="EGN"></label>
-        <input asp-for="EGN" class="form-control" />
-        <span asp-validation-for="EGN" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="PhoneNumber"></label>
-        <input asp-for="PhoneNumber" id="phoneNumber" class="form-control" />
-        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Salary"></label>
-        <input asp-for="Salary" class="form-control" />
-        <span asp-validation-for="Salary" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Address"></label>
-        <input asp-for="Address" class="form-control" />
-        <span asp-validation-for="Address" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Education"></label>
-        <input asp-for="Education" class="form-control" />
-        <span asp-validation-for="Education" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="HireDate"></label>
-        <input asp-for="HireDate" class="form-control" />
-        <span asp-validation-for="HireDate" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Experience"></label>
-        <input asp-for="Experience" class="form-control" />
-        <span asp-validation-for="Experience" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="VacationDays"></label>
-        <input asp-for="VacationDays" class="form-control" />
-        <span asp-validation-for="VacationDays" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <div class="col-sm-10">
-            <input type="submit" value="Create" id="sendButton" class="btn btn-success" />
-            <a asp-area="Admin" asp-controller="Employees" asp-action="Create" class="btn btn-default">Cancel</a>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="m-2 text-uppercase">Hire Employee</h1>
+            <hr />
         </div>
     </div>
-</form>
+
+
+    <form asp-area="Admin" asp-controller="Employees" asp-action="Create" method="post" class="form-horizontal">
+
+        <h3>Personal Info</h3>
+        <div class="form-group">
+            <label asp-for="FirstName">First Name</label>
+            <input asp-for="FirstName" id="firstName" class="form-control" />
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="LastName">Last Name</label>
+            <input asp-for="LastName" id="lastName" class="form-control" />
+            <span asp-validation-for="LastName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="EGN">PIN /ЕГН/</label>
+            <input asp-for="EGN" class="form-control" />
+            <span asp-validation-for="EGN" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Address">Address</label>
+            <input asp-for="Address" class="form-control" />
+            <span asp-validation-for="Address" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="PhoneNumber">Phone Number</label>
+            <input asp-for="PhoneNumber" id="phoneNumber" class="form-control" />
+            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+        </div>
+
+
+        <h3>Registration Info</h3>
+        <div class="form-group">
+            <label asp-for="Password">Password </label>
+            <input asp-for="Password" class="form-control" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="ConfirmPassword">Confirm Password</label>
+            <input asp-for="ConfirmPassword" class="form-control" />
+            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Email">Email</label>
+            <input asp-for="Email" id="email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+
+
+        <h3>Job Info</h3>
+        <div class="form-group">
+            <label asp-for="Role">Role</label>
+            @Html.DropDownListFor(m => m.Role, new SelectList(new string[] { "Chef", "Bartender", "Waiter" }), "- Please select a role -", new { @class = "form-control" })
+            <span asp-validation-for="Role" class="text-danger"></span>
+        </div>
+
+
+
+
+        <h3>HR Info</h3>
+        <div class="form-group">
+            <label asp-for="Education">Education</label>
+            <input asp-for="Education" class="form-control" />
+            <span asp-validation-for="Education" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Experience">Experience</label>
+            <input asp-for="Experience" class="form-control" />
+            <span asp-validation-for="Experience" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Salary">Salary</label>
+            <input asp-for="Salary" class="form-control" />
+            <span asp-validation-for="Salary" class="text-danger"></span>
+        </div>
+
+
+        <div class="form-group">
+            <label asp-for="HireDate">Hire Date</label>
+            <input asp-for="HireDate" class="form-control" />
+            <span asp-validation-for="HireDate" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="VacationDays">Vacation Days</label>
+            <input asp-for="VacationDays" class="form-control" />
+            <span asp-validation-for="VacationDays" class="text-danger"></span>
+        </div>
+
+
+        <div class="form-group cancelAndCreate">
+
+
+            <input type="submit" value="Create" id="sendButton" class="btn btn-success" />
+            <a asp-area="Admin" asp-controller="Employees" asp-action="Create" class="btn btn-default">Cancel</a>
+
+        </div>
+
+
+    </form>
+</div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

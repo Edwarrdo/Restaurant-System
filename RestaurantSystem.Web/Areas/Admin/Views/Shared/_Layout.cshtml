@@ -8,7 +8,7 @@
     <environment names="Development">
         <link rel="stylesheet" href="~/lib/wwwroot/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/admin_layout.css" />
-        <link href="~/lib/wwwroot/lib/bootstrap-select/dist/css/bootstrap-select.css" rel="stylesheet" />
+        <link  rel="stylesheet"  href="~/lib/wwwroot/lib/bootstrap-select/dist/css/bootstrap-select.css"/>
     </environment>
     <environment names="Staging,Production">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/4.1.3/css/bootstrap.min.css"
@@ -18,112 +18,79 @@
     </environment>
 </head>
 <body>
- 
-    <!-- Sidebar Holder -->
-    <div class="wrapper">
-        <!-- Sidebar  -->
-        <nav id="sidebar">
-            <div class="sidebar-header">
-                <h3>Timev's restaurant</h3>
-                <img src="~/images/small_logo_white.png" class="img-fluid" alt="m logo white" />
-            </div>
-            <ul class="list-unstyled components">
-                <li class="mb-3">
-                    <a href="#employeeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                       Manage Employees
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Timev's restaurant</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Manage Employees
                     </a>
-                    <ul class="collapse list-unstyled" id="employeeSubmenu">
-                        <li class="hoverLink">
-                            <a asp-area="Admin" asp-controller="Employees" asp-action="Create"><img src="~/images/hire_employee_icon.png" alt="hire employee icon" class="img-fluid submenuImg"/>Hire Employee</a>
-                        </li>
-                        <li  class="hoverLink">
-                            <a asp-area="Admin" asp-controller="Employees" asp-action="AllEmployees"> <img src="~/images/view_all_employees_icon.png" alt="view all employee"  class="img-fluid submenuImg"/>View all employees</a>
-                        </li>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 
-                    </ul>
+
+                        <a asp-area="Admin" asp-controller="Employees" asp-action="Create" class="dropdown-item">Hire Employee</a>
+
+
+                        <a asp-area="Admin" asp-controller="Employees" asp-action="AllEmployees" class="dropdown-item">View all employees</a>
+
+
+
+                    </div>
                 </li>
-                <li class="mb-3">
-
-                    <a href="#menuSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Menu
                     </a>
-                    <ul class="collapse list-unstyled" id="menuSubmenu">
-                        <li class="hoverLink">
-                            <a href="#"><img src="~/images/lunch_menu.png" alt="hire employee icon" class="img-fluid submenuImg" />Manage Lunch Menu</a>
-                        </li>
-                        <li class="hoverLink">
-                            <a asp-page="/Menu/Salats"><img src="~/images/main_menu.png" alt="hire employee icon" class="img-fluid submenuImg" />Manage Main Menu</a>
-                        </li>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a href="#" class="dropdown-item">Manage Lunch Menu</a>
 
-                    </ul>
+                        <a asp-page="/Menu/Salats" class="dropdown-item">Manage Main Menu</a>
+
+                    </div>
                 </li>
-                <li class="mb-3">
-
-                    <a href="#mealsSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Manage Meals
                     </a>
-                    <ul class="collapse list-unstyled" id="mealsSubmenu">
-                        <li>
-                            <a asp-area="Admin" asp-controller="Storage" asp-action="AddMeal">Add meal</a>
-                        </li>
-                        <li>
-                            <a asp-area="Admin" asp-controller="Storage" asp-action="AddProduct">Add product</a>
-                        </li>
-                        <li>
-                            <a asp-area="Admin" asp-controller="Storage" asp-action="AllMeals">View all meals</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="bottomAfterFooter">
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 
-                    <a href="#drinksSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <a asp-area="Admin" asp-controller="Storage" asp-action="AddMeal" class="dropdown-item">Add meal</a>
+
+                        <a asp-area="Admin" asp-controller="Storage" asp-action="AddProduct" class="dropdown-item">Add product</a>
+
+                        <a asp-area="Admin" asp-controller="Storage" asp-action="AllMeals" class="dropdown-item">View all meals</a>
+
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Manage Drinks
                     </a>
-                    <ul class="collapse list-unstyled" id="drinksSubmenu">
-                        <li>
-                            <a asp-area="Admin" asp-controller="Storage" asp-action="AddDrink">Add drink</a>
-                        </li>
-                        <li>
-                            <a asp-area="Admin" asp-controller="Storage" asp-action="AddIngredient">Add ingredient</a>
-                        </li>
-                        <li>
-                            <a asp-area="Admin" asp-controller="Storage" asp-action="AllDrinks">View all drinks</a>
-                        </li>
-                    </ul>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+
+                        <a asp-area="Admin" asp-controller="Storage" asp-action="AddDrink" class="dropdown-item">Add drink</a>
+
+                        <a asp-area="Admin" asp-controller="Storage" asp-action="AddIngredient" class="dropdown-item">Add ingredient</a>
+
+
+                        <a asp-area="Admin" asp-controller="Storage" asp-action="AllDrinks" class="dropdown-item">View all drinks</a>
+
+                    </div>
                 </li>
-               
-            </ul>
-            
-
-                <footer class="footer">
-                    <p class="footerParagraph">&copy; 2018 - Timev's restaurant</p>
-                </footer>
-         
-
-
-        </nav>
-        <!-- Page Content  -->
-        <div id="content">
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                <div class="container-fluid">
-                    <button type="button" id="sidebarCollapse" class="btn btn-outline-light">
-                        <span>Toogle Sidebar</span>
-                    </button>
-                   
-                    @await Html.PartialAsync("_LoginPartial")
-                </div>
-
-            </nav>
-
-            <partial name="_CookieConsentPartial" />
-
-            @RenderBody()
-
-     
-
+</ul>
         </div>
-        </div>
-        
+        @await Html.PartialAsync("_LoginPartial")
+    </nav>
+
+    @RenderBody()
+
+    <footer class="footer">
+        <p>&copy; 2018 - Timev's restaurant</p>
+    </footer>
 
     <environment names="Development">
         <script src="~/lib/wwwroot/lib/popper.js/dist/umd/popper.js"></script>
@@ -132,19 +99,19 @@
         <script src="~/lib/wwwroot/lib/bootstrap-select/dist/js/bootstrap-select.js"></script>
         <script src="~/js/admin_layout.js" asp-append-version="true"></script>
     </environment>
-        <environment names="Staging,Production">
-            <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
-                    asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                    asp-fallback-test="window.jQuery">
-            </script>
-            <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/4.1.3/bootstrap.min.js"
-                    asp-fallback-src="~/lib/wwwroot/lib/boostrap/dist/js/boostrap.js"
-                    asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
-            </script>
-            <script src="~/js/admin_layout.js" asp-append-version="true"></script>
-        </environment>
+    <environment names="Staging,Production">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/4.1.3/bootstrap.min.js"
+                asp-fallback-src="~/lib/wwwroot/lib/boostrap/dist/js/boostrap.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
+        </script>
+        <script src="~/js/admin_layout.js" asp-append-version="true"></script>
+    </environment>
 
 
-        @RenderSection("Scripts", required: false)
+    @RenderSection("Scripts", required: false)
 </body>
 </html>
