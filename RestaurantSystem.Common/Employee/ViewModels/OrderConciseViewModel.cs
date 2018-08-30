@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RestaurantSystem.Web.Areas.Employee.Models.ViewModels
+namespace RestaurantSystem.Common.Employee.ViewModels
 {
     public class OrderConciseViewModel
     {

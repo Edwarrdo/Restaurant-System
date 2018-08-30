@@ -1,42 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using RestaurantSystem.Data;
-using RestaurantSystem.Models;
-using RestaurantSystem.Web.Areas.Employee.Models.ViewModels;
+using RestaurantSystem.Services.Employee.Interfaces;
 
 namespace RestaurantSystem.Web.Areas.Employee.Controllers
 {
     public class WaiterController : EmployeeController
     {
-        private RMSContext context;
-        private IMapper mapper;
+        private IWaiterService waiterService;
 
-        public WaiterController(RMSContext context, IMapper mapper)
+        public WaiterController(IWaiterService waiterService)
         {
-            this.context = context;
-            this.mapper = mapper;
+            this.waiterService = waiterService;
         }
 
         [HttpGet]
         public IActionResult OrdersForApproval()
         {
-            var orders = this.context.Orders.Where(o => o.Approved == false);
-            var ordersModel = this.mapper.Map<IEnumerable<OrderConciseViewModel>>(orders);
+            var ordersModel = this.waiterService.GetOrdersForApproval();
             return View(ordersModel);
         }
 
         [HttpGet]
         public async Task<IActionResult> Approve(int id)
         {
-            var user = this.GetCurrentUser();
-            var order = this.context.Orders.FirstOrDefault(o => o.Id == id);
-            order.Approved = true;
-            order.WaiterId = user.Id;
-            await this.context.SaveChangesAsync();
+            var waiterName = this.GetCurrentUserName();
+            var result = await this.waiterService.WaiterApproveOrder(waiterName, id);
+            if (result == 0)
+            {
+                this.TempData["badMessage"] = "Could not approve order!";
+            }
+            else
+            {
+                this.TempData["goodMessage"] = "Order approved!";
+            }
 
             return RedirectToAction("OrdersForApproval", "Waiter", new { area = "Employee" });
         }
@@ -44,31 +40,29 @@ namespace RestaurantSystem.Web.Areas.Employee.Controllers
         [HttpGet]
         public IActionResult FinishedOrders()
         {
-            var orders = this.context.Orders.Where(o => o.IsFinished && o.TimeOfPayment == null);
-            var ordersModel = this.mapper.Map<IEnumerable<OrderConciseViewModel>>(orders);
+            var ordersModel = this.waiterService.GetFinishedOrders();
             return View(ordersModel);
         }
 
         [HttpGet]
         public async Task<IActionResult> PayForOrder(int id)
         {
-            var order = this.context.Orders.FirstOrDefault(o => o.Id == id);
-            if (order.IsBeingCooked || order.DrinksAreBeingPrepped || (order.OrderDrinks != null && !order.DrinksAreFinished) || (order.OrderFoods != null && !order.MealsAreFinished))
+            var result = await this.waiterService.PayForOrder(id);
+            if (result == 0)
             {
-                TempData["notFinishedMessage"] = "Some things have not been delivered yet!";
-                return RedirectToAction("FinishedOrders", "Waiter", new { area = "Employee" });
+                TempData["badMessage"] = "Some things have not been delivered yet!";
             }
-            order.TimeOfPayment = DateTime.Now;
-            await this.context.SaveChangesAsync();
-            TempData["finishedMessage"] = "Order finished!";
+            else
+            {
+                TempData["goodMessage"] = "Order finished!";
+            }
             return RedirectToAction("FinishedOrders", "Waiter", new { area = "Employee" });
         }
 
-        private User GetCurrentUser()
+        private string GetCurrentUserName()
         {
             var name = this.User.Identity.Name;
-            var user = this.context.Users.FirstOrDefault(u => u.UserName == name);
-            return user;
+            return name;
         }
     }
 }

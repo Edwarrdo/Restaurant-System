@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RestaurantSystem.Web.Areas.Employee.Models.ViewModels
+namespace RestaurantSystem.Common.Employee.ViewModels
 {
-    public class DrinkConciseViewModel
+    public class FoodConciseViewModel
     {
         public string Name { get; set; }
 
         public double Price { get; set; }
 
-        public long Milliliters { get; set; }
+        public long DishWeight { get; set; }
     }
 }

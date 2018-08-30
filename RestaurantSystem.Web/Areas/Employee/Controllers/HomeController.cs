@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using RestaurantSystem.Common.Employee.ViewModels;
 using RestaurantSystem.Data;
 using RestaurantSystem.Models;
-using RestaurantSystem.Web.Areas.Employee.Models.ViewModels;
 
 namespace RestaurantSystem.Web.Areas.Employee.Controllers
 {

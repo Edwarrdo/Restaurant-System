@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using RestaurantSystem.Common.Admin.BindingModels;
 using RestaurantSystem.Common.Admin.ViewModels;
+using RestaurantSystem.Common.Employee.ViewModels;
 using RestaurantSystem.Models;
-using RestaurantSystem.Web.Areas.Employee.Models.ViewModels;
 using RestaurantSystem.Web.Models.ViewModels;
 
 namespace RestaurantSystem.Web.Mapping
@@ -29,7 +29,7 @@ namespace RestaurantSystem.Web.Mapping
 
             this.CreateMap<Food, RestaurantSystem.Common.Admin.ViewModels.FoodConciseViewModel>();
 
-            this.CreateMap<User, Areas.Employee.Models.ViewModels.EmployeeDetailsViewModel>();
+            this.CreateMap<User, RestaurantSystem.Common.Employee.ViewModels.EmployeeDetailsViewModel>();
 
             this.CreateMap<Food, MealConciseViewModel>();
 
@@ -37,9 +37,9 @@ namespace RestaurantSystem.Web.Mapping
 
             this.CreateMap<Order, OrderConciseViewModel>();
 
-            this.CreateMap<Food, Areas.Employee.Models.ViewModels.FoodConciseViewModel>();
+            this.CreateMap<Food, RestaurantSystem.Common.Employee.ViewModels.FoodConciseViewModel>();
 
-            this.CreateMap<Drink, Areas.Employee.Models.ViewModels.DrinkConciseViewModel>();
+            this.CreateMap<Drink, RestaurantSystem.Common.Employee.ViewModels.DrinkConciseViewModel>();
 
 
         }

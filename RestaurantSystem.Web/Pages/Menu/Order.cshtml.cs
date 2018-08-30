@@ -33,6 +33,8 @@ namespace RestaurantSystem.Web.Pages.Menu
             {
                 HttpContext.Session.SetString("meals", id.ToString());
             }
+            this.TempData["goodMessage"] = "Meal added to cart!";
+
             var meal = this.context.Foods.FirstOrDefault(m => m.Id == id);
             //STUPID IDEA BUT WHO CARES IT WORKS!
             var category = meal.Category;
@@ -50,7 +52,7 @@ namespace RestaurantSystem.Web.Pages.Menu
             {
                 HttpContext.Session.SetString("drinks", id.ToString());
             }
-
+            this.TempData["goodMessage"] = "Drink added to cart!";
             return RedirectToPage("Drinks");
         }
     }

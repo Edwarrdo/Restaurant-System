@@ -1,40 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using RestaurantSystem.Data;
-using RestaurantSystem.Web.Areas.Employee.Models.ViewModels;
+using RestaurantSystem.Services.Employee.Interfaces;
 
 namespace RestaurantSystem.Web.Areas.Employee.Controllers
 {
     public class BartenderController : EmployeeController
     {
-        private RMSContext context;
-        private IMapper mapper;
+        private IBartenderService bartenderService;
 
-        public BartenderController(RMSContext context, IMapper mapper)
+        public BartenderController(IBartenderService bartenderService)
         {
-            this.context = context;
-            this.mapper = mapper;
+            this.bartenderService = bartenderService;
         }
 
         [HttpGet]
         public IActionResult DrinksWithoutBartender()
         {
-            var orders = this.context.Orders.Where(o => o.Approved && !o.DrinksAreFinished && !o.DrinksAreBeingPrepped && o.OrderDrinks != null && o.OrderDrinks.Any());
-            var ordersModel = this.mapper.Map<IEnumerable<OrderConciseViewModel>>(orders);
+            var ordersModel = this.bartenderService.GetDrinksWithoutBartender();
             return View(ordersModel);
         }
 
         [HttpGet]
         public async Task<IActionResult> BartenderTakeOrder(int id)
         {
-            var order = this.context.Orders.FirstOrDefault(o => o.Id == id);
-            order.DrinksAreBeingPrepped = true;
-            await this.context.SaveChangesAsync();
+            var result = await this.bartenderService.TakeOrderAsync(id);
+            if (result == 0)
+            {
+                this.TempData["badMessage"] = "Could not take drinks!";
+            }
+            else
+            {
+                this.TempData["goodMessage"] = "Drinks taken!";
+            }
 
             return RedirectToAction("DrinksWithoutBartender", "Bartender", new { area = "Employee" });
         }
@@ -42,22 +39,22 @@ namespace RestaurantSystem.Web.Areas.Employee.Controllers
         [HttpGet]
         public IActionResult TakenDrinksOrders()
         {
-            var orders = this.context.Orders.Where(o => o.DrinksAreBeingPrepped);
-            var ordersModel = this.mapper.Map<IEnumerable<OrderConciseViewModel>>(orders);
+            var ordersModel = this.bartenderService.GetDrinksTakenByBartender();
             return View(ordersModel);
         }
 
         [HttpGet]
         public async Task<IActionResult> FinishDrinksOrder(int id)
         {
-            var order = this.context.Orders.Include(o => o.OrderFoods).FirstOrDefault(o => o.Id == id);
-            if (order.MealsAreFinished || order.OrderFoods == null)
+            var result = await this.bartenderService.FinishOrderAsync(id);
+            if (result == 0)
             {
-                order.IsFinished = true;
+                this.TempData["badMessage"] = "Could not finish drink order!";
             }
-            order.DrinksAreBeingPrepped = false;
-            order.DrinksAreFinished = true;
-            await this.context.SaveChangesAsync();
+            else
+            {
+                this.TempData["goodMessage"] = "Drinks finished!";
+            }
 
             return RedirectToAction("TakenDrinksOrders", "Bartender", new { area = "Employee" });
         }

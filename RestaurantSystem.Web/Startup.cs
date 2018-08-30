@@ -18,6 +18,8 @@ using AutoMapper;
 using RestaurantSystem.Web.Hubs;
 using RestaurantSystem.Services.Admin.Interfaces;
 using RestaurantSystem.Services.Admin;
+using RestaurantSystem.Services.Employee.Interfaces;
+using RestaurantSystem.Services.Employee;
 
 namespace RestaurantSystem.Web
 {
@@ -127,6 +129,9 @@ namespace RestaurantSystem.Web
         {
             services.AddScoped<IAdminEmployeesService, AdminEmployeesService>();
             services.AddScoped<IAdminStorageService, AdminStorageService>();
+            services.AddScoped<IWaiterService, WaiterService>();
+            services.AddScoped<IChefService, ChefService>();
+            services.AddScoped<IBartenderService, BartenderService>();
         }
     }
 }

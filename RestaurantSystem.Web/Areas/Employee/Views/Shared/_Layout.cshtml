@@ -53,20 +53,20 @@
     </nav>
 
     <partial name="_CookieConsentPartial" />
-    @if (TempData.ContainsKey("notFinishedMessage"))
+    @if (TempData.ContainsKey("badMessage"))
     {
-        <div class="alert alert-warning alert-dismissible" role="alert">
-            @TempData["finishedMessage"]
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            @TempData["badMessage"]
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
 
     }
-    else if (TempData.ContainsKey("finishedMessage"))
+    else if (TempData.ContainsKey("goodMessage"))
     {
         <div class="alert alert-info alert-dismissible" role="alert">
-            @TempData["finishedMessage"]
+            @TempData["goodMessage"]
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>

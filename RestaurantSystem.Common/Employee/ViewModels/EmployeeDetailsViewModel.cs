@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace RestaurantSystem.Web.Areas.Employee.Models.ViewModels
+namespace RestaurantSystem.Common.Employee.ViewModels
 {
     public class EmployeeDetailsViewModel
     {

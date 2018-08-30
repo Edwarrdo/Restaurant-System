@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RestaurantSystem.Web.Areas.Employee.Models.ViewModels
+namespace RestaurantSystem.Common.Employee.ViewModels
 {
     public class OrderViewModel
     {
         public string TableNumbers { get; set; }
 
-        [AutoMapper.IgnoreMap]
+        [NotMapped]
         public IEnumerable<DrinkConciseViewModel> Drinks { get; set; }
 
-        [AutoMapper.IgnoreMap]
+        [NotMapped]
         public IEnumerable<FoodConciseViewModel> Meals { get; set; }
 
         public double Price { get; set; }

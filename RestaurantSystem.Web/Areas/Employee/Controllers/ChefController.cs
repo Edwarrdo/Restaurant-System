@@ -1,43 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using RestaurantSystem.Data;
-using RestaurantSystem.Models;
-using RestaurantSystem.Web.Areas.Employee.Models.ViewModels;
+using RestaurantSystem.Services.Employee.Interfaces;
 
 namespace RestaurantSystem.Web.Areas.Employee.Controllers
 {
     public class ChefController : EmployeeController
     {
-        private RMSContext context;
-        private IMapper mapper;
+        private IChefService chefService;
 
-        public ChefController(RMSContext context, IMapper mapper)
+        public ChefController(IChefService chefService)
         {
-            this.context = context;
-            this.mapper = mapper;
+            this.chefService = chefService;
         }
 
         [HttpGet]
         public IActionResult OrdersNotBeingCooked()
         {
-            var orders = this.context.Orders.Where(o => o.Approved && !o.IsBeingCooked && !o.MealsAreFinished && o.OrderFoods != null);
-            var ordersModel = this.mapper.Map<IEnumerable<OrderConciseViewModel>>(orders);
+            var ordersModel = this.chefService.GetMealsNotBeingCooked();
             return View(ordersModel);
         }
 
         [HttpGet]
         public async Task<IActionResult> ChefTakeOrder(int id)
         {
-            var user = GetCurrentUser();
-            var order = this.context.Orders.FirstOrDefault(o => o.Id == id);
-            order.ChefId = user.Id;
-            order.IsBeingCooked = true;
-            await this.context.SaveChangesAsync();
+            var userName = GetCurrentUserName();
+            var result = await this.chefService.TakeOrderAsync(id, userName);
+            if(result == 0)
+            {
+                this.TempData["badMessage"] = "Could not take meals!";
+            }
+            else
+            {
+                this.TempData["goodMessage"] = "Meals taken!";
+            }
 
             return RedirectToAction("OrdersNotBeingCooked", "Chef", new { area = "Employee" });
         }
@@ -45,32 +40,32 @@ namespace RestaurantSystem.Web.Areas.Employee.Controllers
         [HttpGet]
         public IActionResult TakenMealsOrders()
         {
-            var user = GetCurrentUser();
-            var orders = this.context.Orders.Where(o => o.Approved == true && o.IsBeingCooked == true && o.ChefId == user.Id);
-            var ordersModel = this.mapper.Map<IEnumerable<OrderConciseViewModel>>(orders);
+            var chefName = GetCurrentUserName();
+            var ordersModel = this.chefService.MealsTakenByChef(chefName);
             return View(ordersModel);
         }
 
         [HttpGet]
         public async Task<IActionResult> FinishMealsOrder(int id)
         {
-            var order = this.context.Orders.Include(o => o.OrderDrinks).FirstOrDefault(o => o.Id == id);
-            if (order.DrinksAreFinished || order.OrderDrinks == null)
+            var result = await this.chefService.FinishOrderAsync(id);
+
+            if(result == 0)
             {
-                order.IsFinished = true;
+                this.TempData["badMessage"] = "Could not finish meal order!";
             }
-            order.IsBeingCooked = false;
-            order.MealsAreFinished = true;
-            await this.context.SaveChangesAsync();
+            else
+            {
+                this.TempData["goodMessage"] = "Meals finished!";
+            }
 
             return RedirectToAction("TakenMealsOrders", "Chef", new { area = "Employee" });
         }
 
-        private User GetCurrentUser()
+        private string GetCurrentUserName()
         {
             var name = this.User.Identity.Name;
-            var user = this.context.Users.FirstOrDefault(u => u.UserName == name);
-            return user;
+            return name;
         }
     }
 }
