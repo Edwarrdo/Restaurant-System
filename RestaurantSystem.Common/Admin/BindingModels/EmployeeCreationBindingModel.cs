@@ -14,6 +14,9 @@ namespace RestaurantSystem.Common.Admin.BindingModels
         [Required]
         public string LastName { get; set; }
 
+        [Required]
+        public string UserName { get; set; }
+
         public bool IsEmployee { get; set; } = true;
 
         [Required]

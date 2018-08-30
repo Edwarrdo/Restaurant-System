@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RestaurantSystem.Web.Areas.Employee.Models.ViewModels
 {
@@ -7,6 +8,8 @@ namespace RestaurantSystem.Web.Areas.Employee.Models.ViewModels
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
+
+        public string UserName { get; set; }
 
         public string Email { get; set; }
 
@@ -28,6 +31,7 @@ namespace RestaurantSystem.Web.Areas.Employee.Models.ViewModels
 
         public DateTime HireDate { get; set; }
 
+        [NotMapped]
         public string Profession { get; set; }
     }
 }

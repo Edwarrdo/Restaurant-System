@@ -14,6 +14,7 @@
     <form asp-area="Admin" asp-controller="Employees" asp-action="Create" method="post" class="form-horizontal">
 
         <h3>Personal Info</h3>
+        <hr />
         <div class="form-group">
             <label asp-for="FirstName">First Name</label>
             <input asp-for="FirstName" id="firstName" class="form-control" />
@@ -23,6 +24,11 @@
             <label asp-for="LastName">Last Name</label>
             <input asp-for="LastName" id="lastName" class="form-control" />
             <span asp-validation-for="LastName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="UserName">UserName</label>
+            <input asp-for="UserName" id="firstName" class="form-control" />
+            <span asp-validation-for="UserName" class="text-danger"></span>
         </div>
         <div class="form-group">
             <label asp-for="EGN">PIN /ЕГН/</label>
@@ -40,8 +46,9 @@
             <span asp-validation-for="PhoneNumber" class="text-danger"></span>
         </div>
 
-
+        <hr />
         <h3>Registration Info</h3>
+        <hr />
         <div class="form-group">
             <label asp-for="Password">Password </label>
             <input asp-for="Password" class="form-control" />
@@ -58,19 +65,18 @@
             <span asp-validation-for="Email" class="text-danger"></span>
         </div>
 
-
-
+        <hr />
         <h3>Job Info</h3>
+        <hr />
         <div class="form-group">
             <label asp-for="Role">Role</label>
             @Html.DropDownListFor(m => m.Role, new SelectList(new string[] { "Chef", "Bartender", "Waiter" }), "- Please select a role -", new { @class = "form-control" })
             <span asp-validation-for="Role" class="text-danger"></span>
         </div>
 
-
-
-
+        <hr />
         <h3>HR Info</h3>
+        <hr />
         <div class="form-group">
             <label asp-for="Education">Education</label>
             <input asp-for="Education" class="form-control" />

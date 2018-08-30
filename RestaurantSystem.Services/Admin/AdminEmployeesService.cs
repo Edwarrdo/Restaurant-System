@@ -29,7 +29,6 @@ namespace RestaurantSystem.Services.Admin
         public async Task<int> CreateAsync(EmployeeCreationBindingModel model)
         {
             var employee = this.Mapper.Map<User>(model);
-            employee.UserName = employee.FirstName + employee.LastName;
             try
             {
                 await this.userManager.CreateAsync(employee, model.Password);
