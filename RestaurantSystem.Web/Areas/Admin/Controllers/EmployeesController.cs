@@ -1,16 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
-using Microsoft.AspNetCore.Identity;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using RestaurantSystem.Common.Admin.BindingModels;
-using RestaurantSystem.Data;
-using RestaurantSystem.Models;
 using RestaurantSystem.Services.Admin.Interfaces;
-using RestaurantSystem.Web.Areas.Admin.Models.ViewModels;
 
 namespace RestaurantSystem.Web.Areas.Admin.Controllers
 {

@@ -1,9 +1,10 @@
 ﻿@model IEnumerable<OrderConciseViewModel>
 @{
-    ViewData["Title"] = "Taken Meals Orders";
+    ViewData["Title"] = "FinishedOrders";
 }
 
-<h2>Taken Meals Orders</h2>
+
+<h2>Finished Orders</h2>
 
 <table class="table table-striped" id="employeeTable">
     <tr>
@@ -21,8 +22,8 @@
             <td>
                 <a asp-area="Employee" asp-controller="Orders" asp-action="OrderDetails" asp-route-id="@order.Id"
                    class="btn btn-info">Details</a>
-                <a asp-area="Employee" asp-controller="Orders" asp-action="FinishMealsOrder" asp-route-id="@order.Id"
-                   class="btn btn-success">Finish</a>
+                <a asp-area="Employee" asp-controller="Waiter" asp-action="PayForOrder" asp-route-id="@order.Id"
+                   class="btn btn-success">Payment</a>
             </td>
         </tr>
 

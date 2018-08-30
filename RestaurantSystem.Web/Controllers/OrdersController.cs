@@ -40,6 +40,15 @@ namespace RestaurantSystem.Web.Controllers
                 Drinks = drinksModel,
                 Meals = mealsModel
             };
+            model.Price = 0;
+            if(drinks != null)
+            {
+                model.Price += drinksModel.Sum(dm => dm.Price);
+            }
+            if(meals != null)
+            {
+                model.Price += mealsModel.Sum(md => md.Price);
+            }
             return View(model);
         }
 
@@ -72,17 +81,24 @@ namespace RestaurantSystem.Web.Controllers
             var meals = GetOrderMealsFromSession();
             var drinks = GetOrderDrinksFromSession();
             var order = new Order();
-            order.OrderFoods = new List<OrderFood> (meals.Select(m => new OrderFood
+            if (meals != null)
             {
-                FoodId = m.Id,
-                OrderId = order.Id
-            }));
-            order.OrderDrinks = new List<OrderDrink>(drinks.Select(d => new OrderDrink
+                order.OrderFoods = new List<OrderFood>(meals.Select(m => new OrderFood
+                {
+                    FoodId = m.Id,
+                    OrderId = order.Id
+                }));
+            }
+            if (drinks != null)
             {
-                DrinkId = d.Id,
-                OrderId = order.Id
-            }));
+                order.OrderDrinks = new List<OrderDrink>(drinks.Select(d => new OrderDrink
+                {
+                    DrinkId = d.Id,
+                    OrderId = order.Id
+                }));
+            }
             order.TableNumbers = string.Join(",", model.Tables);
+            //i know the default value of bool is false, i assign it for other reasons!
             order.IsFinished = false;
             order.MealsAreFinished = false;
             order.DrinksAreFinished = false;
@@ -94,6 +110,17 @@ namespace RestaurantSystem.Web.Controllers
             await this.context.SaveChangesAsync();
             this.HttpContext.Session.Clear();
 
+            var currUser = this.GetCurrentUser();
+
+            //TODO: make it less stupid
+            if(currUser.IsEmployee)
+            {
+                return RedirectToAction("Index", "Home", new { area = "Employee" });
+            }
+            else if(currUser.UserName == "admin")
+            {
+                return RedirectToAction("Index", "Home", new { area = "Admin" });
+            }
             return RedirectToAction("Index", "Home", new { area = "Client" });
         }
 
@@ -101,7 +128,15 @@ namespace RestaurantSystem.Web.Controllers
 
         private List<Food> GetOrderMealsFromSession()
         {
-            var orderIds = HttpContext.Session.GetString("meals").Split(",").Select(int.Parse).ToArray();
+            var orderIds = new int[] { };
+            if (HttpContext.Session.Keys.Contains("meals"))
+            {
+                orderIds = HttpContext.Session.GetString("meals").Split(",").Select(int.Parse).ToArray();
+            }
+            else
+            {
+                return null;
+            }
             var meals = new List<Food>();
             foreach (var id in orderIds)
             {
@@ -113,7 +148,15 @@ namespace RestaurantSystem.Web.Controllers
 
         private List<Drink> GetOrderDrinksFromSession()
         {
-            var orderIds = HttpContext.Session.GetString("drinks").Split(",").Select(int.Parse).ToArray();
+            var orderIds = new int[] { };
+            if (HttpContext.Session.Keys.Contains("drinks"))
+            {
+                orderIds = HttpContext.Session.GetString("drinks").Split(",").Select(int.Parse).ToArray();
+            }
+            else
+            {
+                return null;
+            }
             var drinks = new List<Drink>();
             foreach (var id in orderIds)
             {
@@ -121,6 +164,13 @@ namespace RestaurantSystem.Web.Controllers
                 drinks.Add(drink);
             }
             return drinks;
+        }
+
+        private User GetCurrentUser()
+        {
+            var name = this.User.Identity.Name;
+            var user = this.context.Users.FirstOrDefault(u => u.UserName == name);
+            return user;
         }
     }
 }

@@ -1,15 +1,15 @@
 ﻿@if (User.IsInRole("Waiter"))
 {
-    <a asp-area="Employee" asp-controller="Orders" asp-action="Approve" asp-route-id="@Model.Id"
+    <a asp-area="Employee" asp-controller="Waiter" asp-action="Approve" asp-route-id="@Model.Id"
        class="btn btn-success">Approve</a>
 }
 else if (User.IsInRole("Chef"))
 {
-    <a asp-area="Employee" asp-controller="Orders" asp-action="ChefTakeOrder" asp-route-id="@Model.Id"
+    <a asp-area="Employee" asp-controller="Chef" asp-action="ChefTakeOrder" asp-route-id="@Model.Id"
        class="btn btn-success">Take</a>
 }
 else
 {
-    <a asp-area="Employee" asp-controller="Orders" asp-action="BartenderTakeOrder" asp-route-id="@Model.Id"
+    <a asp-area="Employee" asp-controller="Bartender" asp-action="BartenderTakeOrder" asp-route-id="@Model.Id"
        class="btn btn-success">Take</a>
 }
