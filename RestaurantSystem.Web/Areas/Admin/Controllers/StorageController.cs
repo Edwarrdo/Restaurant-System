@@ -1,25 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using RestaurantSystem.Data;
-using RestaurantSystem.Models;
-using RestaurantSystem.Web.Areas.Admin.Models.BindingModels;
-using RestaurantSystem.Web.Areas.Admin.Models.ViewModels;
+using RestaurantSystem.Common.Admin.BindingModels;
+using RestaurantSystem.Services.Admin.Interfaces;
 
 namespace RestaurantSystem.Web.Areas.Admin.Controllers
 {
     public class StorageController : AdminController
     {
-        private RMSContext context;
-        private IMapper mapper;
+        private IAdminStorageService storageService;
 
-        public StorageController(RMSContext context, IMapper mapper)
+        public StorageController(IAdminStorageService storageService)
         {
-            this.context = context;
-            this.mapper = mapper;
+            this.storageService = storageService;
         }
 
         [HttpGet]
@@ -36,10 +28,15 @@ namespace RestaurantSystem.Web.Areas.Admin.Controllers
                 return View();
             }
 
-            var product = this.mapper.Map<Product>(model);
-            this.context.Products.Add(product);
-            await this.context.SaveChangesAsync();
-            this.TempData["message"] = $"Product {product.Name} successfully added!";
+            var result = await this.storageService.AddProductAsync(model);
+            if (result == 0)
+            {
+                this.TempData["errorMessage"] = $"Product {model.Name} coultn't be added!";
+            }
+            else
+            {
+                this.TempData["message"] = $"Product {model.Name} successfully added!";
+            }
             return RedirectToAction("Index", "Home", new { area = "Admin" });
         }
 
@@ -57,17 +54,22 @@ namespace RestaurantSystem.Web.Areas.Admin.Controllers
                 return View();
             }
 
-            var ingredient = this.mapper.Map<Ingredient>(model);
-            this.context.Ingredients.Add(ingredient);
-            await this.context.SaveChangesAsync();
-            this.TempData["message"] = $"Ingredient {ingredient.Name} successfully added!";
+            var result = await this.storageService.AddIngredientAsync(model);
+            if (result == 0)
+            {
+                this.TempData["errorMessage"] = $"Ingredient {model.Name} coultn't be added!";
+            }
+            else
+            {
+                this.TempData["message"] = $"Ingredient {model.Name} successfully added!";
+            }
             return RedirectToAction("Index", "Home", new { area = "Admin" });
         }
 
         [HttpGet]
         public IActionResult AddMeal()
         {
-            var products = context.Products.Select(p => p.Name).ToArray();
+            var products = this.storageService.GetAllProductsNames();
             this.ViewBag.Products = products;
             return View();
         }
@@ -77,28 +79,27 @@ namespace RestaurantSystem.Web.Areas.Admin.Controllers
         {
             if(!this.ModelState.IsValid)
             {
-                var products = context.Products.Select(p => p.Name).ToArray();
+                var products = this.storageService.GetAllProductsNames();
                 this.ViewBag.Products = products;
                 return this.View();
             }
-            var food = this.mapper.Map<Food>(model);
-            foreach (var product in model.Products)
-            {
-                var productId = context.Products.FirstOrDefault(p => p.Name == product).Id;
-                var foodProduct = new FoodProduct { FoodId = food.Id, ProductId = productId};
-                food.FoodProducts.Add(foodProduct);
-            }
+            var result = await this.storageService.CreateMeal(model);
 
-            this.context.Foods.Add(food);
-            await this.context.SaveChangesAsync();
-            this.TempData["message"] = $"Food {food.Name} successfully added!";
+            if (result == 0)
+            {
+                this.TempData["errorMessage"] = $"Meal {model.Name} coultn't be added!";
+            }
+            else
+            {
+                this.TempData["message"] = $"Meal {model.Name} successfully added!";
+            }
             return RedirectToAction("Index", "Home", new { area = "Admin" });
         }
 
         [HttpGet]
         public IActionResult AddDrink()
         {
-            var ingredients = context.Ingredients.Select(i => i.Name).ToArray();
+            var ingredients = this.storageService.GetAllIngredientsNames();
             this.ViewBag.Ingredients = ingredients;
             return View();
         }
@@ -108,29 +109,26 @@ namespace RestaurantSystem.Web.Areas.Admin.Controllers
         {
             if (!this.ModelState.IsValid)
             {
-                var ingredients = context.Ingredients.Select(i => i.Name).ToArray();
+                var ingredients = this.storageService.GetAllIngredientsNames();
                 this.ViewBag.Ingredients = ingredients;
                 return this.View();
             }
-            var drink = this.mapper.Map<Drink>(model);
-            foreach (var ingredient in model.Ingredients)
-            {
-                var ingredientId = context.Ingredients.FirstOrDefault(p => p.Name == ingredient).Id;
-                var drinkIngredient = new DrinkIngredient { DrinkId = drink.Id, IngredientId = ingredientId };
-                drink.DrinkIngredients.Add(drinkIngredient);
-            }
+            var result = await this.storageService.CreateDrink(model);
 
-            this.context.Drinks.Add(drink);
-            await this.context.SaveChangesAsync();
-            this.TempData["message"] = $"Drink {drink.Name} successfully added!";
+            if (result == 0)
+            {
+                this.TempData["errorMessage"] = $"Drink {model.Name} coultn't be added!";
+            }
+            else
+            {
+                this.TempData["message"] = $"Drink {model.Name} successfully added!";
+            }
             return RedirectToAction("Index", "Home", new { area = "Admin" });
         }
         [HttpGet]
         public IActionResult AllMeals()
         {
-            var foods = this.context.Foods
-                .ToArray();
-            var userModels = this.mapper.Map<IEnumerable<FoodConciseViewModel>>(foods);
+            var userModels = this.storageService.GetAllMealsViewModels();
             ViewBag.categories = new string[] { "Salat", "Appetizer", "Pizza", "Pasta", "Risotto", "Chicken", "Pork", "Beef", "Soup", "Dessert" };
             return View(userModels);
         }
@@ -138,11 +136,7 @@ namespace RestaurantSystem.Web.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult AllDrinks()
         {
-            var foods = this.context.Drinks
-                .ToArray();
-            var userModels = this.mapper.Map<IEnumerable<DrinkConciseViewModel>>(foods);
-            
-
+            var userModels = this.storageService.GetAllDrinksViewModels();
             return View(userModels);
         }
     }

@@ -126,6 +126,7 @@ namespace RestaurantSystem.Web
         private void RegisterServiceLayer(IServiceCollection services)
         {
             services.AddScoped<IAdminEmployeesService, AdminEmployeesService>();
+            services.AddScoped<IAdminStorageService, AdminStorageService>();
         }
     }
 }
