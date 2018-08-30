@@ -41,6 +41,7 @@ namespace RestaurantSystem.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult DeliveryOrTable(DeliveryOrTableBindingModel model)
         {
             if(model.DeliveryOrTable == "Table")
@@ -58,6 +59,7 @@ namespace RestaurantSystem.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> MakeAnOrder(TablesBindingModel model)
         {
             var meals = GetOrderMealsFromSession();
