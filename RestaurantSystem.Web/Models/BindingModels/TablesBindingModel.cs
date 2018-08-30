@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RestaurantSystem.Common.Order.BindingModels
+namespace RestaurantSystem.Web.Models.BindingModels
 {
     public class TablesBindingModel
     {
