@@ -1,4 +1,5 @@
-﻿using RestaurantSystem.Common.Order.ViewModels;
+﻿using RestaurantSystem.Common.Employee.ViewModels;
+using RestaurantSystem.Common.Order.ViewModels;
 using RestaurantSystem.Models;
 using System;
 using System.Collections.Generic;
@@ -16,5 +17,7 @@ namespace RestaurantSystem.Services.Order.Interfaces
         CartViewModel CreateCart(List<Food> meals, List<Drink> drinks);
 
         Task<int> MakeAnOrder(List<Food> meals, List<Drink> drinks, string[] Tables);
+
+        OrderViewModel GetOrderDetailsById(int id);
     }
 }

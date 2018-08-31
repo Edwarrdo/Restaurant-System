@@ -6,53 +6,33 @@ using Microsoft.EntityFrameworkCore;
 using RestaurantSystem.Common.Employee.ViewModels;
 using RestaurantSystem.Data;
 using RestaurantSystem.Models;
+using RestaurantSystem.Services.Exceptions;
+using RestaurantSystem.Services.Order.Interfaces;
 
 namespace RestaurantSystem.Web.Areas.Employee.Controllers
 {
     public class OrdersController : EmployeeController
     {
-        private RMSContext context;
-        private IMapper mapper;
+        private IOrdersService ordersService;
 
-        public OrdersController(RMSContext context, IMapper mapper)
+        public OrdersController(IOrdersService ordersService)
         {
-            this.context = context;
-            this.mapper = mapper;
+            this.ordersService = ordersService;
         }
 
         [HttpGet]
         public IActionResult OrderDetails(int id)
         {
-            var order = this.context.Orders.Include(o => o.OrderFoods).Include(o => o.OrderDrinks).FirstOrDefault(o => o.Id == id);
-            var orderModel = new OrderViewModel()
+            try
             {
-                Price = order.Price,
-                TableNumbers = order.TableNumbers,
-                TimeOfOrder = order.TimeOfOrder
-            };
-            var drinks = new List<Drink>();
-            var meals = new List<Food>();
-            if (order.OrderDrinks != null)
-            {
-                foreach (var od in order.OrderDrinks)
-                {
-                    var drink = this.context.Drinks.FirstOrDefault(d => d.Id == od.DrinkId);
-                    drinks.Add(drink);
-                }
+                var orderModel = this.ordersService.GetOrderDetailsById(id);
+                return View(orderModel);
             }
-            if (order.OrderFoods != null)
+            catch(NotFoundException e)
             {
-                foreach (var of in order.OrderFoods)
-                {
-                    var food = this.context.Foods.FirstOrDefault(f => f.Id == of.FoodId);
-                    meals.Add(food);
-                }
+                this.TempData["badMessage"] = "No order with such id!";
+                return RedirectToAction("Index", "Home", new { Area = "" });
             }
-
-            orderModel.Drinks = this.mapper.Map<IEnumerable<DrinkConciseViewModel>>(drinks);
-            orderModel.Meals = this.mapper.Map<IEnumerable<FoodConciseViewModel>>(meals);
-
-            return View(orderModel);
         }
     }
 }

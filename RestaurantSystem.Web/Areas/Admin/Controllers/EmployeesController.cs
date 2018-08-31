@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using RestaurantSystem.Common.Admin.BindingModels;
 using RestaurantSystem.Services.Admin.Interfaces;
+using RestaurantSystem.Services.Exceptions;
 
 namespace RestaurantSystem.Web.Areas.Admin.Controllers
 {
@@ -48,8 +49,16 @@ namespace RestaurantSystem.Web.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Details(string id)
         {
-            var model = await employeesService.GetEmployeeDetailsModelAsync(id);
-            return this.View(model);
+            try
+            {
+                var model = await employeesService.GetEmployeeDetailsModelAsync(id);
+                return this.View(model);
+            }
+            catch(NotFoundException e)
+            {
+                this.TempData["badMessage"] = "There is no employee with such id!";
+                return this.RedirectToAction("AllEmployees", "Employees", new { Area = "Admin" });
+            }
         }
 
         [HttpGet]

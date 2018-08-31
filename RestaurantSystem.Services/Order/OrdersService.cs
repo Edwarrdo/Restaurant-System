@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using RestaurantSystem.Common.Employee.ViewModels;
 using RestaurantSystem.Common.Order.ViewModels;
 using RestaurantSystem.Data;
 using RestaurantSystem.Models;
+using RestaurantSystem.Services.Exceptions;
 using RestaurantSystem.Services.Order.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -43,7 +46,7 @@ namespace RestaurantSystem.Services.Order
         public CartViewModel CreateCart(List<Food> meals, List<Drink> drinks)
         {
             var mealsModel = this.Mapper.Map<IEnumerable<MealConciseViewModel>>(meals);
-            var drinksModel = this.Mapper.Map<IEnumerable<DrinkConciseViewModel>>(drinks);
+            var drinksModel = this.Mapper.Map<IEnumerable<Common.Order.ViewModels.DrinkConciseViewModel>>(drinks);
             var model = new CartViewModel()
             {
                 Drinks = drinksModel,
@@ -96,6 +99,44 @@ namespace RestaurantSystem.Services.Order
             }
             //success
             return 1;
+        }
+
+        public OrderViewModel GetOrderDetailsById(int id)
+        {
+            var order = this.DbContext.Orders.Include(o => o.OrderFoods).Include(o => o.OrderDrinks).FirstOrDefault(o => o.Id == id);
+            if(order == null)
+            {
+                throw new NotFoundException();
+            }
+            var orderModel = new OrderViewModel()
+            {
+                Price = order.Price,
+                TableNumbers = order.TableNumbers,
+                TimeOfOrder = order.TimeOfOrder
+            };
+            var drinks = new List<Drink>();
+            var meals = new List<Food>();
+            if (order.OrderDrinks != null)
+            {
+                foreach (var od in order.OrderDrinks)
+                {
+                    var drink = this.DbContext.Drinks.FirstOrDefault(d => d.Id == od.DrinkId);
+                    drinks.Add(drink);
+                }
+            }
+            if (order.OrderFoods != null)
+            {
+                foreach (var of in order.OrderFoods)
+                {
+                    var food = this.DbContext.Foods.FirstOrDefault(f => f.Id == of.FoodId);
+                    meals.Add(food);
+                }
+            }
+
+            orderModel.Drinks = this.Mapper.Map<IEnumerable<Common.Employee.ViewModels.DrinkConciseViewModel>>(drinks);
+            orderModel.Meals = this.Mapper.Map<IEnumerable<FoodConciseViewModel>>(meals);
+
+            return orderModel;
         }
     }
 }
