@@ -37,7 +37,7 @@ namespace RestaurantSystem.Web.Areas.Admin.Controllers
             {
                 this.TempData["goodMessage"] = $"Product {model.Name} successfully added!";
             }
-            return RedirectToAction("Index", "Home", new { area = "Admin" });
+            return RedirectToAction("AddProduct", "Storage", new { Area = "Admin" });
         }
 
         [HttpGet]
@@ -63,7 +63,7 @@ namespace RestaurantSystem.Web.Areas.Admin.Controllers
             {
                 this.TempData["goodMessage"] = $"Ingredient {model.Name} successfully added!";
             }
-            return RedirectToAction("Index", "Home", new { area = "Admin" });
+            return RedirectToAction("AddIngredient", "Storage", new { Area = "Admin" });
         }
 
         [HttpGet]
@@ -93,7 +93,7 @@ namespace RestaurantSystem.Web.Areas.Admin.Controllers
             {
                 this.TempData["goodMessage"] = $"Meal {model.Name} successfully added!";
             }
-            return RedirectToAction("Index", "Home", new { area = "Admin" });
+            return RedirectToAction("AddMeal", "Storage", new { Area = "Admin" });
         }
 
         [HttpGet]
@@ -121,9 +121,10 @@ namespace RestaurantSystem.Web.Areas.Admin.Controllers
             }
             else
             {
-                this.TempData["goodMmessage"] = $"Drink {model.Name} successfully added!";
+                this.TempData["goodMessage"] = $"Drink {model.Name} successfully added!";
             }
-            return RedirectToAction("Index", "Home", new { area = "Admin" });
+            //return RedirectToAction("Index", "Home", new { area = "Admin" });
+            return RedirectToAction("AddDrink", "Storage", new { Area = "Admin" });
         }
         [HttpGet]
         public IActionResult AllMeals()
