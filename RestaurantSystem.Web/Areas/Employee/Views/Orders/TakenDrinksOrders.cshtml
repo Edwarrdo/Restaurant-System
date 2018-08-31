@@ -1,0 +1,31 @@
+﻿@model IEnumerable<OrderConciseViewModel>
+@{
+    ViewData["Title"] = "Taken Drinks Orders";
+}
+
+<h2>Taken Drinks Orders</h2>
+
+<table class="table table-striped" id="employeeTable">
+    <tr>
+        <th>Table</th>
+        <th>Price</th>
+        <th>Time Of Order</th>
+        <th>Actions</th>
+    </tr>
+    @foreach (var order in Model)
+    {
+        <tr>
+            <td>@order.TableNumbers</td>
+            <td>@order.Price</td>
+            <td>@order.TimeOfOrder</td>
+            <td>
+                <a asp-area="Employee" asp-controller="Orders" asp-action="OrderDetails" asp-route-id="@order.Id"
+                   class="btn btn-info">Details</a>
+                <a asp-area="Employee" asp-controller="Orders" asp-action="FinishDrinksOrder" asp-route-id="@order.Id"
+                   class="btn btn-success">Finish</a>
+            </td>
+        </tr>
+
+    }
+
+</table>

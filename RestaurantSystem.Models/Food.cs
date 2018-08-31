@@ -24,6 +24,8 @@ namespace RestaurantSystem.Models
         [Required]
         public string Category { get; set; }
 
+        public bool IsBanned { get; set; } = false;
+
         public ICollection<FoodProduct> FoodProducts { get; set; } = new List<FoodProduct>();
     }
 }

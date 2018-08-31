@@ -27,7 +27,11 @@
             <td>@drink.Milliliters</td>
             @if (User.IsInRole("Administrator"))
             {
-                //TODO: implement admin part
+            <td>
+                <a class="btn btn-danger" aria-label="Close" asp-page-handler="BanDrink" asp-page="/Menu/Order" asp-route-id="@drink.Id">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+            </td>
             }
             else
             {

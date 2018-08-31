@@ -6,23 +6,24 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using RestaurantSystem.Data;
 using RestaurantSystem.Models;
+using RestaurantSystem.Services.Storage.Interfaces;
 
 namespace RestaurantSystem.Web.Pages.Menu
 {
     public class PorksModel : PageModel
     {
-        private RMSContext context;
+        private IStorageService storageService;
 
-        public PorksModel(RMSContext context)
+        public PorksModel(IStorageService storageService)
         {
-            this.context = context;
+            this.storageService = storageService;
         }
 
         public IEnumerable<Food> Porks { get; private set; }
 
         public void OnGet()
         {
-            this.Porks = this.context.Foods.Where(f => f.Category == "Pork").ToList();
+            this.Porks = this.storageService.GetAllMealsByCategory("Pork").ToList();
         }
     }
 }

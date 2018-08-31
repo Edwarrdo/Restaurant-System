@@ -1,0 +1,41 @@
+﻿@model IEnumerable<OrderConciseViewModel>
+@{
+    ViewData["Title"] = "FinishedOrders";
+}
+
+@if (TempData.ContainsKey("finishedMessage"))
+{
+    <div class="alert alert-warning alert-dismissible" role="alert">
+        @TempData["finishedMessage"]
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+<h2>Finished Orders</h2>
+
+<table class="table table-striped" id="employeeTable">
+    <tr>
+        <th>Table</th>
+        <th>Price</th>
+        <th>Time Of Order</th>
+        <th>Actions</th>
+    </tr>
+    @foreach (var order in Model)
+    {
+        <tr>
+            <td>@order.TableNumbers</td>
+            <td>@order.Price</td>
+            <td>@order.TimeOfOrder</td>
+            <td>
+                <a asp-area="Employee" asp-controller="Orders" asp-action="OrderDetails" asp-route-id="@order.Id"
+                   class="btn btn-info">Details</a>
+                <a asp-area="Employee" asp-controller="Orders" asp-action="PayForOrder" asp-route-id="@order.Id"
+                   class="btn btn-success">Payment</a>
+            </td>
+        </tr>
+
+    }
+
+</table>

@@ -31,11 +31,11 @@ namespace RestaurantSystem.Web.Areas.Admin.Controllers
             var result = await this.storageService.AddProductAsync(model);
             if (result == 0)
             {
-                this.TempData["errorMessage"] = $"Product {model.Name} coultn't be added!";
+                this.TempData["badMessage"] = $"Product {model.Name} coultn't be added!";
             }
             else
             {
-                this.TempData["message"] = $"Product {model.Name} successfully added!";
+                this.TempData["goodMessage"] = $"Product {model.Name} successfully added!";
             }
             return RedirectToAction("Index", "Home", new { area = "Admin" });
         }
@@ -57,11 +57,11 @@ namespace RestaurantSystem.Web.Areas.Admin.Controllers
             var result = await this.storageService.AddIngredientAsync(model);
             if (result == 0)
             {
-                this.TempData["errorMessage"] = $"Ingredient {model.Name} coultn't be added!";
+                this.TempData["badMessage"] = $"Ingredient {model.Name} coultn't be added!";
             }
             else
             {
-                this.TempData["message"] = $"Ingredient {model.Name} successfully added!";
+                this.TempData["goodMessage"] = $"Ingredient {model.Name} successfully added!";
             }
             return RedirectToAction("Index", "Home", new { area = "Admin" });
         }
@@ -87,11 +87,11 @@ namespace RestaurantSystem.Web.Areas.Admin.Controllers
 
             if (result == 0)
             {
-                this.TempData["errorMessage"] = $"Meal {model.Name} coultn't be added!";
+                this.TempData["badMessage"] = $"Meal {model.Name} coultn't be added!";
             }
             else
             {
-                this.TempData["message"] = $"Meal {model.Name} successfully added!";
+                this.TempData["goodMessage"] = $"Meal {model.Name} successfully added!";
             }
             return RedirectToAction("Index", "Home", new { area = "Admin" });
         }
@@ -117,11 +117,11 @@ namespace RestaurantSystem.Web.Areas.Admin.Controllers
 
             if (result == 0)
             {
-                this.TempData["errorMessage"] = $"Drink {model.Name} coultn't be added!";
+                this.TempData["badMessage"] = $"Drink {model.Name} coultn't be added!";
             }
             else
             {
-                this.TempData["message"] = $"Drink {model.Name} successfully added!";
+                this.TempData["goodMmessage"] = $"Drink {model.Name} successfully added!";
             }
             return RedirectToAction("Index", "Home", new { area = "Admin" });
         }

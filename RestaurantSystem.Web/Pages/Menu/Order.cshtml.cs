@@ -9,16 +9,17 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using RestaurantSystem.Data;
 using RestaurantSystem.Models;
+using RestaurantSystem.Services.Storage.Interfaces;
 
 namespace RestaurantSystem.Web.Pages.Menu
 {
     public class OrderModel : PageModel
     {
-        private RMSContext context;
+        private IStorageService storageService;
 
-        public OrderModel(RMSContext context)
+        public OrderModel(IStorageService storageService)
         {
-            this.context = context;
+            this.storageService = storageService;
         }
         
 
@@ -35,7 +36,7 @@ namespace RestaurantSystem.Web.Pages.Menu
             }
             this.TempData["goodMessage"] = "Meal added to cart!";
 
-            var meal = this.context.Foods.FirstOrDefault(m => m.Id == id);
+            var meal = this.storageService.GetMealById(id);
             //STUPID IDEA BUT WHO CARES IT WORKS!
             var category = meal.Category;
             return RedirectToPage(category + "s");
@@ -53,6 +54,37 @@ namespace RestaurantSystem.Web.Pages.Menu
                 HttpContext.Session.SetString("drinks", id.ToString());
             }
             this.TempData["goodMessage"] = "Drink added to cart!";
+            return RedirectToPage("Drinks");
+        }
+
+        public async Task<IActionResult> OnGetBanFood(int id)
+        {
+            var result = await this.storageService.BanMealById(id);
+            if(result == 0)
+            {
+                this.TempData["badMessage"] = "Food could not be banned!";
+            }
+            else
+            {
+                this.TempData["goodMessage"] = "Food banned!";
+            }
+            var meal = this.storageService.GetMealById(id);
+            //STUPID IDEA BUT WHO CARES IT WORKS!
+            var category = meal.Category;
+            return RedirectToPage(category + "s");
+        }
+
+        public async Task<IActionResult> OnGetBanDrink(int id)
+        {
+            var result = await this.storageService.BanDrinkById(id);
+            if (result == 0)
+            {
+                this.TempData["badMessage"] = "Drink could not be banned!";
+            }
+            else
+            {
+                this.TempData["goodMessage"] = "Drink banned!";
+            }
             return RedirectToPage("Drinks");
         }
     }

@@ -18,6 +18,8 @@ namespace RestaurantSystem.Models
         [Required]
         public int Milliliters { get; set; }
 
+        public bool IsBanned { get; set; } = false;
+
         public string Description { get; set; }
 
         public ICollection<DrinkIngredient> DrinkIngredients { get; set; } = new List<DrinkIngredient>();

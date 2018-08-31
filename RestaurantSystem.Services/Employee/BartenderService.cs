@@ -54,7 +54,7 @@ namespace RestaurantSystem.Services.Employee
             try
             {
                 var order = this.DbContext.Orders.Include(o => o.OrderFoods).FirstOrDefault(o => o.Id == id);
-                if (order.MealsAreFinished || order.OrderFoods == null)
+                if (order.MealsAreFinished || order.OrderFoods == null || order.OrderFoods.Count() == 0)
                 {
                     order.IsFinished = true;
                 }

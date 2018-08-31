@@ -137,6 +137,8 @@ namespace RestaurantSystem.Data.Migrations
 
                     b.Property<string>("Description");
 
+                    b.Property<bool>("IsBanned");
+
                     b.Property<int>("Milliliters");
 
                     b.Property<string>("Name")
@@ -181,6 +183,8 @@ namespace RestaurantSystem.Data.Migrations
                         .IsRequired();
 
                     b.Property<long>("DishWeight");
+
+                    b.Property<bool>("IsBanned");
 
                     b.Property<string>("Name")
                         .IsRequired();

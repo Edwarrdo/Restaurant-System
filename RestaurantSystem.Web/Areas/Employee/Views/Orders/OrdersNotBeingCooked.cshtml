@@ -1,0 +1,17 @@
+﻿@model IEnumerable<OrderConciseViewModel>
+@{
+    ViewData["Title"] = "OrdersNotBeingCooked";
+}
+
+<h2>OrdersNotBeingCooked</h2>
+
+<table class="table table-striped" id="employeeTable">
+    <tr>
+        <th>Table(s)</th>
+        <th>Price</th>
+        <th>Time Of Order</th>
+        <th>Actions</th>
+    </tr>
+    @Html.DisplayForModel()
+
+</table>
