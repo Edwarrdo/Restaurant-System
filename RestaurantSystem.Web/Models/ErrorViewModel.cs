@@ -1,5 +1,3 @@
-using System;
-
 namespace RestaurantSystem.Web.Models
 {
     public class ErrorViewModel
