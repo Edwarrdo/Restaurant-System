@@ -2,42 +2,51 @@
 @{
     ViewData["Title"] = "Add Drink";
 }
-
-<h2>Add Drink</h2>
-
-<form asp-area="Admin" asp-controller="Storage" asp-action="AddDrink" method="post" class="form-horizontal">
-
-    <div class="form-group">
-        <label asp-for="Name"></label>
-        <input asp-for="Name" class="form-control" />
-        <span asp-validation-for="Name" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Ingredients">  </label>
-        @*<select asp-for="Ingredients" asp-items="@(new SelectList(ViewBag.Ingredients))" class="selectpicker" data-live-search="true" multiple data-selected-text-format="count>3" data-size="5">
-        </select>*@
-        @Html.DropDownListFor(m => m.Ingredients, new SelectList(ViewBag.Ingredients), null, new { @multiple = "multiple", @class = "form-control selectpicker" })
-        <span asp-validation-for="Ingredients" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Price"></label>
-        <input asp-for="Price" class="form-control" />
-        <span asp-validation-for="Price" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Description"></label>
-        <input asp-for="Description" class="form-control" />
-        <span asp-validation-for="Description" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Milliliters"></label>
-        <input asp-for="Milliliters" class="form-control" />
-        <span asp-validation-for="Milliliters" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <div class="col-sm-10">
-            <input type="submit" value="AddDrink" class="btn btn-success" />
-            <a asp-area="Admin" asp-controller="Storage" asp-action="AddDrink" class="btn btn-default">Cancel</a>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <h2 class="m-2">Add Drink</h2>
+            <hr />
         </div>
     </div>
-</form>
+    <div class="row">
+        <div class="col-sm-12">
+            <form asp-area="Admin" asp-controller="Storage" asp-action="AddDrink" method="post" class="form-horizontal">
+
+                <div class="form-group">
+                    <label asp-for="Name">Name</label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Ingredients">Ingredients for the drink:</label>
+                    @*<select asp-for="Ingredients" asp-items="@(new SelectList(ViewBag.Ingredients))" class="selectpicker" data-live-search="true" multiple data-selected-text-format="count>3" data-size="5">
+                        </select>*@
+                    @Html.DropDownListFor(m => m.Ingredients, new SelectList(ViewBag.Ingredients), null, new { @multiple = "multiple", @class = "form-control selectpicker" })
+                    <span asp-validation-for="Ingredients" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Price">Price</label>
+                    <input asp-for="Price" class="form-control" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description">Description</label>
+                    <input asp-for="Description" class="form-control" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Milliliters">Milliliters</label>
+                    <input asp-for="Milliliters" class="form-control" />
+                    <span asp-validation-for="Milliliters" class="text-danger"></span>
+                </div>
+                <div class="form-group cancelAndCreate">
+
+                    <input type="submit" value="AddDrink" class="btn btn-success" />
+                    <a asp-area="Admin" asp-controller="Storage" asp-action="AddDrink" class="btn btn-default">Cancel</a>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

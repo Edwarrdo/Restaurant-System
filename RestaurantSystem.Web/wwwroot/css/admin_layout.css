@@ -2,9 +2,11 @@
     position: relative;
     min-height: 100%;
 }
-.cancelAndCreate{
-    margin-bottom:150px;
+
+.cancelAndCreate {
+    margin-bottom: 150px;
 }
+
 .footer {
     position: absolute;
     bottom: 0;
@@ -16,6 +18,7 @@
     text-align: center;
     color: #ffffff;
 }
-.footer p{
-    margin-top:15px;
-}
+
+    .footer p {
+        margin-top: 15px;
+    }

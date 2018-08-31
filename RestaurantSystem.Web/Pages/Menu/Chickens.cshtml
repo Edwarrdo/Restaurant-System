@@ -3,44 +3,47 @@
 @{
     ViewData["Title"] = "Chickens";
 }
+<div class="container-fluid">
+    <partial name="MenuBarPartial" />
 
-<partial name="MenuBarPartial" />
+    <h2>Chickens</h2>
+    <div class="table-responsive cancelAndCreate">
+        <table class="table table-striped">
+            <thead>
+                <tr class="text-center">
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Description</th>
+                    <th>DishWeight</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var chicken in this.Model.Chickens)
+                {
+                    <tr class="text-center">
+                        <td>@chicken.Name</td>
+                        <td>@chicken.Price</td>
+                        <td>@chicken.Description</td>
+                        <td>@chicken.DishWeight</td>
+                        @if (User.IsInRole("Administrator"))
+                        {
+                        <td>
+                            <a class="btn btn-danger" aria-label="Close" asp-page-handler="BanFood" asp-page="/Menu/Order" asp-route-id="@chicken.Id">
+                                <span aria-hidden="true">&times;</span>
+                            </a>
+                        </td>
+                        }
+                        else
+                        {
+                            <td>
+                                <a class="btn btn-success" asp-page-handler="OrderFood" asp-page="/Menu/Order" asp-route-id="@chicken.Id">Order</a>
+                            </td>
 
-<h2>Chickens</h2>
-
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Description</th>
-            <th>DishWeight</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var chicken in this.Model.Chickens)
-        {
-        <tr>
-            <td>@chicken.Name</td>
-            <td>@chicken.Price</td>
-            <td>@chicken.Description</td>
-            <td>@chicken.DishWeight</td>
-            @if (User.IsInRole("Administrator"))
-            {
-            <td>
-                <a class="btn btn-danger" aria-label="Close" asp-page-handler="BanFood" asp-page="/Menu/Order" asp-route-id="@chicken.Id">
-                    <span aria-hidden="true">&times;</span>
-                </a>
-            </td>
-            }
-            else
-            {
-                <td>
-                    <a class="btn btn-success" asp-page-handler="OrderFood" asp-page="/Menu/Order" asp-route-id="@chicken.Id">Order</a>
-                </td>
-
-            }
-        </tr>
-        }
-    </tbody>
-</table>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

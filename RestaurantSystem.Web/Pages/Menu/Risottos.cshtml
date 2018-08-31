@@ -3,44 +3,47 @@
 @{
     ViewData["Title"] = "Risottos";
 }
+<div class="container-fluid">
+    <partial name="MenuBarPartial" />
 
-<partial name="MenuBarPartial" />
+    <h2>Risotto</h2>
+    <div class="table-responsive cancelAndCreate">
+        <table class="table table-striped">
+            <thead>
+                <tr class="text-center">
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Description</th>
+                    <th>DishWeight</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var risotto in this.Model.Risottos)
+                {
+                    <tr class="text-center">
+                        <td>@risotto.Name</td>
+                        <td>@risotto.Price</td>
+                        <td>@risotto.Description</td>
+                        <td>@risotto.DishWeight</td>
+                        @if (User.IsInRole("Administrator"))
+                        {
+                            <td>
+                                <a class="btn btn-danger" aria-label="Close" asp-page-handler="BanFood" asp-page="/Menu/Order" asp-route-id="@risotto.Id">
+                                    <span aria-hidden="true">&times;</span>
+                                </a>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                <a class="btn btn-success" asp-page-handler="OrderFood" asp-page="/Menu/Order" asp-route-id="@risotto.Id">Order</a>
+                            </td>
 
-<h2>Risotto</h2>
-
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Description</th>
-            <th>DishWeight</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var risotto in this.Model.Risottos)
-        {
-        <tr>
-            <td>@risotto.Name</td>
-            <td>@risotto.Price</td>
-            <td>@risotto.Description</td>
-            <td>@risotto.DishWeight</td>
-            @if (User.IsInRole("Administrator"))
-            {
-            <td>
-                <a class="btn btn-danger" aria-label="Close" asp-page-handler="BanFood" asp-page="/Menu/Order" asp-route-id="@risotto.Id">
-                    <span aria-hidden="true">&times;</span>
-                </a>
-            </td>
-            }
-            else
-            {
-                <td>
-                    <a class="btn btn-success" asp-page-handler="OrderFood" asp-page="/Menu/Order" asp-route-id="@risotto.Id">Order</a>
-                </td>
-
-            }
-        </tr>
-        }
-    </tbody>
-</table>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

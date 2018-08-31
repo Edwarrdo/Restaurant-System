@@ -3,44 +3,48 @@
 @{
     ViewData["Title"] = "Soups";
 }
+<div class="container-fluid">
 
-<partial name="MenuBarPartial" />
+    <partial name="MenuBarPartial" />
 
-<h2>Soups</h2>
-
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Description</th>
-            <th>DishWeight</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var soup in this.Model.Soups)
-        {
-            <tr>
-                <td>@soup.Name</td>
-                <td>@soup.Price</td>
-                <td>@soup.Description</td>
-                <td>@soup.DishWeight</td>
-                @if(User.IsInRole("Administrator"))
+    <h2 class="mb-2">Soups</h2>
+    <div class="table-responsive cancelAndCreate">
+        <table class="table table-striped">
+            <thead>
+                <tr class="text-center">
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Description</th>
+                    <th>DishWeight</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var soup in this.Model.Soups)
                 {
-                <td>
-                    <a class="btn btn-danger" aria-label="Close" asp-page-handler="BanFood" asp-page="/Menu/Order" asp-route-id="@soup.Id">
-                        <span aria-hidden="true">&times;</span>
-                    </a>
-                </td>
-                }
-                else
-                {
-                    <td>
-                        <a class="btn btn-success" asp-page-handler="OrderFood" asp-page="/Menu/Order" asp-route-id="@soup.Id">Order</a>
-                    </td>
+                    <tr class="text-center">
+                        <td>@soup.Name</td>
+                        <td>@soup.Price</td>
+                        <td>@soup.Description</td>
+                        <td>@soup.DishWeight</td>
+                        @if (User.IsInRole("Administrator"))
+                        {
+                            <td>
+                                <a class="btn btn-danger" aria-label="Close" asp-page-handler="BanFood" asp-page="/Menu/Order" asp-route-id="@soup.Id">
+                                    <span aria-hidden="true">&times;</span>
+                                </a>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                <a class="btn btn-success" asp-page-handler="OrderFood" asp-page="/Menu/Order" asp-route-id="@soup.Id">Order</a>
+                            </td>
 
+                        }
+                    </tr>
                 }
-            </tr>
-        }
-    </tbody>
-</table>
+            </tbody>
+        </table>
+    </div>
+</div>
