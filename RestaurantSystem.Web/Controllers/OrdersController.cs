@@ -24,7 +24,7 @@ namespace RestaurantSystem.Web.Controllers
 
         public IActionResult ShowCart()
         {
-            if (HttpContext.Session.GetString("meals") == null)
+            if (HttpContext.Session.GetString("meals") == null && HttpContext.Session.GetString("drinks") == null)
             {
                 return View();
             }
