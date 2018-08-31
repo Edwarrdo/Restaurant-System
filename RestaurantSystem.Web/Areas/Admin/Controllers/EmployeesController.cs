@@ -36,11 +36,11 @@ namespace RestaurantSystem.Web.Areas.Admin.Controllers
             var result = await this.employeesService.CreateAsync(model);
             if (result == 0)
             {
-                this.TempData["badMessage"] = $"Employee {model.FirstName} couldn't be hired!";
+                this.TempData["errorMessage"] = $"Employee {model.FirstName} couldn't be hired!";
             }
             else
             {
-                this.TempData["goodMessage"] = $"Employee {model.FirstName} successfully hired!";
+                this.TempData["message"] = $"Employee {model.FirstName} successfully hired!";
             }
                 return RedirectToAction("AllEmployees", "Employees", new { area = "Admin" });
         }
@@ -58,11 +58,11 @@ namespace RestaurantSystem.Web.Areas.Admin.Controllers
             var result = await this.employeesService.FireEmployeeAsync(id);
             if (result == 0)
             {
-                this.TempData["badMessage"] = $"Something went wrong!";
+                this.TempData["errorMessage"] = $"Something went wrong!";
             }
             else
             {
-                this.TempData["goodMessage"] = $"Employee successfully fired!";
+                this.TempData["message"] = $"Employee successfully fired!";
             }
             return RedirectToAction("AllEmployees", "Employees", new { area = "Admin" });
         }

@@ -20,8 +20,6 @@ using RestaurantSystem.Services.Admin.Interfaces;
 using RestaurantSystem.Services.Admin;
 using RestaurantSystem.Services.Employee.Interfaces;
 using RestaurantSystem.Services.Employee;
-using RestaurantSystem.Services.Order.Interfaces;
-using RestaurantSystem.Services.Order;
 
 namespace RestaurantSystem.Web
 {
@@ -134,7 +132,6 @@ namespace RestaurantSystem.Web
             services.AddScoped<IWaiterService, WaiterService>();
             services.AddScoped<IChefService, ChefService>();
             services.AddScoped<IBartenderService, BartenderService>();
-            services.AddScoped<IOrdersService, OrdersService>();
         }
     }
 }
