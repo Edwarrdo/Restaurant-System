@@ -69,10 +69,15 @@ namespace RestaurantSystem.Web.Areas.Identity.Pages.Account
             public string ConfirmPassword { get; set; }
         }
 
-        public void OnGet(string returnUrl = null)
+        public IActionResult OnGet(string returnUrl = null)
         {
-            this.User
+            if (this._signInManager.IsSignedIn(this.User))
+            {
+                this.TempData["badMessage"] = "Can't do that while signed in!";
+                return RedirectToAction("Index", "Home", new { Area = "" });
+            }
             ReturnUrl = returnUrl;
+            return this.Page();
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
@@ -82,7 +87,7 @@ namespace RestaurantSystem.Web.Areas.Identity.Pages.Account
             {
                 var user = new User
                 {
-                    UserName =  Input.Username,
+                    UserName = Input.Username,
                     FirstName = Input.FirstName,
                     LastName = Input.LastName,
                     Email = Input.Email,

@@ -51,8 +51,13 @@ namespace RestaurantSystem.Web.Areas.Identity.Pages.Account
             public bool RememberMe { get; set; }
         }
 
-        public async Task OnGetAsync(string returnUrl = null)
+        public async Task<IActionResult> OnGetAsync(string returnUrl = null)
         {
+            if (this._signInManager.IsSignedIn(this.User))
+            {
+                this.TempData["badMessage"] = "Already signed in!";
+                return RedirectToAction("Index", "Home", new { Area = "" });
+            }
             if (!string.IsNullOrEmpty(ErrorMessage))
             {
                 ModelState.AddModelError(string.Empty, ErrorMessage);
@@ -66,6 +71,7 @@ namespace RestaurantSystem.Web.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
             ReturnUrl = returnUrl;
+            return this.Page();
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
