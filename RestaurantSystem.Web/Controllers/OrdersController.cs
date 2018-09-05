@@ -6,6 +6,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RestaurantSystem.Common.Constants;
 using RestaurantSystem.Common.Order.BindingModels;
 using RestaurantSystem.Models;
 using RestaurantSystem.Services.Order.Interfaces;
@@ -67,26 +68,26 @@ namespace RestaurantSystem.Web.Controllers
             var result = await this.ordersService.MakeAnOrder(meals, drinks, model.Tables);
             if (result == 0)
             {
-                this.TempData["badMessage"] = "Could not create the order!";
+                this.TempData[WebConstants.BadMessage] = "Could not create the order!";
             }
             else
             {
-                this.TempData["goodMessage"] = "Order created!";
+                this.TempData[WebConstants.GoodMessage] = "Order created!";
             }
             this.HttpContext.Session.Clear();
 
 
             //TODO: make it less stupid
-            if (this.User.IsInRole("Admin"))
+            if (this.User.IsInRole(WebConstants.AdminRole))
             {
-                return RedirectToAction("Index", "Home", new { area = "Admin" });
+                return RedirectToAction("Index", "Home", new { area = WebConstants.AdminArea });
 
             }
-            else if (this.User.IsInRole("Chef") || this.User.IsInRole("Waiter") || this.User.IsInRole("Bartender"))
+            else if (this.User.IsInRole(WebConstants.ChefRole) || this.User.IsInRole(WebConstants.WaiterRole) || this.User.IsInRole(WebConstants.BartenderRole))
             {
-                return RedirectToAction("Index", "Home", new { area = "Employee" });
+                return RedirectToAction("Index", "Home", new { area = WebConstants.EmployeeArea });
             }
-            return RedirectToAction("Index", "Home", new { area = "Client" });
+            return RedirectToAction("Index", "Home", new { area = WebConstants.ClientArea });
         }
 
         public IActionResult ClearCart()

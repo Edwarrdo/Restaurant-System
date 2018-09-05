@@ -16,5 +16,8 @@ namespace RestaurantSystem.Common.Constants
         public const string BartenderRole = "Bartender";
         public const string ChefRole = "Chef";
         public const string EmployeesRoles = "Waiter, Chef, Bartender";
+
+        public const string BadMessage = "badMessage";
+        public const string GoodMessage = "goodMessage";
     }
 }

@@ -29,11 +29,11 @@ namespace RestaurantSystem.Web.Areas.Employee.Controllers
             var result = await this.bartenderService.TakeOrderAsync(id);
             if (result == 0)
             {
-                this.TempData["badMessage"] = "Could not take drinks!";
+                this.TempData[WebConstants.BadMessage] = "Could not take drinks!";
             }
             else
             {
-                this.TempData["goodMessage"] = "Drinks taken!";
+                this.TempData[WebConstants.GoodMessage] = "Drinks taken!";
             }
 
             return RedirectToAction("DrinksWithoutBartender", "Bartender", new { area = "Employee" });
@@ -52,11 +52,11 @@ namespace RestaurantSystem.Web.Areas.Employee.Controllers
             var result = await this.bartenderService.FinishOrderAsync(id);
             if (result == 0)
             {
-                this.TempData["badMessage"] = "Could not finish drink order!";
+                this.TempData[WebConstants.BadMessage] = "Could not finish drink order!";
             }
             else
             {
-                this.TempData["goodMessage"] = "Drinks finished!";
+                this.TempData[WebConstants.GoodMessage] = "Drinks finished!";
             }
 
             return RedirectToAction("TakenDrinksOrders", "Bartender", new { area = "Employee" });

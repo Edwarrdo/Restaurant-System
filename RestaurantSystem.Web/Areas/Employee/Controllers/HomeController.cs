@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using RestaurantSystem.Common.Constants;
 using RestaurantSystem.Common.Employee.ViewModels;
 using RestaurantSystem.Data;
 using RestaurantSystem.Models;
@@ -39,17 +40,17 @@ namespace RestaurantSystem.Web.Areas.Employee.Controllers
 
         private async Task FindUserProfession(User currentUser, EmployeeDetailsViewModel model)
         {
-            if (await userManager.IsInRoleAsync(currentUser, "Chef"))
+            if (await userManager.IsInRoleAsync(currentUser, WebConstants.ChefRole))
             {
-                model.Profession = "Chef";
+                model.Profession = WebConstants.ChefRole;
             }
-            else if (await userManager.IsInRoleAsync(currentUser, "Bartender"))
+            else if (await userManager.IsInRoleAsync(currentUser, WebConstants.BartenderRole))
             {
-                model.Profession = "Bartender";
+                model.Profession = WebConstants.BartenderRole;
             }
             else
             {
-                model.Profession = "Waiter";
+                model.Profession = WebConstants.WaiterRole;
             }
         }
     }

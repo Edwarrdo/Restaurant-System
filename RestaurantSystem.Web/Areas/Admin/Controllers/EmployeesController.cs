@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using RestaurantSystem.Common.Admin.BindingModels;
+using RestaurantSystem.Common.Constants;
 using RestaurantSystem.Services.Admin.Interfaces;
 using RestaurantSystem.Services.Exceptions;
 
@@ -38,11 +39,11 @@ namespace RestaurantSystem.Web.Areas.Admin.Controllers
             var result = await this.employeesService.CreateAsync(model);
             if (result == 0)
             {
-                this.TempData["badMessage"] = $"Employee {model.FirstName} couldn't be hired!";
+                this.TempData[WebConstants.GoodMessage] = $"Employee {model.FirstName} couldn't be hired!";
             }
             else
             {
-                this.TempData["goodMessage"] = $"Employee {model.FirstName} successfully hired!";
+                this.TempData[WebConstants.GoodMessage] = $"Employee {model.FirstName} successfully hired!";
             }
                 return RedirectToAction("AllEmployees", "Employees", new { area = "Admin" });
         }
@@ -57,7 +58,7 @@ namespace RestaurantSystem.Web.Areas.Admin.Controllers
             }
             catch(NotFoundException e)
             {
-                this.TempData["badMessage"] = "There is no employee with such id!";
+                this.TempData[WebConstants.BadMessage] = "There is no employee with such id!";
                 return this.RedirectToAction("AllEmployees", "Employees", new { Area = "Admin" });
             }
         }
@@ -68,11 +69,11 @@ namespace RestaurantSystem.Web.Areas.Admin.Controllers
             var result = await this.employeesService.FireEmployeeAsync(id);
             if (result == 0)
             {
-                this.TempData["badMessage"] = $"Something went wrong!";
+                this.TempData[WebConstants.BadMessage] = $"Something went wrong!";
             }
             else
             {
-                this.TempData["goodMessage"] = $"Employee successfully fired!";
+                this.TempData[WebConstants.GoodMessage] = $"Employee successfully fired!";
             }
             return RedirectToAction("AllEmployees", "Employees", new { area = "Admin" });
         }

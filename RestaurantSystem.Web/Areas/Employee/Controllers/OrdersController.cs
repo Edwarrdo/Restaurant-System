@@ -3,6 +3,7 @@ using System.Linq;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using RestaurantSystem.Common.Constants;
 using RestaurantSystem.Common.Employee.ViewModels;
 using RestaurantSystem.Data;
 using RestaurantSystem.Models;
@@ -30,7 +31,7 @@ namespace RestaurantSystem.Web.Areas.Employee.Controllers
             }
             catch(NotFoundException e)
             {
-                this.TempData["badMessage"] = "No order with such id!";
+                this.TempData[WebConstants.BadMessage] = "No order with such id!";
                 return RedirectToAction("Index", "Home", new { Area = "" });
             }
         }

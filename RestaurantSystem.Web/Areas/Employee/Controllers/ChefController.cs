@@ -30,11 +30,11 @@ namespace RestaurantSystem.Web.Areas.Employee.Controllers
             var result = await this.chefService.TakeOrderAsync(id, userName);
             if(result == 0)
             {
-                this.TempData["badMessage"] = "Could not take meals!";
+                this.TempData[WebConstants.BadMessage] = "Could not take meals!";
             }
             else
             {
-                this.TempData["goodMessage"] = "Meals taken!";
+                this.TempData[WebConstants.GoodMessage] = "Meals taken!";
             }
 
             return RedirectToAction("OrdersNotBeingCooked", "Chef", new { area = "Employee" });
@@ -55,11 +55,11 @@ namespace RestaurantSystem.Web.Areas.Employee.Controllers
 
             if(result == 0)
             {
-                this.TempData["badMessage"] = "Could not finish meal order!";
+                this.TempData[WebConstants.BadMessage] = "Could not finish meal order!";
             }
             else
             {
-                this.TempData["goodMessage"] = "Meals finished!";
+                this.TempData[WebConstants.GoodMessage] = "Meals finished!";
             }
 
             return RedirectToAction("TakenMealsOrders", "Chef", new { area = "Employee" });

@@ -30,11 +30,11 @@ namespace RestaurantSystem.Web.Areas.Employee.Controllers
             var result = await this.waiterService.WaiterApproveOrder(waiterName, id);
             if (result == 0)
             {
-                this.TempData["badMessage"] = "Could not approve order!";
+                this.TempData[WebConstants.BadMessage] = "Could not approve order!";
             }
             else
             {
-                this.TempData["goodMessage"] = "Order approved!";
+                this.TempData[WebConstants.GoodMessage] = "Order approved!";
             }
 
             return RedirectToAction("OrdersForApproval", "Waiter", new { area = "Employee" });
@@ -53,11 +53,11 @@ namespace RestaurantSystem.Web.Areas.Employee.Controllers
             var result = await this.waiterService.PayForOrder(id);
             if (result == 0)
             {
-                TempData["badMessage"] = "Some things have not been delivered yet!";
+                TempData[WebConstants.BadMessage] = "Some things have not been delivered yet!";
             }
             else
             {
-                TempData["goodMessage"] = "Order finished!";
+                TempData[WebConstants.GoodMessage] = "Order finished!";
             }
             return RedirectToAction("FinishedOrders", "Waiter", new { area = "Employee" });
         }
