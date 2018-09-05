@@ -50,6 +50,14 @@ namespace RestaurantSystem.Web
                 options.UseSqlServer(
                     Configuration["ConnectionStrings:DatabaseConnection"]));
 
+            services.AddAuthentication()
+                .AddCookie()
+                .AddFacebook(options =>
+                {
+                    options.AppId = Configuration["ConnectionStrings:FacebookAppId"];
+                    options.AppSecret = Configuration["ConnectionStrings:FacebookAppSecret"];
+                });
+
             services
                 .AddIdentity<User, IdentityRole>()
                 .AddDefaultUI()
