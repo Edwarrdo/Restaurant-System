@@ -1,9 +1,12 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using RestaurantSystem.Common.Constants;
 using RestaurantSystem.Services.Employee.Interfaces;
 
 namespace RestaurantSystem.Web.Areas.Employee.Controllers
 {
+    [Authorize(Roles = WebConstants.ChefRole)]
     public class ChefController : EmployeeController
     {
         private IChefService chefService;
