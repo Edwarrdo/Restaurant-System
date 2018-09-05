@@ -21,6 +21,7 @@ namespace RestaurantSystem.Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddProduct(ProductCreationBindingModel model)
         {
             if(!ModelState.IsValid)
@@ -47,6 +48,7 @@ namespace RestaurantSystem.Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddIngredient(IngredientCreationBindingModel model)
         {
             if (!ModelState.IsValid)
@@ -75,6 +77,7 @@ namespace RestaurantSystem.Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddMeal(MealBindingModel model)
         {
             if(!this.ModelState.IsValid)
@@ -105,6 +108,7 @@ namespace RestaurantSystem.Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddDrink(DrinkBindingModel model)
         {
             if (!this.ModelState.IsValid)
