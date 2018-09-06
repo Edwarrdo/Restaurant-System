@@ -63,12 +63,7 @@ namespace RestaurantSystem.Services.Admin
             try
             {
                 var food = this.Mapper.Map<Food>(model);
-                foreach (var product in model.Products)
-                {
-                    var productId = DbContext.Products.FirstOrDefault(p => p.Name == product).Id;
-                    var foodProduct = new FoodProduct { FoodId = food.Id, ProductId = productId };
-                    food.FoodProducts.Add(foodProduct);
-                }
+                this.AssignProductsToMeal(food, model.Products);
 
                 this.DbContext.Foods.Add(food);
                 await this.DbContext.SaveChangesAsync();
@@ -92,12 +87,7 @@ namespace RestaurantSystem.Services.Admin
             try
             {
                 var drink = this.Mapper.Map<Drink>(model);
-                foreach (var ingredient in model.Ingredients)
-                {
-                    var ingredientId = DbContext.Ingredients.FirstOrDefault(p => p.Name == ingredient).Id;
-                    var drinkIngredient = new DrinkIngredient { DrinkId = drink.Id, IngredientId = ingredientId };
-                    drink.DrinkIngredients.Add(drinkIngredient);
-                }
+                this.AssignIngredientsToDrink(drink, model.Ingredients);
 
                 this.DbContext.Drinks.Add(drink);
                 await this.DbContext.SaveChangesAsync();
@@ -127,6 +117,26 @@ namespace RestaurantSystem.Services.Admin
             var userModels = this.Mapper.Map<IEnumerable<DrinkConciseViewModel>>(foods);
 
             return userModels;
-    }
+        }
+
+        private void AssignProductsToMeal(Food meal, IEnumerable<string> products)
+        {
+            foreach (var product in products)
+            {
+                var productId = DbContext.Products.FirstOrDefault(p => p.Name == product).Id;
+                var foodProduct = new FoodProduct { FoodId = meal.Id, ProductId = productId };
+                meal.FoodProducts.Add(foodProduct);
+            }
+        }
+
+        private void AssignIngredientsToDrink(Drink drink, IEnumerable<string> ingredients)
+        {
+            foreach (var ingredient in ingredients)
+            {
+                var ingredientId = DbContext.Ingredients.FirstOrDefault(p => p.Name == ingredient).Id;
+                var drinkIngredient = new DrinkIngredient { DrinkId = drink.Id, IngredientId = ingredientId };
+                drink.DrinkIngredients.Add(drinkIngredient);
+            }
+        }
     }
 }

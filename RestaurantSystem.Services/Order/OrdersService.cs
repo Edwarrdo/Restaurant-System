@@ -70,22 +70,10 @@ namespace RestaurantSystem.Services.Order
             try
             {
                 var order = new Models.Order();
-                if (meals != null)
-                {
-                    order.OrderFoods = new List<OrderFood>(meals.Select(m => new OrderFood
-                    {
-                        FoodId = m.Id,
-                        OrderId = order.Id
-                    }));
-                }
-                if (drinks != null)
-                {
-                    order.OrderDrinks = new List<OrderDrink>(drinks.Select(d => new OrderDrink
-                    {
-                        DrinkId = d.Id,
-                        OrderId = order.Id
-                    }));
-                }
+
+                this.AssignMealsToOrder(meals, order);
+                this.AssignDrinksToOrder(drinks, order);
+
                 order.TableNumbers = string.Join(",", Tables);
                 order.Price = meals.Sum(m => m.Price);
                 order.TimeOfOrder = DateTime.Now;
@@ -100,22 +88,60 @@ namespace RestaurantSystem.Services.Order
             //success
             return 1;
         }
-
+        
         public OrderViewModel GetOrderDetailsById(int id)
         {
             var order = this.DbContext.Orders.Include(o => o.OrderFoods).Include(o => o.OrderDrinks).FirstOrDefault(o => o.Id == id);
-            if(order == null)
+            if (order == null)
             {
                 throw new NotFoundException();
             }
+
             var orderModel = new OrderViewModel()
             {
                 Price = order.Price,
                 TableNumbers = order.TableNumbers,
                 TimeOfOrder = order.TimeOfOrder
             };
+
             var drinks = new List<Drink>();
             var meals = new List<Food>();
+
+            this.GetDrinksFromOrder(order, drinks);
+            this.GetMealsFromOrder(order, meals);
+
+            orderModel.Drinks = this.Mapper.Map<IEnumerable<Common.Employee.ViewModels.DrinkConciseViewModel>>(drinks);
+            orderModel.Meals = this.Mapper.Map<IEnumerable<FoodConciseViewModel>>(meals);
+
+            return orderModel;
+        }
+        
+        private void AssignMealsToOrder(List<Food> meals, Models.Order order)
+        {
+            if (meals != null)
+            {
+                order.OrderFoods = new List<OrderFood>(meals.Select(m => new OrderFood
+                {
+                    FoodId = m.Id,
+                    OrderId = order.Id
+                }));
+            }
+        }
+
+        private void AssignDrinksToOrder(List<Drink> drinks, Models.Order order)
+        {
+            if (drinks != null)
+            {
+                order.OrderDrinks = new List<OrderDrink>(drinks.Select(d => new OrderDrink
+                {
+                    DrinkId = d.Id,
+                    OrderId = order.Id
+                }));
+            }
+        }
+
+        private void GetDrinksFromOrder(Models.Order order, List<Drink> drinks)
+        {
             if (order.OrderDrinks != null)
             {
                 foreach (var od in order.OrderDrinks)
@@ -124,6 +150,10 @@ namespace RestaurantSystem.Services.Order
                     drinks.Add(drink);
                 }
             }
+        }
+
+        private void GetMealsFromOrder(Models.Order order, List<Food> meals)
+        {
             if (order.OrderFoods != null)
             {
                 foreach (var of in order.OrderFoods)
@@ -132,11 +162,6 @@ namespace RestaurantSystem.Services.Order
                     meals.Add(food);
                 }
             }
-
-            orderModel.Drinks = this.Mapper.Map<IEnumerable<Common.Employee.ViewModels.DrinkConciseViewModel>>(drinks);
-            orderModel.Meals = this.Mapper.Map<IEnumerable<FoodConciseViewModel>>(meals);
-
-            return orderModel;
         }
     }
 }

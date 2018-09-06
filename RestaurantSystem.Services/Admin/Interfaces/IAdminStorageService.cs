@@ -1,5 +1,6 @@
 ﻿using RestaurantSystem.Common.Admin.BindingModels;
 using RestaurantSystem.Common.Admin.ViewModels;
+using RestaurantSystem.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;

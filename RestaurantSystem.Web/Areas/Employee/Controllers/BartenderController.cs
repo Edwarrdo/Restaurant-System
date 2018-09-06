@@ -36,7 +36,7 @@ namespace RestaurantSystem.Web.Areas.Employee.Controllers
                 this.TempData[WebConstants.GoodMessage] = "Drinks taken!";
             }
 
-            return RedirectToAction("DrinksWithoutBartender", "Bartender", new { area = "Employee" });
+            return RedirectToAction("DrinksWithoutBartender", "Bartender", new { area = WebConstants.EmployeeArea });
         }
 
         [HttpGet]
@@ -59,7 +59,7 @@ namespace RestaurantSystem.Web.Areas.Employee.Controllers
                 this.TempData[WebConstants.GoodMessage] = "Drinks finished!";
             }
 
-            return RedirectToAction("TakenDrinksOrders", "Bartender", new { area = "Employee" });
+            return RedirectToAction("TakenDrinksOrders", "Bartender", new { area = WebConstants.EmployeeArea });
         }
     }
 }

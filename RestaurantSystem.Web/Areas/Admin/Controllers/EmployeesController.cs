@@ -45,7 +45,7 @@ namespace RestaurantSystem.Web.Areas.Admin.Controllers
             {
                 this.TempData[WebConstants.GoodMessage] = $"Employee {model.FirstName} successfully hired!";
             }
-                return RedirectToAction("AllEmployees", "Employees", new { area = "Admin" });
+                return RedirectToAction("AllEmployees", "Employees", new { area = WebConstants.AdminArea });
         }
 
         [HttpGet]
@@ -59,7 +59,7 @@ namespace RestaurantSystem.Web.Areas.Admin.Controllers
             catch(NotFoundException e)
             {
                 this.TempData[WebConstants.BadMessage] = "There is no employee with such id!";
-                return this.RedirectToAction("AllEmployees", "Employees", new { Area = "Admin" });
+                return this.RedirectToAction("AllEmployees", "Employees", new { Area = WebConstants.AdminArea });
             }
         }
 
@@ -75,7 +75,7 @@ namespace RestaurantSystem.Web.Areas.Admin.Controllers
             {
                 this.TempData[WebConstants.GoodMessage] = $"Employee successfully fired!";
             }
-            return RedirectToAction("AllEmployees", "Employees", new { area = "Admin" });
+            return RedirectToAction("AllEmployees", "Employees", new { area = WebConstants.AdminArea });
         }
     }
 }

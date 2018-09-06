@@ -39,7 +39,7 @@ namespace RestaurantSystem.Web.Areas.Admin.Controllers
             {
                 this.TempData[WebConstants.GoodMessage] = $"Product \"{model.Name}\" successfully added!";
             }
-            return RedirectToAction("AddProduct", "Storage", new { Area = "Admin" });
+            return RedirectToAction("AddProduct", "Storage", new { Area = WebConstants.AdminArea });
         }
 
         [HttpGet]
@@ -66,7 +66,7 @@ namespace RestaurantSystem.Web.Areas.Admin.Controllers
             {
                 this.TempData[WebConstants.GoodMessage] = $"Ingredient \"{model.Name}\" successfully added!";
             }
-            return RedirectToAction("AddIngredient", "Storage", new { Area = "Admin" });
+            return RedirectToAction("AddIngredient", "Storage", new { Area = WebConstants.AdminArea });
         }
 
         [HttpGet]
@@ -97,7 +97,7 @@ namespace RestaurantSystem.Web.Areas.Admin.Controllers
             {
                 this.TempData[WebConstants.GoodMessage] = $"Meal \"{model.Name}\" successfully added!";
             }
-            return RedirectToAction("AddMeal", "Storage", new { Area = "Admin" });
+            return RedirectToAction("AddMeal", "Storage", new { Area = WebConstants.AdminArea });
         }
 
         [HttpGet]
@@ -129,13 +129,13 @@ namespace RestaurantSystem.Web.Areas.Admin.Controllers
                 this.TempData[WebConstants.GoodMessage] = $"Drink \"{model.Name}\" successfully added!";
             }
             //return RedirectToAction("Index", "Home", new { area = "Admin" });
-            return RedirectToAction("AddDrink", "Storage", new { Area = "Admin" });
+            return RedirectToAction("AddDrink", "Storage", new { Area = WebConstants.AdminArea });
         }
         [HttpGet]
         public IActionResult AllMeals()
         {
             var userModels = this.storageService.GetAllMealsViewModels();
-            ViewBag.categories = new string[] { "Salat", "Appetizer", "Pizza", "Pasta", "Risotto", "Chicken", "Pork", "Beef", "Soup", "Dessert" };
+            ViewBag.categories = WebConstants.MealsCategories;
             return View(userModels);
         }
 

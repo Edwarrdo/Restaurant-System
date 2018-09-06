@@ -19,5 +19,7 @@ namespace RestaurantSystem.Common.Constants
 
         public const string BadMessage = "badMessage";
         public const string GoodMessage = "goodMessage";
+
+        public static string[] MealsCategories = new string[] { "Salat", "Appetizer", "Pizza", "Pasta", "Risotto", "Chicken", "Pork", "Beef", "Soup", "Dessert" };
     }
 }

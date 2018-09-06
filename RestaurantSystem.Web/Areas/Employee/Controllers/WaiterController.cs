@@ -37,7 +37,7 @@ namespace RestaurantSystem.Web.Areas.Employee.Controllers
                 this.TempData[WebConstants.GoodMessage] = "Order approved!";
             }
 
-            return RedirectToAction("OrdersForApproval", "Waiter", new { area = "Employee" });
+            return RedirectToAction("OrdersForApproval", "Waiter", new { area = WebConstants.EmployeeArea });
         }
 
         [HttpGet]
@@ -59,7 +59,7 @@ namespace RestaurantSystem.Web.Areas.Employee.Controllers
             {
                 TempData[WebConstants.GoodMessage] = "Order finished!";
             }
-            return RedirectToAction("FinishedOrders", "Waiter", new { area = "Employee" });
+            return RedirectToAction("FinishedOrders", "Waiter", new { area = WebConstants.EmployeeArea });
         }
 
         private string GetCurrentUserName()

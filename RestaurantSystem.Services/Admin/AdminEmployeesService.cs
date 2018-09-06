@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using RestaurantSystem.Common.Admin.BindingModels;
 using RestaurantSystem.Common.Admin.ViewModels;
+using RestaurantSystem.Common.Constants;
 using RestaurantSystem.Data;
 using RestaurantSystem.Models;
 using RestaurantSystem.Services.Admin.Interfaces;
@@ -94,33 +95,33 @@ namespace RestaurantSystem.Services.Admin
 
         private async Task FindUserProfession(User currentUser, EmployeeDetailsViewModel model)
         {
-            if (await userManager.IsInRoleAsync(currentUser, "Chef"))
+            if (await userManager.IsInRoleAsync(currentUser, WebConstants.ChefRole))
             {
-                model.Profession = "Chef";
+                model.Profession = WebConstants.ChefRole;
             }
-            else if (await userManager.IsInRoleAsync(currentUser, "Bartender"))
+            else if (await userManager.IsInRoleAsync(currentUser, WebConstants.BartenderRole))
             {
-                model.Profession = "Bartender";
+                model.Profession = WebConstants.BartenderRole;
             }
             else
             {
-                model.Profession = "Waiter";
+                model.Profession = WebConstants.WaiterRole;
             }
         }
 
         private async Task FindUserProfession(User currentUser, EmployeeConciseViewModel model)
         {
-            if (await userManager.IsInRoleAsync(currentUser, "Chef"))
+            if (await userManager.IsInRoleAsync(currentUser, WebConstants.ChefRole))
             {
-                model.Profession = "Chef";
+                model.Profession = WebConstants.ChefRole;
             }
-            else if (await userManager.IsInRoleAsync(currentUser, "Bartender"))
+            else if (await userManager.IsInRoleAsync(currentUser, WebConstants.BartenderRole))
             {
-                model.Profession = "Bartender";
+                model.Profession = WebConstants.BartenderRole;
             }
             else
             {
-                model.Profession = "Waiter";
+                model.Profession = WebConstants.WaiterRole;
             }
         }
     }

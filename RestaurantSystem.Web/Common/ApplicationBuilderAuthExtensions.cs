@@ -59,21 +59,6 @@ namespace RestaurantSystem.Web.Common
                     await userManager.AddToRoleAsync(user, roles[0].Name);
                 }
 
-                user = await userManager.FindByNameAsync("client");
-                if (user == null)
-                {
-                    user = new User()
-                    {
-                        UserName = "client",
-                        FirstName = "Client",
-                        LastName = "Clientov",
-                        Email = "client@example.com"
-                    };
-
-                    await userManager.CreateAsync(user, DefaultClientPassword);
-                    await userManager.AddToRoleAsync(user, roles[4].Name);
-                }
-
                 user = await userManager.FindByNameAsync("waiter");
                 if (user == null)
                 {
@@ -117,6 +102,21 @@ namespace RestaurantSystem.Web.Common
 
                     await userManager.CreateAsync(user, DefaultChefPassword);
                     await userManager.AddToRoleAsync(user, roles[3].Name);
+                }
+
+                user = await userManager.FindByNameAsync("client");
+                if (user == null)
+                {
+                    user = new User()
+                    {
+                        UserName = "client",
+                        FirstName = "Client",
+                        LastName = "Clientov",
+                        Email = "client@example.com"
+                    };
+
+                    await userManager.CreateAsync(user, DefaultClientPassword);
+                    await userManager.AddToRoleAsync(user, roles[4].Name);
                 }
             }
         }
