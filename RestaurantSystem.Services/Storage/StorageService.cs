@@ -31,6 +31,7 @@ namespace RestaurantSystem.Services.Storage
         {
             return this.DbContext.Foods.Where(d => d.IsBanned == false && d.Category == category);
         }
+
         public async Task<int> BanMealById(int id)
         {
             try

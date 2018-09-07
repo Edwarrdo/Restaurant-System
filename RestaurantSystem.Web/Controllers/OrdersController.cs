@@ -25,7 +25,7 @@ namespace RestaurantSystem.Web.Controllers
 
         public IActionResult ShowCart()
         {
-            if (HttpContext.Session.GetString("meals") == null && HttpContext.Session.GetString("drinks") == null)
+            if (HttpContext.Session.GetString(WebConstants.MealsSessionKey) == null && HttpContext.Session.GetString(WebConstants.DrinksSessionKey) == null)
             {
                 return View();
             }
@@ -99,9 +99,9 @@ namespace RestaurantSystem.Web.Controllers
         private List<Food> GetOrderMealsFromSession()
         {
             var mealsIds = new int[] { };
-            if (HttpContext.Session.Keys.Contains("meals"))
+            if (HttpContext.Session.Keys.Contains(WebConstants.MealsSessionKey))
             {
-                mealsIds = HttpContext.Session.GetString("meals").Split(",").Select(int.Parse).ToArray();
+                mealsIds = HttpContext.Session.GetString(WebConstants.MealsSessionKey).Split(",").Select(int.Parse).ToArray();
             }
             else
             {
@@ -114,9 +114,9 @@ namespace RestaurantSystem.Web.Controllers
         private List<Drink> GetOrderDrinksFromSession()
         {
             var drinkIds = new int[] { };
-            if (HttpContext.Session.Keys.Contains("drinks"))
+            if (HttpContext.Session.Keys.Contains(WebConstants.DrinksSessionKey))
             {
-                drinkIds = HttpContext.Session.GetString("drinks").Split(",").Select(int.Parse).ToArray();
+                drinkIds = HttpContext.Session.GetString(WebConstants.DrinksSessionKey).Split(",").Select(int.Parse).ToArray();
             }
             else
             {

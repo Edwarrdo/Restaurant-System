@@ -17,5 +17,8 @@
         public const string GoodMessage = "goodMessage";
 
         public static string[] MealsCategories = new string[] { "Salat", "Appetizer", "Pizza", "Pasta", "Risotto", "Chicken", "Pork", "Beef", "Soup", "Dessert" };
+
+        public const string MealsSessionKey = "meals";
+        public const string DrinksSessionKey = "drinks";
     }
 }
