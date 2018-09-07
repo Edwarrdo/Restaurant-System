@@ -29,9 +29,9 @@ namespace RestaurantSystem.Web.Areas.Employee.Controllers
                 var orderModel = this.ordersService.GetOrderDetailsById(id);
                 return View(orderModel);
             }
-            catch(NotFoundException e)
+            catch
             {
-                this.TempData[WebConstants.BadMessage] = "No order with such id!";
+                this.TempData[WebConstants.BadMessage] = string.Format(Messages.NotFoundMessage, typeof(Order).Name);
                 return RedirectToAction("Index", "Home", new { Area = "" });
             }
         }

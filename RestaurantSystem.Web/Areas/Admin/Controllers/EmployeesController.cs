@@ -39,11 +39,11 @@ namespace RestaurantSystem.Web.Areas.Admin.Controllers
             var result = await this.employeesService.CreateAsync(model);
             if (result == 0)
             {
-                this.TempData[WebConstants.GoodMessage] = $"Employee {model.FirstName} couldn't be hired!";
+                this.TempData[WebConstants.GoodMessage] = string.Format(Messages.EmployeeHiredErrorMessage, model.FirstName);
             }
             else
             {
-                this.TempData[WebConstants.GoodMessage] = $"Employee {model.FirstName} successfully hired!";
+                this.TempData[WebConstants.GoodMessage] = string.Format(Messages.EmployeeHiredErrorMessage, model.FirstName);
             }
                 return RedirectToAction("AllEmployees", "Employees", new { area = WebConstants.AdminArea });
         }
@@ -56,9 +56,9 @@ namespace RestaurantSystem.Web.Areas.Admin.Controllers
                 var model = await employeesService.GetEmployeeDetailsModelAsync(id);
                 return this.View(model);
             }
-            catch(NotFoundException e)
+            catch
             {
-                this.TempData[WebConstants.BadMessage] = "There is no employee with such id!";
+                this.TempData[WebConstants.BadMessage] = string.Format(Messages.NotFoundMessage, "Employee");
                 return this.RedirectToAction("AllEmployees", "Employees", new { Area = WebConstants.AdminArea });
             }
         }
@@ -69,11 +69,11 @@ namespace RestaurantSystem.Web.Areas.Admin.Controllers
             var result = await this.employeesService.FireEmployeeAsync(id);
             if (result == 0)
             {
-                this.TempData[WebConstants.BadMessage] = $"Something went wrong!";
+                this.TempData[WebConstants.BadMessage] = string.Format(Messages.NotFoundMessage, "Employee");
             }
             else
             {
-                this.TempData[WebConstants.GoodMessage] = $"Employee successfully fired!";
+                this.TempData[WebConstants.GoodMessage] = Messages.EmployeeFiredSuccessMessage;
             }
             return RedirectToAction("AllEmployees", "Employees", new { area = WebConstants.AdminArea });
         }

@@ -68,11 +68,11 @@ namespace RestaurantSystem.Web.Controllers
             var result = await this.ordersService.MakeAnOrder(meals, drinks, model.Tables);
             if (result == 0)
             {
-                this.TempData[WebConstants.BadMessage] = "Could not create the order!";
+                this.TempData[WebConstants.BadMessage] = Messages.OrderCreationFailureMessage;
             }
             else
             {
-                this.TempData[WebConstants.GoodMessage] = "Order created!";
+                this.TempData[WebConstants.GoodMessage] = Messages.OrderCreationSuccessMessage;
             }
             this.HttpContext.Session.Clear();
 

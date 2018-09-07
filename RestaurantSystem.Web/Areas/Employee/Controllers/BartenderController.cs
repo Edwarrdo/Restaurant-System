@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RestaurantSystem.Common.Constants;
+using RestaurantSystem.Models;
 using RestaurantSystem.Services.Employee.Interfaces;
 
 namespace RestaurantSystem.Web.Areas.Employee.Controllers
@@ -29,11 +30,11 @@ namespace RestaurantSystem.Web.Areas.Employee.Controllers
             var result = await this.bartenderService.TakeOrderAsync(id);
             if (result == 0)
             {
-                this.TempData[WebConstants.BadMessage] = "Could not take drinks!";
+                this.TempData[WebConstants.BadMessage] = string.Format(Messages.TakeOrderFailureMessage, typeof(Drink).Name);
             }
             else
             {
-                this.TempData[WebConstants.GoodMessage] = "Drinks taken!";
+                this.TempData[WebConstants.GoodMessage] = string.Format(Messages.TakeOrderSuccessMessage, typeof(Drink).Name);
             }
 
             return RedirectToAction("DrinksWithoutBartender", "Bartender", new { area = WebConstants.EmployeeArea });
@@ -52,11 +53,11 @@ namespace RestaurantSystem.Web.Areas.Employee.Controllers
             var result = await this.bartenderService.FinishOrderAsync(id);
             if (result == 0)
             {
-                this.TempData[WebConstants.BadMessage] = "Could not finish drink order!";
+                this.TempData[WebConstants.BadMessage] = string.Format(Messages.FinishOrderFailureMessage, typeof(Drink).Name.ToLower());
             }
             else
             {
-                this.TempData[WebConstants.GoodMessage] = "Drinks finished!";
+                this.TempData[WebConstants.GoodMessage] = string.Format(Messages.FinishOrderSuccessMessage, typeof(Drink).Name);
             }
 
             return RedirectToAction("TakenDrinksOrders", "Bartender", new { area = WebConstants.EmployeeArea });

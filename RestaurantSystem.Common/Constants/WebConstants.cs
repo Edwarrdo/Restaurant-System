@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace RestaurantSystem.Common.Constants
+﻿namespace RestaurantSystem.Common.Constants
 {
     public class WebConstants
     {

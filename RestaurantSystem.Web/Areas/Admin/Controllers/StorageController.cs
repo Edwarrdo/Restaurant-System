@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using RestaurantSystem.Common.Admin.BindingModels;
 using RestaurantSystem.Common.Constants;
+using RestaurantSystem.Models;
 using RestaurantSystem.Services.Admin.Interfaces;
 
 namespace RestaurantSystem.Web.Areas.Admin.Controllers
@@ -33,11 +34,11 @@ namespace RestaurantSystem.Web.Areas.Admin.Controllers
             var result = await this.storageService.AddProductAsync(model);
             if (result == 0)
             {
-                this.TempData[WebConstants.BadMessage] = $"Product \"{model.Name}\" coultn't be added!";
+                this.TempData[WebConstants.BadMessage] = string.Format(Messages.AddingFailureMessage, typeof(Product).Name, model.Name);
             }
             else
             {
-                this.TempData[WebConstants.GoodMessage] = $"Product \"{model.Name}\" successfully added!";
+                this.TempData[WebConstants.GoodMessage] = string.Format(Messages.AddingSuccessMessage, typeof(Product).Name, model.Name);
             }
             return RedirectToAction("AddProduct", "Storage", new { Area = WebConstants.AdminArea });
         }
@@ -60,11 +61,11 @@ namespace RestaurantSystem.Web.Areas.Admin.Controllers
             var result = await this.storageService.AddIngredientAsync(model);
             if (result == 0)
             {
-                this.TempData[WebConstants.BadMessage] = $"Ingredient \"{model.Name}\" coultn't be added!";
+                this.TempData[WebConstants.BadMessage] = string.Format(Messages.AddingFailureMessage, typeof(Ingredient).Name, model.Name);
             }
             else
             {
-                this.TempData[WebConstants.GoodMessage] = $"Ingredient \"{model.Name}\" successfully added!";
+                this.TempData[WebConstants.GoodMessage] = string.Format(Messages.AddingSuccessMessage, typeof(Ingredient).Name, model.Name);
             }
             return RedirectToAction("AddIngredient", "Storage", new { Area = WebConstants.AdminArea });
         }
@@ -91,11 +92,11 @@ namespace RestaurantSystem.Web.Areas.Admin.Controllers
 
             if (result == 0)
             {
-                this.TempData[WebConstants.BadMessage] = $"Meal \"{model.Name}\" coultn't be added!";
+                this.TempData[WebConstants.BadMessage] = string.Format(Messages.AddingFailureMessage, "Meal", model.Name);
             }
             else
             {
-                this.TempData[WebConstants.GoodMessage] = $"Meal \"{model.Name}\" successfully added!";
+                this.TempData[WebConstants.GoodMessage] = string.Format(Messages.AddingSuccessMessage, "Meal", model.Name);
             }
             return RedirectToAction("AddMeal", "Storage", new { Area = WebConstants.AdminArea });
         }
@@ -122,13 +123,12 @@ namespace RestaurantSystem.Web.Areas.Admin.Controllers
 
             if (result == 0)
             {
-                this.TempData[WebConstants.BadMessage] = $"Drink \"{model.Name}\" coultn't be added!";
+                this.TempData[WebConstants.BadMessage] = string.Format(Messages.AddingFailureMessage, typeof(Drink).Name, model.Name);
             }
             else
             {
-                this.TempData[WebConstants.GoodMessage] = $"Drink \"{model.Name}\" successfully added!";
+                this.TempData[WebConstants.GoodMessage] = string.Format(Messages.AddingSuccessMessage, typeof(Drink).Name, model.Name);
             }
-            //return RedirectToAction("Index", "Home", new { area = "Admin" });
             return RedirectToAction("AddDrink", "Storage", new { Area = WebConstants.AdminArea });
         }
         [HttpGet]

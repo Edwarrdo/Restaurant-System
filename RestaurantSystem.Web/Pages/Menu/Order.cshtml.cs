@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using RestaurantSystem.Common.Constants;
 using RestaurantSystem.Data;
 using RestaurantSystem.Models;
 using RestaurantSystem.Services.Storage.Interfaces;
@@ -34,7 +35,7 @@ namespace RestaurantSystem.Web.Pages.Menu
             {
                 HttpContext.Session.SetString("meals", id.ToString());
             }
-            this.TempData["goodMessage"] = "Meal added to cart!";
+            this.TempData[WebConstants.GoodMessage] = string.Format(Messages.AddToCartSuccessMessage, "Meal");
 
             var meal = this.storageService.GetMealById(id);
             //STUPID IDEA BUT WHO CARES IT WORKS!
@@ -53,7 +54,7 @@ namespace RestaurantSystem.Web.Pages.Menu
             {
                 HttpContext.Session.SetString("drinks", id.ToString());
             }
-            this.TempData["goodMessage"] = "Drink added to cart!";
+            this.TempData[WebConstants.GoodMessage] = string.Format(Messages.AddToCartSuccessMessage, typeof(Drink).Name);
             return RedirectToPage("Drinks");
         }
 
@@ -62,11 +63,11 @@ namespace RestaurantSystem.Web.Pages.Menu
             var result = await this.storageService.BanMealById(id);
             if(result == 0)
             {
-                this.TempData["badMessage"] = "Food could not be banned!";
+                this.TempData[WebConstants.BadMessage] = string.Format(Messages.BanFailureMessage, typeof(Food).Name);
             }
             else
             {
-                this.TempData["goodMessage"] = "Food banned!";
+                this.TempData[WebConstants.GoodMessage] = string.Format(Messages.BanSuccessMessage, typeof(Food).Name);
             }
             var meal = this.storageService.GetMealById(id);
             //STUPID IDEA BUT WHO CARES IT WORKS!
@@ -79,11 +80,11 @@ namespace RestaurantSystem.Web.Pages.Menu
             var result = await this.storageService.BanDrinkById(id);
             if (result == 0)
             {
-                this.TempData["badMessage"] = "Drink could not be banned!";
+                this.TempData[WebConstants.BadMessage] = string.Format(Messages.BanFailureMessage, typeof(Drink).Name);
             }
             else
             {
-                this.TempData["goodMessage"] = "Drink banned!";
+                this.TempData[WebConstants.GoodMessage] = string.Format(Messages.BanSuccessMessage, typeof(Drink).Name);
             }
             return RedirectToPage("Drinks");
         }

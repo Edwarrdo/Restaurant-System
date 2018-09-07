@@ -122,7 +122,7 @@ namespace RestaurantSystem.Web
 
             app.UseSignalR(routes =>
             {
-                routes.MapHub<ChatHub>("/chatHub");
+                routes.MapHub<ChatHub>("/chat");
             });
             
 

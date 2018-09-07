@@ -1,8 +1,8 @@
 ﻿"use strict";
-
-var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
-
-connection.on("ReceiveEmployee", function (firstName, lastName, email, phoneNumber) {
+let baseUrl = https://localhost:44326/
+var connection = new signalR.HubConnectionBuilder().withUrl(baseUrl + "/chat").build();
+//create-Employee-form
+connection.on("ReceiveEmployee",  (firstName, lastName, email, phoneNumber) => {
 
     var tr = document.createElement("tr");
 
@@ -39,6 +39,7 @@ connection.start().catch(function (err) {
 });
 
 document.getElementById("sendButton").addEventListener("click", function (event) {
+    event.preventDefault();
     var firstName = document.getElementById("firstName").value;
     var lastName = document.getElementById("lastName").value;
     var email = document.getElementById("email").value;
@@ -46,7 +47,6 @@ document.getElementById("sendButton").addEventListener("click", function (event)
     connection.invoke("SendEmployee", firstName, lastName, email, phoneNumber).catch(function (err) {
         return console.error(err.toString());
     });
-    event.preventDefault();
 });
 
 //"use strict";
