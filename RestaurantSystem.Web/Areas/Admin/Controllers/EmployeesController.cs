@@ -39,11 +39,11 @@ namespace RestaurantSystem.Web.Areas.Admin.Controllers
             var result = await this.employeesService.CreateAsync(model);
             if (result == 0)
             {
-                this.TempData[WebConstants.GoodMessage] = string.Format(Messages.EmployeeHiredErrorMessage, model.FirstName);
+                this.TempData[WebConstants.BadMessage] = string.Format(Messages.EmployeeHiredErrorMessage, model.FirstName);
             }
             else
             {
-                this.TempData[WebConstants.GoodMessage] = string.Format(Messages.EmployeeHiredErrorMessage, model.FirstName);
+                this.TempData[WebConstants.GoodMessage] = string.Format(Messages.EmployeeHiredSuccessMessage, model.FirstName);
             }
                 return RedirectToAction("AllEmployees", "Employees", new { area = WebConstants.AdminArea });
         }

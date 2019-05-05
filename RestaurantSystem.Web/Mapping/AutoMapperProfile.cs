@@ -40,8 +40,6 @@ namespace RestaurantSystem.Web.Mapping
             this.CreateMap<Food, RestaurantSystem.Common.Employee.ViewModels.FoodConciseViewModel>();
 
             this.CreateMap<Drink, RestaurantSystem.Common.Employee.ViewModels.DrinkConciseViewModel>();
-
-
         }
     }
 }

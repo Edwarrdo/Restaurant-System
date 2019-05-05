@@ -9,8 +9,8 @@ namespace RestaurantSystem.Common.Constants
         public const string NotFoundMessage = "No {0} with such id found!";
 
         //Admin - Employees Managing Messages
-        public const string EmployeeHiredErrorMessage = "Employee {1} couldn't be hired!";
-        public const string EmployeeHiredSuccessMessage = "Employee {1} successfully hired!";
+        public const string EmployeeHiredErrorMessage = "Employee {0} couldn't be hired!";
+        public const string EmployeeHiredSuccessMessage = "Employee {0} successfully hired!";
         public const string EmployeeFiredSuccessMessage = "Employee successfully fired!";
 
         //Admin - Storage Managing Messages
